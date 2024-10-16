@@ -719,7 +719,7 @@ Kairouan-Medina
       <property name="visible">True</property>
 
       <child>
-	<widget class="GtkButton" id="citizen_home_delete_button">
+	<widget class="GtkButton" id="citizen_signup_delete_button">
 	  <property name="width_request">150</property>
 	  <property name="height_request">37</property>
 	  <property name="visible">True</property>
@@ -732,32 +732,6 @@ Kairouan-Medina
 	<packing>
 	  <property name="x">128</property>
 	  <property name="y">432</property>
-	</packing>
-      </child>
-
-      <child>
-	<widget class="GtkLabel" id="citizen_home_welcome_label">
-	  <property name="width_request">301</property>
-	  <property name="height_request">23</property>
-	  <property name="visible">True</property>
-	  <property name="label" translatable="yes">Welcome to your account</property>
-	  <property name="use_underline">False</property>
-	  <property name="use_markup">False</property>
-	  <property name="justify">GTK_JUSTIFY_CENTER</property>
-	  <property name="wrap">False</property>
-	  <property name="selectable">False</property>
-	  <property name="xalign">0.5</property>
-	  <property name="yalign">0.5</property>
-	  <property name="xpad">0</property>
-	  <property name="ypad">0</property>
-	  <property name="ellipsize">PANGO_ELLIPSIZE_NONE</property>
-	  <property name="width_chars">-1</property>
-	  <property name="single_line_mode">False</property>
-	  <property name="angle">0</property>
-	</widget>
-	<packing>
-	  <property name="x">200</property>
-	  <property name="y">16</property>
 	</packing>
       </child>
 
@@ -1230,13 +1204,39 @@ Kairouan-Medina
       </child>
 
       <child>
-	<widget class="GtkButton" id="citizen_home_modify_button">
+	<widget class="GtkLabel" id="citizen_home_welcome_label">
+	  <property name="width_request">301</property>
+	  <property name="height_request">23</property>
+	  <property name="visible">True</property>
+	  <property name="label" translatable="yes">Welcome to your account</property>
+	  <property name="use_underline">False</property>
+	  <property name="use_markup">False</property>
+	  <property name="justify">GTK_JUSTIFY_CENTER</property>
+	  <property name="wrap">False</property>
+	  <property name="selectable">False</property>
+	  <property name="xalign">0.5</property>
+	  <property name="yalign">0.5</property>
+	  <property name="xpad">0</property>
+	  <property name="ypad">0</property>
+	  <property name="ellipsize">PANGO_ELLIPSIZE_NONE</property>
+	  <property name="width_chars">-1</property>
+	  <property name="single_line_mode">False</property>
+	  <property name="angle">0</property>
+	</widget>
+	<packing>
+	  <property name="x">200</property>
+	  <property name="y">16</property>
+	</packing>
+      </child>
+
+      <child>
+	<widget class="GtkButton" id="citizen_signup">
 	  <property name="border_width">1</property>
 	  <property name="width_request">150</property>
 	  <property name="height_request">37</property>
 	  <property name="visible">True</property>
 	  <property name="can_focus">True</property>
-	  <property name="label" translatable="yes">Modify</property>
+	  <property name="label" translatable="yes">citizen_signup</property>
 	  <property name="use_underline">True</property>
 	  <property name="relief">GTK_RELIEF_NORMAL</property>
 	  <property name="focus_on_click">True</property>
@@ -1274,31 +1274,6 @@ Kairouan-Medina
     <widget class="GtkFixed" id="citizen_modify_fixed">
       <property name="visible">True</property>
     </widget>
-  </child>
-</widget>
-
-<widget class="GtkWindow" id="citizen_delete_window">
-  <property name="width_request">294</property>
-  <property name="height_request">187</property>
-  <property name="visible">True</property>
-  <property name="title" translatable="yes">Delete account</property>
-  <property name="type">GTK_WINDOW_POPUP</property>
-  <property name="window_position">GTK_WIN_POS_CENTER</property>
-  <property name="modal">False</property>
-  <property name="default_width">100</property>
-  <property name="default_height">100</property>
-  <property name="resizable">False</property>
-  <property name="destroy_with_parent">False</property>
-  <property name="decorated">True</property>
-  <property name="skip_taskbar_hint">False</property>
-  <property name="skip_pager_hint">False</property>
-  <property name="type_hint">GDK_WINDOW_TYPE_HINT_NORMAL</property>
-  <property name="gravity">GDK_GRAVITY_NORTH_WEST</property>
-  <property name="focus_on_map">True</property>
-  <property name="urgency_hint">False</property>
-
-  <child>
-    <placeholder/>
   </child>
 </widget>
 
