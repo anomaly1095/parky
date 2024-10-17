@@ -13,6 +13,7 @@
   <property name="modal">False</property>
   <property name="resizable">False</property>
   <property name="destroy_with_parent">False</property>
+  <property name="icon">logo.ico</property>
   <property name="decorated">True</property>
   <property name="skip_taskbar_hint">False</property>
   <property name="skip_pager_hint">False</property>
@@ -24,32 +25,6 @@
   <child>
     <widget class="GtkFixed" id="citizen_main_fixed">
       <property name="visible">True</property>
-
-      <child>
-	<widget class="GtkLabel" id="citizen_home_welcome_label">
-	  <property name="width_request">259</property>
-	  <property name="height_request">33</property>
-	  <property name="visible">True</property>
-	  <property name="label" translatable="yes">Welcome to your Parky account</property>
-	  <property name="use_underline">False</property>
-	  <property name="use_markup">False</property>
-	  <property name="justify">GTK_JUSTIFY_LEFT</property>
-	  <property name="wrap">False</property>
-	  <property name="selectable">False</property>
-	  <property name="xalign">0.5</property>
-	  <property name="yalign">0.5</property>
-	  <property name="xpad">0</property>
-	  <property name="ypad">0</property>
-	  <property name="ellipsize">PANGO_ELLIPSIZE_NONE</property>
-	  <property name="width_chars">-1</property>
-	  <property name="single_line_mode">False</property>
-	  <property name="angle">0</property>
-	</widget>
-	<packing>
-	  <property name="x">304</property>
-	  <property name="y">8</property>
-	</packing>
-      </child>
 
       <child>
 	<widget class="GtkNotebook" id="citizen_main_notebook">
@@ -882,26 +857,6 @@
 	      </child>
 
 	      <child>
-		<widget class="GtkRadioButton" id="citizen_modify_gender_male_radio">
-		  <property name="width_request">136</property>
-		  <property name="height_request">25</property>
-		  <property name="visible">True</property>
-		  <property name="can_focus">True</property>
-		  <property name="label" translatable="yes">Male</property>
-		  <property name="use_underline">True</property>
-		  <property name="relief">GTK_RELIEF_NORMAL</property>
-		  <property name="focus_on_click">True</property>
-		  <property name="active">False</property>
-		  <property name="inconsistent">False</property>
-		  <property name="draw_indicator">True</property>
-		</widget>
-		<packing>
-		  <property name="x">136</property>
-		  <property name="y">288</property>
-		</packing>
-	      </child>
-
-	      <child>
 		<widget class="GtkLabel" id="citizen_modify_firstname_label">
 		  <property name="width_request">97</property>
 		  <property name="height_request">25</property>
@@ -954,7 +909,7 @@
 	      </child>
 
 	      <child>
-		<widget class="GtkLabel" id="label103">
+		<widget class="GtkLabel" id="citizen_modify_street_label">
 		  <property name="width_request">79</property>
 		  <property name="height_request">25</property>
 		  <property name="visible">True</property>
@@ -1058,6 +1013,104 @@
 	      </child>
 
 	      <child>
+		<widget class="GtkEntry" id="citizen_modify_street_entry">
+		  <property name="width_request">154</property>
+		  <property name="height_request">27</property>
+		  <property name="visible">True</property>
+		  <property name="can_focus">True</property>
+		  <property name="editable">True</property>
+		  <property name="visibility">True</property>
+		  <property name="max_length">0</property>
+		  <property name="text" translatable="yes"></property>
+		  <property name="has_frame">True</property>
+		  <property name="invisible_char">•</property>
+		  <property name="activates_default">False</property>
+		</widget>
+		<packing>
+		  <property name="x">144</property>
+		  <property name="y">184</property>
+		</packing>
+	      </child>
+
+	      <child>
+		<widget class="GtkHButtonBox" id="citizen_modify_button_box">
+		  <property name="width_request">255</property>
+		  <property name="height_request">37</property>
+		  <property name="visible">True</property>
+		  <property name="layout_style">GTK_BUTTONBOX_DEFAULT_STYLE</property>
+		  <property name="spacing">0</property>
+
+		  <child>
+		    <widget class="GtkButton" id="citizen_modify_apply_button">
+		      <property name="visible">True</property>
+		      <property name="can_default">True</property>
+		      <property name="can_focus">True</property>
+		      <property name="label">gtk-apply</property>
+		      <property name="use_stock">True</property>
+		      <property name="relief">GTK_RELIEF_NORMAL</property>
+		      <property name="focus_on_click">True</property>
+		      <signal name="clicked" handler="citizen_modify_apply_button_clicked" last_modification_time="Thu, 17 Oct 2024 14:04:34 GMT"/>
+		    </widget>
+		  </child>
+
+		  <child>
+		    <widget class="GtkButton" id="citizen_modify_cancel_button">
+		      <property name="visible">True</property>
+		      <property name="can_default">True</property>
+		      <property name="can_focus">True</property>
+		      <property name="label">gtk-cancel</property>
+		      <property name="use_stock">True</property>
+		      <property name="relief">GTK_RELIEF_NORMAL</property>
+		      <property name="focus_on_click">True</property>
+		      <signal name="clicked" handler="citizen_modify_cancel_button_clicked" last_modification_time="Thu, 17 Oct 2024 14:04:17 GMT"/>
+		    </widget>
+		  </child>
+		</widget>
+		<packing>
+		  <property name="x">464</property>
+		  <property name="y">456</property>
+		</packing>
+	      </child>
+
+	      <child>
+		<widget class="GtkButton" id="citizen_modify_password_button">
+		  <property name="width_request">175</property>
+		  <property name="height_request">37</property>
+		  <property name="visible">True</property>
+		  <property name="can_focus">True</property>
+		  <property name="label" translatable="yes">Change password</property>
+		  <property name="use_underline">True</property>
+		  <property name="relief">GTK_RELIEF_NORMAL</property>
+		  <property name="focus_on_click">True</property>
+		  <signal name="clicked" handler="citizen_modify_password_clicked" last_modification_time="Thu, 17 Oct 2024 07:14:41 GMT"/>
+		</widget>
+		<packing>
+		  <property name="x">144</property>
+		  <property name="y">456</property>
+		</packing>
+	      </child>
+
+	      <child>
+		<widget class="GtkRadioButton" id="citizen_modify_gender_female_radio">
+		  <property name="width_request">90</property>
+		  <property name="height_request">25</property>
+		  <property name="visible">True</property>
+		  <property name="can_focus">True</property>
+		  <property name="label" translatable="yes">Female</property>
+		  <property name="use_underline">True</property>
+		  <property name="relief">GTK_RELIEF_NORMAL</property>
+		  <property name="focus_on_click">True</property>
+		  <property name="active">False</property>
+		  <property name="inconsistent">False</property>
+		  <property name="draw_indicator">True</property>
+		</widget>
+		<packing>
+		  <property name="x">216</property>
+		  <property name="y">288</property>
+		</packing>
+	      </child>
+
+	      <child>
 		<widget class="GtkRadioButton" id="citizen_modify_gender_notsay_radio">
 		  <property name="width_request">136</property>
 		  <property name="height_request">25</property>
@@ -1079,12 +1132,12 @@
 	      </child>
 
 	      <child>
-		<widget class="GtkRadioButton" id="citizen_modify_gender_female_radio">
-		  <property name="width_request">136</property>
+		<widget class="GtkRadioButton" id="citizen_modify_gender_male_radio">
+		  <property name="width_request">69</property>
 		  <property name="height_request">25</property>
 		  <property name="visible">True</property>
 		  <property name="can_focus">True</property>
-		  <property name="label" translatable="yes">Female</property>
+		  <property name="label" translatable="yes">Male</property>
 		  <property name="use_underline">True</property>
 		  <property name="relief">GTK_RELIEF_NORMAL</property>
 		  <property name="focus_on_click">True</property>
@@ -1093,82 +1146,8 @@
 		  <property name="draw_indicator">True</property>
 		</widget>
 		<packing>
-		  <property name="x">216</property>
+		  <property name="x">136</property>
 		  <property name="y">288</property>
-		</packing>
-	      </child>
-
-	      <child>
-		<widget class="GtkEntry" id="citizen_modify_street_entry">
-		  <property name="width_request">154</property>
-		  <property name="height_request">27</property>
-		  <property name="visible">True</property>
-		  <property name="can_focus">True</property>
-		  <property name="editable">True</property>
-		  <property name="visibility">True</property>
-		  <property name="max_length">0</property>
-		  <property name="text" translatable="yes"></property>
-		  <property name="has_frame">True</property>
-		  <property name="invisible_char">•</property>
-		  <property name="activates_default">False</property>
-		</widget>
-		<packing>
-		  <property name="x">144</property>
-		  <property name="y">184</property>
-		</packing>
-	      </child>
-
-	      <child>
-		<widget class="GtkButton" id="citizen_modify_cancel_button">
-		  <property name="width_request">100</property>
-		  <property name="height_request">40</property>
-		  <property name="visible">True</property>
-		  <property name="can_focus">True</property>
-		  <property name="label">gtk-cancel</property>
-		  <property name="use_stock">True</property>
-		  <property name="relief">GTK_RELIEF_NORMAL</property>
-		  <property name="focus_on_click">True</property>
-		  <signal name="clicked" handler="on_cancel_clicked" last_modification_time="Wed, 16 Oct 2024 19:28:38 GMT"/>
-		</widget>
-		<packing>
-		  <property name="x">632</property>
-		  <property name="y">472</property>
-		</packing>
-	      </child>
-
-	      <child>
-		<widget class="GtkButton" id="citizen_modify_apply_button">
-		  <property name="width_request">100</property>
-		  <property name="height_request">40</property>
-		  <property name="visible">True</property>
-		  <property name="can_focus">True</property>
-		  <property name="label">gtk-apply</property>
-		  <property name="use_stock">True</property>
-		  <property name="relief">GTK_RELIEF_NORMAL</property>
-		  <property name="focus_on_click">True</property>
-		  <signal name="clicked" handler="citizen_modify_apply_clicked" last_modification_time="Thu, 17 Oct 2024 07:23:00 GMT"/>
-		</widget>
-		<packing>
-		  <property name="x">472</property>
-		  <property name="y">472</property>
-		</packing>
-	      </child>
-
-	      <child>
-		<widget class="GtkButton" id="citizen_modify_password_button">
-		  <property name="width_request">175</property>
-		  <property name="height_request">40</property>
-		  <property name="visible">True</property>
-		  <property name="can_focus">True</property>
-		  <property name="label" translatable="yes">Change password</property>
-		  <property name="use_underline">True</property>
-		  <property name="relief">GTK_RELIEF_NORMAL</property>
-		  <property name="focus_on_click">True</property>
-		  <signal name="clicked" handler="citizen_modify_password_clicked" last_modification_time="Thu, 17 Oct 2024 07:14:41 GMT"/>
-		</widget>
-		<packing>
-		  <property name="x">144</property>
-		  <property name="y">472</property>
 		</packing>
 	      </child>
 
@@ -1247,7 +1226,7 @@ Zaghouan  </property>
 	      <property name="visible">True</property>
 
 	      <child>
-		<widget class="GtkAlignment" id="alignment20">
+		<widget class="GtkAlignment" id="citizen_list_alignement">
 		  <property name="width_request">800</property>
 		  <property name="height_request">264</property>
 		  <property name="visible">True</property>
@@ -1487,12 +1466,12 @@ Zaghouan  </property>
 	      </child>
 
 	      <child>
-		<widget class="GtkEntry" id="NB_A">
+		<widget class="GtkEntry" id="citizen_list_parkingspots_entry">
 		  <property name="width_request">50</property>
 		  <property name="height_request">27</property>
 		  <property name="visible">True</property>
 		  <property name="can_focus">True</property>
-		  <property name="editable">True</property>
+		  <property name="editable">False</property>
 		  <property name="visibility">True</property>
 		  <property name="max_length">0</property>
 		  <property name="text" translatable="yes"></property>
@@ -1507,12 +1486,12 @@ Zaghouan  </property>
 	      </child>
 
 	      <child>
-		<widget class="GtkEntry" id="entry31">
+		<widget class="GtkEntry" id="citizen_list_reservations_entry">
 		  <property name="width_request">50</property>
 		  <property name="height_request">27</property>
 		  <property name="visible">True</property>
 		  <property name="can_focus">True</property>
-		  <property name="editable">True</property>
+		  <property name="editable">False</property>
 		  <property name="visibility">True</property>
 		  <property name="max_length">0</property>
 		  <property name="text" translatable="yes"></property>
@@ -1553,7 +1532,51 @@ Zaghouan  </property>
 	      </child>
 
 	      <child>
-		<widget class="GtkLabel" id="label100">
+		<widget class="GtkButton" id="citizen_list_delete">
+		  <property name="width_request">100</property>
+		  <property name="height_request">40</property>
+		  <property name="visible">True</property>
+		  <property name="can_focus">True</property>
+		  <property name="label">gtk-delete</property>
+		  <property name="use_stock">True</property>
+		  <property name="relief">GTK_RELIEF_NORMAL</property>
+		  <property name="focus_on_click">True</property>
+		  <signal name="clicked" handler="on_B_M_clicked" last_modification_time="Wed, 16 Oct 2024 19:51:27 GMT"/>
+		</widget>
+		<packing>
+		  <property name="x">640</property>
+		  <property name="y">472</property>
+		</packing>
+	      </child>
+
+	      <child>
+		<widget class="GtkLabel" id="citizen_list_reservations_label">
+		  <property name="width_request">196</property>
+		  <property name="height_request">41</property>
+		  <property name="visible">True</property>
+		  <property name="label" translatable="yes">Monthly reservations: </property>
+		  <property name="use_underline">False</property>
+		  <property name="use_markup">False</property>
+		  <property name="justify">GTK_JUSTIFY_LEFT</property>
+		  <property name="wrap">False</property>
+		  <property name="selectable">False</property>
+		  <property name="xalign">0.5</property>
+		  <property name="yalign">0.5</property>
+		  <property name="xpad">0</property>
+		  <property name="ypad">0</property>
+		  <property name="ellipsize">PANGO_ELLIPSIZE_NONE</property>
+		  <property name="width_chars">-1</property>
+		  <property name="single_line_mode">False</property>
+		  <property name="angle">0</property>
+		</widget>
+		<packing>
+		  <property name="x">448</property>
+		  <property name="y">360</property>
+		</packing>
+	      </child>
+
+	      <child>
+		<widget class="GtkLabel" id="citizen_list_parkingspots_label">
 		  <property name="width_request">276</property>
 		  <property name="height_request">41</property>
 		  <property name="visible">True</property>
@@ -1579,69 +1602,7 @@ Zaghouan  </property>
 	      </child>
 
 	      <child>
-		<widget class="GtkLabel" id="label101">
-		  <property name="width_request">250</property>
-		  <property name="height_request">41</property>
-		  <property name="visible">True</property>
-		  <property name="label" translatable="yes">Monthly reservations: </property>
-		  <property name="use_underline">False</property>
-		  <property name="use_markup">False</property>
-		  <property name="justify">GTK_JUSTIFY_LEFT</property>
-		  <property name="wrap">False</property>
-		  <property name="selectable">False</property>
-		  <property name="xalign">0.5</property>
-		  <property name="yalign">0.5</property>
-		  <property name="xpad">0</property>
-		  <property name="ypad">0</property>
-		  <property name="ellipsize">PANGO_ELLIPSIZE_NONE</property>
-		  <property name="width_chars">-1</property>
-		  <property name="single_line_mode">False</property>
-		  <property name="angle">0</property>
-		</widget>
-		<packing>
-		  <property name="x">424</property>
-		  <property name="y">360</property>
-		</packing>
-	      </child>
-
-	      <child>
-		<widget class="GtkButton" id="citizen_home_button3">
-		  <property name="width_request">100</property>
-		  <property name="height_request">40</property>
-		  <property name="visible">True</property>
-		  <property name="can_focus">True</property>
-		  <property name="label">gtk-delete</property>
-		  <property name="use_stock">True</property>
-		  <property name="relief">GTK_RELIEF_NORMAL</property>
-		  <property name="focus_on_click">True</property>
-		  <signal name="clicked" handler="on_B_M_clicked" last_modification_time="Wed, 16 Oct 2024 19:51:27 GMT"/>
-		</widget>
-		<packing>
-		  <property name="x">640</property>
-		  <property name="y">472</property>
-		</packing>
-	      </child>
-
-	      <child>
-		<widget class="GtkButton" id="citizen_home_button1">
-		  <property name="width_request">100</property>
-		  <property name="height_request">40</property>
-		  <property name="visible">True</property>
-		  <property name="can_focus">True</property>
-		  <property name="label">gtk-add</property>
-		  <property name="use_stock">True</property>
-		  <property name="relief">GTK_RELIEF_NORMAL</property>
-		  <property name="focus_on_click">True</property>
-		  <signal name="clicked" handler="on_B_M_clicked" last_modification_time="Wed, 16 Oct 2024 19:51:27 GMT"/>
-		</widget>
-		<packing>
-		  <property name="x">144</property>
-		  <property name="y">472</property>
-		</packing>
-	      </child>
-
-	      <child>
-		<widget class="GtkButton" id="citizen_home_button2">
+		<widget class="GtkButton" id="citizen_list_about_button">
 		  <property name="width_request">100</property>
 		  <property name="height_request">40</property>
 		  <property name="visible">True</property>
@@ -1654,6 +1615,24 @@ Zaghouan  </property>
 		</widget>
 		<packing>
 		  <property name="x">392</property>
+		  <property name="y">472</property>
+		</packing>
+	      </child>
+
+	      <child>
+		<widget class="GtkButton" id="citizen_home_add_button">
+		  <property name="width_request">100</property>
+		  <property name="height_request">40</property>
+		  <property name="visible">True</property>
+		  <property name="can_focus">True</property>
+		  <property name="label">gtk-add</property>
+		  <property name="use_stock">True</property>
+		  <property name="relief">GTK_RELIEF_NORMAL</property>
+		  <property name="focus_on_click">True</property>
+		  <signal name="clicked" handler="on_B_M_clicked" last_modification_time="Wed, 16 Oct 2024 19:51:27 GMT"/>
+		</widget>
+		<packing>
+		  <property name="x">144</property>
 		  <property name="y">472</property>
 		</packing>
 	      </child>
@@ -1725,6 +1704,205 @@ Zaghouan  </property>
 	<packing>
 	  <property name="x">0</property>
 	  <property name="y">56</property>
+	</packing>
+      </child>
+
+      <child>
+	<widget class="GtkLabel" id="citizen_home_welcome_label">
+	  <property name="width_request">259</property>
+	  <property name="height_request">33</property>
+	  <property name="visible">True</property>
+	  <property name="label" translatable="yes">Welcome to your Parky account</property>
+	  <property name="use_underline">False</property>
+	  <property name="use_markup">False</property>
+	  <property name="justify">GTK_JUSTIFY_LEFT</property>
+	  <property name="wrap">False</property>
+	  <property name="selectable">False</property>
+	  <property name="xalign">0.5</property>
+	  <property name="yalign">0.5</property>
+	  <property name="xpad">0</property>
+	  <property name="ypad">0</property>
+	  <property name="ellipsize">PANGO_ELLIPSIZE_NONE</property>
+	  <property name="width_chars">-1</property>
+	  <property name="single_line_mode">False</property>
+	  <property name="angle">0</property>
+	</widget>
+	<packing>
+	  <property name="x">288</property>
+	  <property name="y">8</property>
+	</packing>
+      </child>
+    </widget>
+  </child>
+</widget>
+
+<widget class="GtkAboutDialog" id="parky_about_dialog">
+  <property name="border_width">5</property>
+  <property name="visible">True</property>
+  <property name="destroy_with_parent">False</property>
+  <property name="name" translatable="yes">Parky App</property>
+  <property name="wrap_license">False</property>
+  <property name="website">https://github.com/anomaly1095/parky</property>
+  <property name="translator_credits" translatable="yes" comments="TRANSLATORS: Replace this string with your names, one name per line.">translator-credits</property>
+  <property name="logo">logo.ico</property>
+</widget>
+
+<widget class="GtkDialog" id="citizen_delete_dialog">
+  <property name="visible">True</property>
+  <property name="title" translatable="yes">dialog2</property>
+  <property name="type">GTK_WINDOW_TOPLEVEL</property>
+  <property name="window_position">GTK_WIN_POS_NONE</property>
+  <property name="modal">False</property>
+  <property name="resizable">False</property>
+  <property name="destroy_with_parent">False</property>
+  <property name="decorated">True</property>
+  <property name="skip_taskbar_hint">False</property>
+  <property name="skip_pager_hint">False</property>
+  <property name="type_hint">GDK_WINDOW_TYPE_HINT_DIALOG</property>
+  <property name="gravity">GDK_GRAVITY_NORTH_WEST</property>
+  <property name="focus_on_map">True</property>
+  <property name="urgency_hint">False</property>
+  <property name="has_separator">False</property>
+
+  <child internal-child="vbox">
+    <widget class="GtkVBox" id="citizen_delete_vboxupper">
+      <property name="visible">True</property>
+      <property name="homogeneous">False</property>
+      <property name="spacing">0</property>
+
+      <child internal-child="action_area">
+	<widget class="GtkHButtonBox" id="citizen_delete_buttonbox">
+	  <property name="visible">True</property>
+	  <property name="layout_style">GTK_BUTTONBOX_END</property>
+
+	  <child>
+	    <widget class="GtkButton" id="citizen_delete_cancel_button">
+	      <property name="visible">True</property>
+	      <property name="can_default">True</property>
+	      <property name="can_focus">True</property>
+	      <property name="label">gtk-cancel</property>
+	      <property name="use_stock">True</property>
+	      <property name="relief">GTK_RELIEF_NORMAL</property>
+	      <property name="focus_on_click">True</property>
+	      <property name="response_id">-6</property>
+	    </widget>
+	  </child>
+
+	  <child>
+	    <widget class="GtkButton" id="citizen_delete_apply_button">
+	      <property name="visible">True</property>
+	      <property name="can_default">True</property>
+	      <property name="can_focus">True</property>
+	      <property name="label">gtk-yes</property>
+	      <property name="use_stock">True</property>
+	      <property name="relief">GTK_RELIEF_NORMAL</property>
+	      <property name="focus_on_click">True</property>
+	      <property name="response_id">-8</property>
+	    </widget>
+	  </child>
+	</widget>
+	<packing>
+	  <property name="padding">0</property>
+	  <property name="expand">False</property>
+	  <property name="fill">True</property>
+	  <property name="pack_type">GTK_PACK_END</property>
+	</packing>
+      </child>
+
+      <child>
+	<widget class="GtkVBox" id="citizen_delete_vbox_upper">
+	  <property name="visible">True</property>
+	  <property name="homogeneous">False</property>
+	  <property name="spacing">0</property>
+
+	  <child>
+	    <widget class="GtkLabel" id="citizen_delete_upperlabel">
+	      <property name="width_request">259</property>
+	      <property name="height_request">49</property>
+	      <property name="visible">True</property>
+	      <property name="label" translatable="yes">
+</property>
+	      <property name="use_underline">False</property>
+	      <property name="use_markup">False</property>
+	      <property name="justify">GTK_JUSTIFY_LEFT</property>
+	      <property name="wrap">False</property>
+	      <property name="selectable">False</property>
+	      <property name="xalign">0.5</property>
+	      <property name="yalign">0.5</property>
+	      <property name="xpad">0</property>
+	      <property name="ypad">0</property>
+	      <property name="ellipsize">PANGO_ELLIPSIZE_NONE</property>
+	      <property name="width_chars">-1</property>
+	      <property name="single_line_mode">False</property>
+	      <property name="angle">0</property>
+	    </widget>
+	    <packing>
+	      <property name="padding">0</property>
+	      <property name="expand">False</property>
+	      <property name="fill">False</property>
+	    </packing>
+	  </child>
+
+	  <child>
+	    <widget class="GtkLabel" id="citizen_delete_label">
+	      <property name="width_request">259</property>
+	      <property name="height_request">49</property>
+	      <property name="visible">True</property>
+	      <property name="label" translatable="yes">You are deleting your account
+		  Confirm?</property>
+	      <property name="use_underline">False</property>
+	      <property name="use_markup">False</property>
+	      <property name="justify">GTK_JUSTIFY_LEFT</property>
+	      <property name="wrap">False</property>
+	      <property name="selectable">False</property>
+	      <property name="xalign">0.5</property>
+	      <property name="yalign">0.5</property>
+	      <property name="xpad">0</property>
+	      <property name="ypad">0</property>
+	      <property name="ellipsize">PANGO_ELLIPSIZE_NONE</property>
+	      <property name="width_chars">-1</property>
+	      <property name="single_line_mode">False</property>
+	      <property name="angle">0</property>
+	    </widget>
+	    <packing>
+	      <property name="padding">0</property>
+	      <property name="expand">False</property>
+	      <property name="fill">False</property>
+	    </packing>
+	  </child>
+
+	  <child>
+	    <widget class="GtkLabel" id="citizen_delete_lowerlabel">
+	      <property name="width_request">259</property>
+	      <property name="height_request">49</property>
+	      <property name="visible">True</property>
+	      <property name="label" translatable="yes">
+</property>
+	      <property name="use_underline">False</property>
+	      <property name="use_markup">False</property>
+	      <property name="justify">GTK_JUSTIFY_LEFT</property>
+	      <property name="wrap">False</property>
+	      <property name="selectable">False</property>
+	      <property name="xalign">0.5</property>
+	      <property name="yalign">0.5</property>
+	      <property name="xpad">0</property>
+	      <property name="ypad">0</property>
+	      <property name="ellipsize">PANGO_ELLIPSIZE_NONE</property>
+	      <property name="width_chars">-1</property>
+	      <property name="single_line_mode">False</property>
+	      <property name="angle">0</property>
+	    </widget>
+	    <packing>
+	      <property name="padding">0</property>
+	      <property name="expand">False</property>
+	      <property name="fill">False</property>
+	    </packing>
+	  </child>
+	</widget>
+	<packing>
+	  <property name="padding">0</property>
+	  <property name="expand">True</property>
+	  <property name="fill">True</property>
 	</packing>
       </child>
     </widget>
