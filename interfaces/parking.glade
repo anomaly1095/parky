@@ -34,11 +34,11 @@
 	  <property name="visible">True</property>
 
 	  <child>
-	    <widget class="GtkLabel" id="app_label">
+	    <widget class="GtkLabel" id="hello_user_label">
 	      <property name="width_request">216</property>
 	      <property name="height_request">48</property>
 	      <property name="visible">True</property>
-	      <property name="label" translatable="yes">App</property>
+	      <property name="label" translatable="yes">Hello user !</property>
 	      <property name="use_underline">False</property>
 	      <property name="use_markup">False</property>
 	      <property name="justify">GTK_JUSTIFY_LEFT</property>
@@ -54,34 +54,8 @@
 	      <property name="angle">0</property>
 	    </widget>
 	    <packing>
-	      <property name="x">232</property>
-	      <property name="y">184</property>
-	    </packing>
-	  </child>
-
-	  <child>
-	    <widget class="GtkLabel" id="parky_label">
-	      <property name="width_request">216</property>
-	      <property name="height_request">48</property>
-	      <property name="visible">True</property>
-	      <property name="label" translatable="yes">PARKY </property>
-	      <property name="use_underline">False</property>
-	      <property name="use_markup">False</property>
-	      <property name="justify">GTK_JUSTIFY_LEFT</property>
-	      <property name="wrap">False</property>
-	      <property name="selectable">False</property>
-	      <property name="xalign">0.5</property>
-	      <property name="yalign">0.5</property>
-	      <property name="xpad">0</property>
-	      <property name="ypad">0</property>
-	      <property name="ellipsize">PANGO_ELLIPSIZE_NONE</property>
-	      <property name="width_chars">-1</property>
-	      <property name="single_line_mode">False</property>
-	      <property name="angle">0</property>
-	    </widget>
-	    <packing>
-	      <property name="x">232</property>
-	      <property name="y">128</property>
+	      <property name="x">224</property>
+	      <property name="y">16</property>
 	    </packing>
 	  </child>
 
@@ -107,33 +81,16 @@
 	    </widget>
 	    <packing>
 	      <property name="x">232</property>
-	      <property name="y">72</property>
+	      <property name="y">64</property>
 	    </packing>
 	  </child>
 
 	  <child>
-	    <widget class="GtkImage" id="park_icon">
-	      <property name="width_request">232</property>
-	      <property name="height_request">232</property>
-	      <property name="visible">True</property>
-	      <property name="pixbuf">parking icon.png</property>
-	      <property name="xalign">0.5</property>
-	      <property name="yalign">0.5</property>
-	      <property name="xpad">0</property>
-	      <property name="ypad">0</property>
-	    </widget>
-	    <packing>
-	      <property name="x">224</property>
-	      <property name="y">248</property>
-	    </packing>
-	  </child>
-
-	  <child>
-	    <widget class="GtkLabel" id="hello_user_label">
+	    <widget class="GtkLabel" id="parky_label">
 	      <property name="width_request">216</property>
 	      <property name="height_request">48</property>
 	      <property name="visible">True</property>
-	      <property name="label" translatable="yes">Hello user !</property>
+	      <property name="label" translatable="yes">PARKY </property>
 	      <property name="use_underline">False</property>
 	      <property name="use_markup">False</property>
 	      <property name="justify">GTK_JUSTIFY_LEFT</property>
@@ -149,8 +106,51 @@
 	      <property name="angle">0</property>
 	    </widget>
 	    <packing>
-	      <property name="x">224</property>
-	      <property name="y">16</property>
+	      <property name="x">232</property>
+	      <property name="y">120</property>
+	    </packing>
+	  </child>
+
+	  <child>
+	    <widget class="GtkLabel" id="app_label">
+	      <property name="width_request">216</property>
+	      <property name="height_request">48</property>
+	      <property name="visible">True</property>
+	      <property name="label" translatable="yes">App</property>
+	      <property name="use_underline">False</property>
+	      <property name="use_markup">False</property>
+	      <property name="justify">GTK_JUSTIFY_LEFT</property>
+	      <property name="wrap">False</property>
+	      <property name="selectable">False</property>
+	      <property name="xalign">0.5</property>
+	      <property name="yalign">0.5</property>
+	      <property name="xpad">0</property>
+	      <property name="ypad">0</property>
+	      <property name="ellipsize">PANGO_ELLIPSIZE_NONE</property>
+	      <property name="width_chars">-1</property>
+	      <property name="single_line_mode">False</property>
+	      <property name="angle">0</property>
+	    </widget>
+	    <packing>
+	      <property name="x">232</property>
+	      <property name="y">176</property>
+	    </packing>
+	  </child>
+
+	  <child>
+	    <widget class="GtkImage" id="park_icon">
+	      <property name="width_request">232</property>
+	      <property name="height_request">232</property>
+	      <property name="visible">True</property>
+	      <property name="pixbuf">parking icon.png</property>
+	      <property name="xalign">0.5</property>
+	      <property name="yalign">0.5</property>
+	      <property name="xpad">0</property>
+	      <property name="ypad">0</property>
+	    </widget>
+	    <packing>
+	      <property name="x">216</property>
+	      <property name="y">232</property>
 	    </packing>
 	  </child>
 	</widget>
@@ -297,26 +297,6 @@
 	  </child>
 
 	  <child>
-	    <widget class="GtkRadioButton" id="admin_radiobutton">
-	      <property name="width_request">150</property>
-	      <property name="height_request">30</property>
-	      <property name="visible">True</property>
-	      <property name="can_focus">True</property>
-	      <property name="label" translatable="yes">Admin</property>
-	      <property name="use_underline">True</property>
-	      <property name="relief">GTK_RELIEF_NORMAL</property>
-	      <property name="focus_on_click">True</property>
-	      <property name="active">False</property>
-	      <property name="inconsistent">False</property>
-	      <property name="draw_indicator">True</property>
-	    </widget>
-	    <packing>
-	      <property name="x">272</property>
-	      <property name="y">360</property>
-	    </packing>
-	  </child>
-
-	  <child>
 	    <widget class="GtkRadioButton" id="user_radiobutton">
 	      <property name="width_request">150</property>
 	      <property name="height_request">30</property>
@@ -329,7 +309,6 @@
 	      <property name="active">False</property>
 	      <property name="inconsistent">False</property>
 	      <property name="draw_indicator">True</property>
-	      <property name="group">admin_radiobutton</property>
 	    </widget>
 	    <packing>
 	      <property name="x">368</property>
@@ -415,6 +394,27 @@
 	    <packing>
 	      <property name="x">248</property>
 	      <property name="y">400</property>
+	    </packing>
+	  </child>
+
+	  <child>
+	    <widget class="GtkRadioButton" id="admin_radiobutton">
+	      <property name="width_request">150</property>
+	      <property name="height_request">30</property>
+	      <property name="visible">True</property>
+	      <property name="can_focus">True</property>
+	      <property name="label" translatable="yes">Admin</property>
+	      <property name="use_underline">True</property>
+	      <property name="relief">GTK_RELIEF_NORMAL</property>
+	      <property name="focus_on_click">True</property>
+	      <property name="active">False</property>
+	      <property name="inconsistent">False</property>
+	      <property name="draw_indicator">True</property>
+	      <property name="group">user_radiobutton</property>
+	    </widget>
+	    <packing>
+	      <property name="x">272</property>
+	      <property name="y">360</property>
 	    </packing>
 	  </child>
 	</widget>
@@ -917,26 +917,6 @@ Parking Services</property>
       <child>
 	<widget class="GtkFixed" id="fixed24">
 	  <property name="visible">True</property>
-
-	  <child>
-	    <widget class="GtkEntry" id="id_agent_entry">
-	      <property name="width_request">160</property>
-	      <property name="height_request">27</property>
-	      <property name="visible">True</property>
-	      <property name="can_focus">True</property>
-	      <property name="editable">True</property>
-	      <property name="visibility">True</property>
-	      <property name="max_length">0</property>
-	      <property name="text" translatable="yes"></property>
-	      <property name="has_frame">True</property>
-	      <property name="invisible_char">•</property>
-	      <property name="activates_default">False</property>
-	    </widget>
-	    <packing>
-	      <property name="x">312</property>
-	      <property name="y">56</property>
-	    </packing>
-	  </child>
 
 	  <child>
 	    <widget class="GtkButton" id="home1_button">
@@ -1556,6 +1536,26 @@ Parking Services</property>
 	      <property name="y">336</property>
 	    </packing>
 	  </child>
+
+	  <child>
+	    <widget class="GtkSpinButton" id="id_agent_spinbutton">
+	      <property name="width_request">160</property>
+	      <property name="height_request">27</property>
+	      <property name="visible">True</property>
+	      <property name="can_focus">True</property>
+	      <property name="climb_rate">1</property>
+	      <property name="digits">0</property>
+	      <property name="numeric">False</property>
+	      <property name="update_policy">GTK_UPDATE_ALWAYS</property>
+	      <property name="snap_to_ticks">False</property>
+	      <property name="wrap">False</property>
+	      <property name="adjustment">1 0 100 1 10 10</property>
+	    </widget>
+	    <packing>
+	      <property name="x">312</property>
+	      <property name="y">56</property>
+	    </packing>
+	  </child>
 	</widget>
 	<packing>
 	  <property name="tab_expand">False</property>
@@ -1667,52 +1667,6 @@ Parking Services</property>
 	    <packing>
 	      <property name="x">296</property>
 	      <property name="y">328</property>
-	    </packing>
-	  </child>
-
-	  <child>
-	    <widget class="GtkSpinButton" id="id_park_spinbutton">
-	      <property name="width_request">160</property>
-	      <property name="height_request">27</property>
-	      <property name="visible">True</property>
-	      <property name="can_focus">True</property>
-	      <property name="climb_rate">1</property>
-	      <property name="digits">0</property>
-	      <property name="numeric">False</property>
-	      <property name="update_policy">GTK_UPDATE_ALWAYS</property>
-	      <property name="snap_to_ticks">False</property>
-	      <property name="wrap">False</property>
-	      <property name="adjustment">1 0 100 1 10 10</property>
-	    </widget>
-	    <packing>
-	      <property name="x">288</property>
-	      <property name="y">40</property>
-	    </packing>
-	  </child>
-
-	  <child>
-	    <widget class="GtkLabel" id="id_park_label">
-	      <property name="width_request">216</property>
-	      <property name="height_request">48</property>
-	      <property name="visible">True</property>
-	      <property name="label" translatable="yes">id-parking</property>
-	      <property name="use_underline">False</property>
-	      <property name="use_markup">False</property>
-	      <property name="justify">GTK_JUSTIFY_LEFT</property>
-	      <property name="wrap">False</property>
-	      <property name="selectable">False</property>
-	      <property name="xalign">0.5</property>
-	      <property name="yalign">0.5</property>
-	      <property name="xpad">0</property>
-	      <property name="ypad">0</property>
-	      <property name="ellipsize">PANGO_ELLIPSIZE_NONE</property>
-	      <property name="width_chars">-1</property>
-	      <property name="single_line_mode">False</property>
-	      <property name="angle">0</property>
-	    </widget>
-	    <packing>
-	      <property name="x">128</property>
-	      <property name="y">0</property>
 	    </packing>
 	  </child>
 
