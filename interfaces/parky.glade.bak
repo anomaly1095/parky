@@ -334,6 +334,7 @@
 </widget>
 
 <widget class="GtkWindow" id="signin_window">
+  <property name="width_request">464</property>
   <property name="visible">True</property>
   <property name="title" translatable="yes">Sign in</property>
   <property name="type">GTK_WINDOW_TOPLEVEL</property>
@@ -341,7 +342,7 @@
   <property name="modal">False</property>
   <property name="default_width">1000</property>
   <property name="default_height">750</property>
-  <property name="resizable">True</property>
+  <property name="resizable">False</property>
   <property name="destroy_with_parent">False</property>
   <property name="decorated">True</property>
   <property name="skip_taskbar_hint">False</property>
@@ -370,7 +371,7 @@
 	  <property name="activates_default">False</property>
 	</widget>
 	<packing>
-	  <property name="x">256</property>
+	  <property name="x">240</property>
 	  <property name="y">280</property>
 	</packing>
       </child>
@@ -390,7 +391,7 @@
 	  <property name="activates_default">False</property>
 	</widget>
 	<packing>
-	  <property name="x">256</property>
+	  <property name="x">240</property>
 	  <property name="y">352</property>
 	</packing>
       </child>
@@ -422,10 +423,53 @@
       </child>
 
       <child>
+	<widget class="GtkLabel" id="signin_email_label">
+	  <property name="width_request">216</property>
+	  <property name="height_request">48</property>
+	  <property name="visible">True</property>
+	  <property name="label" translatable="yes">Email: </property>
+	  <property name="use_underline">False</property>
+	  <property name="use_markup">False</property>
+	  <property name="justify">GTK_JUSTIFY_LEFT</property>
+	  <property name="wrap">False</property>
+	  <property name="selectable">False</property>
+	  <property name="xalign">0.5</property>
+	  <property name="yalign">0.5</property>
+	  <property name="xpad">0</property>
+	  <property name="ypad">0</property>
+	  <property name="ellipsize">PANGO_ELLIPSIZE_NONE</property>
+	  <property name="width_chars">-1</property>
+	  <property name="single_line_mode">False</property>
+	  <property name="angle">0</property>
+	</widget>
+	<packing>
+	  <property name="x">32</property>
+	  <property name="y">272</property>
+	</packing>
+      </child>
+
+      <child>
+	<widget class="GtkImage" id="signin_image">
+	  <property name="width_request">240</property>
+	  <property name="height_request">240</property>
+	  <property name="visible">True</property>
+	  <property name="pixbuf">icon_signup.jpeg</property>
+	  <property name="xalign">0.5</property>
+	  <property name="yalign">0.5</property>
+	  <property name="xpad">0</property>
+	  <property name="ypad">0</property>
+	</widget>
+	<packing>
+	  <property name="x">136</property>
+	  <property name="y">8</property>
+	</packing>
+      </child>
+
+      <child>
 	<widget class="GtkButton" id="signin_connect_button">
 	  <property name="border_width">1</property>
 	  <property name="width_request">216</property>
-	  <property name="height_request">48</property>
+	  <property name="height_request">55</property>
 	  <property name="visible">True</property>
 	  <property name="can_focus">True</property>
 	  <property name="relief">GTK_RELIEF_NORMAL</property>
@@ -496,51 +540,8 @@
 	  </child>
 	</widget>
 	<packing>
-	  <property name="x">176</property>
+	  <property name="x">144</property>
 	  <property name="y">416</property>
-	</packing>
-      </child>
-
-      <child>
-	<widget class="GtkLabel" id="signin_email_label">
-	  <property name="width_request">216</property>
-	  <property name="height_request">48</property>
-	  <property name="visible">True</property>
-	  <property name="label" translatable="yes">Email: </property>
-	  <property name="use_underline">False</property>
-	  <property name="use_markup">False</property>
-	  <property name="justify">GTK_JUSTIFY_LEFT</property>
-	  <property name="wrap">False</property>
-	  <property name="selectable">False</property>
-	  <property name="xalign">0.5</property>
-	  <property name="yalign">0.5</property>
-	  <property name="xpad">0</property>
-	  <property name="ypad">0</property>
-	  <property name="ellipsize">PANGO_ELLIPSIZE_NONE</property>
-	  <property name="width_chars">-1</property>
-	  <property name="single_line_mode">False</property>
-	  <property name="angle">0</property>
-	</widget>
-	<packing>
-	  <property name="x">32</property>
-	  <property name="y">272</property>
-	</packing>
-      </child>
-
-      <child>
-	<widget class="GtkImage" id="signin_image">
-	  <property name="width_request">240</property>
-	  <property name="height_request">240</property>
-	  <property name="visible">True</property>
-	  <property name="pixbuf">user icon(1).png</property>
-	  <property name="xalign">0.5</property>
-	  <property name="yalign">0.5</property>
-	  <property name="xpad">0</property>
-	  <property name="ypad">0</property>
-	</widget>
-	<packing>
-	  <property name="x">160</property>
-	  <property name="y">8</property>
 	</packing>
       </child>
     </widget>
