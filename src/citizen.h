@@ -1,7 +1,8 @@
 #ifndef CITIZEN_H
   #define CITIZEN_H 1
   #include "common.h"
-  
+  #include "reservation.h"
+
   typedef enum Gender{
     male,
     female
@@ -23,16 +24,16 @@
     time_t last_login_datetime;
   }citizen_t; 
 
+  // This session's connected citizen
+  citizen_t connected_citizen;
+  
   bool_t citizen_pwd_is_same(__int8_t *password1, __int8_t *password2){
   citizen_t citizen_create(__uint64_t id, __int8_t *first_name, __int8_t *last_name, __int8_t *phone, 
                          __int8_t *email, __int8_t *address, gender_t gender, __uint8_t *password);
-  void citizen_delete(__uint64_t id_to_delete);
-  void citizen_fetch();
+  void citizen_delete();
+  void citizen_fetch(__uint64_t id);
   void citizen_modify();
   void citizen_calc_monthlybill();
   void citizen_save();
-
-  // id of the connected citizen changes each session during login
-  __uint64_t citizen_connected_id;
 
 #endif // !CITIZEN_H

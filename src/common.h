@@ -11,7 +11,7 @@
   #define PATH_CITIZEN_DATA     PATH_DATA "/citizen.bin"     // file containing all the citizens
   #define PATH_COMPLAINT_DATA   PATH_DATA "/complaint.bin"   // file containing all the complaints
   #define PATH_PARKING_DATA     PATH_DATA "/parking.bin"     // file containing all the parkings
-  #define PATH_RESERVATON_DATA  PATH_DATA "/reservation.bin" // file containing all the reservations
+  #define PATH_RESERVATION_DATA  PATH_DATA "/reservation.bin" // file containing all the reservations
   #define PATH_REVIEW_DATA      PATH_DATA "/review.bin"      // file containing all the reviews
   #define PATH_SERVICE_DATA     PATH_DATA "/service.bin"     // file containing all the services
   #define PATH_ID_DATA          PATH_DATA "/ids.bin"         // file containing all the ids

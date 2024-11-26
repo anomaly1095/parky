@@ -23,13 +23,13 @@ void signup_clicked(GtkButton *button, gpointer user_data) {
 	GtkWidget *female_radio = lookup_widget(GTK_WIDGET(button), "female_radio");
 
 	// Fetch text from entry fields
-	const char *first_name = gtk_entry_get_text(GTK_ENTRY(first_name_entry));
-	const char *last_name = gtk_entry_get_text(GTK_ENTRY(last_name_entry));
-	const char *phone = gtk_entry_get_text(GTK_ENTRY(phone_entry));
-	const char *email = gtk_entry_get_text(GTK_ENTRY(email_entry));
-	const char *address = gtk_entry_get_text(GTK_ENTRY(address_entry));
-	const char *password = gtk_entry_get_text(GTK_ENTRY(password_entry));
-	const char *password_confirm = gtk_entry_get_text(GTK_ENTRY(password_confirm_entry));
+	const __int8_t *first_name = gtk_entry_get_text(GTK_ENTRY(first_name_entry));
+	const __int8_t *last_name = gtk_entry_get_text(GTK_ENTRY(last_name_entry));
+	const __int8_t *phone = gtk_entry_get_text(GTK_ENTRY(phone_entry));
+	const __int8_t *email = gtk_entry_get_text(GTK_ENTRY(email_entry));
+	const __int8_t *address = gtk_entry_get_text(GTK_ENTRY(address_entry));
+	const __int8_t *password = gtk_entry_get_text(GTK_ENTRY(password_entry));
+	const __int8_t *password_confirm = gtk_entry_get_text(GTK_ENTRY(password_confirm_entry));
 
 	// fetch the id list from the file
 	void fetch_id_counts();
@@ -76,11 +76,42 @@ void signup_clicked(GtkButton *button, gpointer user_data) {
 
 
 void
-signin_clicked                         (GtkButton       *button,
-                                        gpointer         user_data)
-{
+signin_clicked(GtkButton *button, gpointer user_data) {
+  // Retrieve the widgets using lookup_widget
+  GtkWidget *signin_email_entry = lookup_widget(GTK_WIDGET(button), "signin_email_entry");
+  GtkWidget *signin_password_entry = lookup_widget(GTK_WIDGET(button), "signin_password_entry");
+  GtkWidget *signin_window = lookup_widget(GTK_WIDGET(button), "signin_window");
 
+  // Ensure widgets were retrieved
+  if (!signin_email_entry || !signin_password_entry || !signin_window) {
+    g_print("Error: Failed to retrieve necessary widgets for sign-in.\n");
+    return;
+  }
+
+  // Get the text from the email and password entry widgets
+  const __uint8_t *email = gtk_entry_get_text(GTK_ENTRY(signin_email_entry));
+  const __uint8_t *password = gtk_entry_get_text(GTK_ENTRY(signin_password_entry));
+
+  // Attempt to sign in and immediately check the result
+  if (citizen_signin(email, password)) {
+    // Successful sign-in
+    g_print("Welcome, %s %s!\n", connected_citizen.first_name, connected_citizen.last_name);
+
+    // Close the sign-in window
+    gtk_widget_destroy(signin_window);
+  } else {
+    // Failed sign-in
+    GtkWidget *dialog = gtk_message_dialog_new(GTK_WINDOW(signin_window),
+                                               GTK_DIALOG_DESTROY_WITH_PARENT,
+                                               GTK_MESSAGE_ERROR,
+                                               GTK_BUTTONS_CLOSE,
+                                               "Sign-in failed. Please check your email and password.");
+    gtk_dialog_run(GTK_DIALOG(dialog));
+    gtk_widget_destroy(dialog);
+  }
 }
+
+
 
 
 void
@@ -232,11 +263,24 @@ citizen_signup_confirm_button_clicked  (GtkButton       *button,
 
 
 void
-citizen_delete_clicked                 (GtkButton       *button,
-                                        gpointer         user_data)
-{
+citizen_delete_clicked(GtkButton *button, gpointer user_data) {
+  // Call the citizen_delete function to perform the deletion
+  citizen_delete();
 
+  // Optionally, you can display a confirmation message or close the window after deletion
+  GtkWidget *dialog = gtk_message_dialog_new(GTK_WINDOW(button),
+                                             GTK_DIALOG_DESTROY_WITH_PARENT,
+                                             GTK_MESSAGE_INFO,
+                                             GTK_BUTTONS_CLOSE,
+                                             "Citizen account deleted successfully.");
+  gtk_dialog_run(GTK_DIALOG(dialog));
+  gtk_widget_destroy(dialog);
+
+  // You may also want to log out the user or perform additional actions after deletion
+  // e.g., clear the connected_citizen data
+  memset(&connected_citizen, 0, sizeof(citizen_t));
 }
+
 
 
 void
