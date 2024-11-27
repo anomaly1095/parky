@@ -111,24 +111,6 @@ signin_clicked(GtkButton *button, gpointer user_data) {
   }
 }
 
-
-void
-citizen_modify_createcar_button_clicked
-                                        (GtkButton       *button,
-                                        gpointer         user_data)
-{
-
-}
-
-
-void
-citizen_modify_password_clicked        (GtkButton       *button,
-                                        gpointer         user_data)
-{
-
-}
-
-
 void
 citizen_delete_clicked(GtkButton *button, gpointer user_data) {
   // Call the citizen_delete function to perform the deletion

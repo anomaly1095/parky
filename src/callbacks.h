@@ -10,23 +10,6 @@ signin_clicked                         (GtkButton       *button,
                                         gpointer         user_data);
 
 void
-citizen_modify_createcar_button_clicked
-                                        (GtkButton       *button,
-                                        gpointer         user_data);
-
-void
-citizen_modify_password_clicked        (GtkButton       *button,
-                                        gpointer         user_data);
-
-void
-citizen_signup_cancel_button_clicked   (GtkButton       *button,
-                                        gpointer         user_data);
-
-void
-citizen_signup_confirm_button_clicked  (GtkButton       *button,
-                                        gpointer         user_data);
-
-void
 citizen_delete_clicked                 (GtkButton       *button,
                                         gpointer         user_data);
 
