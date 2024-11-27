@@ -2351,15 +2351,10 @@ create_citizen_window (void)
   GtkWidget *citizen_modify_email_entry;
   GtkWidget *citizen_modify_firstname_label;
   GtkWidget *citizen_modify_lastname_label;
-  GtkWidget *citizen_modify_phone_label;
   GtkWidget *citizen_modify_gender_label;
   GtkWidget *citizen_modify_phone_label;
-  GtkWidget *citizen_modify_car_label;
   GtkWidget *citizen_modify_datebirth_calendar;
   GtkWidget *citizen_modify_datebirth_label;
-  GtkWidget *citizen_modify_female_radio;
-  GtkWidget *citizen_modify_male_radio;
-  GtkWidget *citizen_modify_notsay_radio;
   GtkWidget *citizen_modify_button_box;
   GtkWidget *citizen_modify_apply_button;
   GtkWidget *alignment1;
@@ -2371,16 +2366,18 @@ create_citizen_window (void)
   GtkWidget *hbox2;
   GtkWidget *image2;
   GtkWidget *label2;
-  GtkWidget *citizen_modify_createcar_button;
-  GtkWidget *alignment10;
-  GtkWidget *hbox10;
-  GtkWidget *image10;
-  GtkWidget *label11;
-  GtkWidget *citizen_modify_city_label;
-  GtkWidget *citizen_modify_address_comboboxentry;
-  GtkWidget *citizen_modify_selectcar_combobox;
   GtkWidget *citizen_modify_logo;
-  GtkWidget *citizen_modify_password_button;
+  GtkWidget *citizen_modify_password_entry;
+  GtkWidget *label254;
+  GtkWidget *citizen_modify_password_label;
+  GtkWidget *citizen_modify_car_entry;
+  GtkWidget *citizen_modify_car_label;
+  GtkWidget *citizen_modify_city_label;
+  GtkWidget *citizen_modify_street_entry;
+  GtkWidget *citizen_modify_street_label;
+  GtkWidget *citizen_modify_male_radio;
+  GtkWidget *citizen_modify_female_radio;
+  GtkWidget *citizen_modify_address_comboboxentry;
   GtkWidget *citizen_modify_pager;
   GtkWidget *citizen_list_fixed;
   GtkWidget *citizen_list_alignement;
@@ -2827,11 +2824,6 @@ create_citizen_window (void)
   gtk_fixed_put (GTK_FIXED (citizen_modify_fixed), citizen_modify_lastname_label, 360, 88);
   gtk_widget_set_size_request (citizen_modify_lastname_label, 96, 25);
 
-  citizen_modify_phone_label = gtk_label_new (_("E-mail :"));
-  gtk_widget_show (citizen_modify_phone_label);
-  gtk_fixed_put (GTK_FIXED (citizen_modify_fixed), citizen_modify_phone_label, 56, 240);
-  gtk_widget_set_size_request (citizen_modify_phone_label, 81, 25);
-
   citizen_modify_gender_label = gtk_label_new (_("Gender: "));
   gtk_widget_show (citizen_modify_gender_label);
   gtk_fixed_put (GTK_FIXED (citizen_modify_fixed), citizen_modify_gender_label, 64, 288);
@@ -2841,11 +2833,6 @@ create_citizen_window (void)
   gtk_widget_show (citizen_modify_phone_label);
   gtk_fixed_put (GTK_FIXED (citizen_modify_fixed), citizen_modify_phone_label, 384, 136);
   gtk_widget_set_size_request (citizen_modify_phone_label, 89, 25);
-
-  citizen_modify_car_label = gtk_label_new (_("Current car: "));
-  gtk_widget_show (citizen_modify_car_label);
-  gtk_fixed_put (GTK_FIXED (citizen_modify_fixed), citizen_modify_car_label, 360, 184);
-  gtk_widget_set_size_request (citizen_modify_car_label, 116, 25);
 
   citizen_modify_datebirth_calendar = gtk_calendar_new ();
   gtk_widget_show (citizen_modify_datebirth_calendar);
@@ -2858,27 +2845,6 @@ create_citizen_window (void)
   gtk_widget_show (citizen_modify_datebirth_label);
   gtk_fixed_put (GTK_FIXED (citizen_modify_fixed), citizen_modify_datebirth_label, 512, 248);
   gtk_widget_set_size_request (citizen_modify_datebirth_label, 118, 23);
-
-  citizen_modify_female_radio = gtk_radio_button_new_with_mnemonic (NULL, _("Female"));
-  gtk_widget_show (citizen_modify_female_radio);
-  gtk_fixed_put (GTK_FIXED (citizen_modify_fixed), citizen_modify_female_radio, 224, 288);
-  gtk_widget_set_size_request (citizen_modify_female_radio, 83, 25);
-  gtk_radio_button_set_group (GTK_RADIO_BUTTON (citizen_modify_female_radio), citizen_details_female_radio_group);
-  citizen_details_female_radio_group = gtk_radio_button_get_group (GTK_RADIO_BUTTON (citizen_modify_female_radio));
-
-  citizen_modify_male_radio = gtk_radio_button_new_with_mnemonic (NULL, _("Male"));
-  gtk_widget_show (citizen_modify_male_radio);
-  gtk_fixed_put (GTK_FIXED (citizen_modify_fixed), citizen_modify_male_radio, 144, 288);
-  gtk_widget_set_size_request (citizen_modify_male_radio, 82, 25);
-  gtk_radio_button_set_group (GTK_RADIO_BUTTON (citizen_modify_male_radio), citizen_details_female_radio_group);
-  citizen_details_female_radio_group = gtk_radio_button_get_group (GTK_RADIO_BUTTON (citizen_modify_male_radio));
-
-  citizen_modify_notsay_radio = gtk_radio_button_new_with_mnemonic (NULL, _("Rather not say"));
-  gtk_widget_show (citizen_modify_notsay_radio);
-  gtk_fixed_put (GTK_FIXED (citizen_modify_fixed), citizen_modify_notsay_radio, 320, 288);
-  gtk_widget_set_size_request (citizen_modify_notsay_radio, 158, 25);
-  gtk_radio_button_set_group (GTK_RADIO_BUTTON (citizen_modify_notsay_radio), citizen_details_female_radio_group);
-  citizen_details_female_radio_group = gtk_radio_button_get_group (GTK_RADIO_BUTTON (citizen_modify_notsay_radio));
 
   citizen_modify_button_box = gtk_hbutton_box_new ();
   gtk_widget_show (citizen_modify_button_box);
@@ -2927,32 +2893,68 @@ create_citizen_window (void)
   gtk_widget_show (label2);
   gtk_box_pack_start (GTK_BOX (hbox2), label2, FALSE, FALSE, 0);
 
-  citizen_modify_createcar_button = gtk_button_new ();
-  gtk_widget_show (citizen_modify_createcar_button);
-  gtk_fixed_put (GTK_FIXED (citizen_modify_fixed), citizen_modify_createcar_button, 624, 176);
-  gtk_widget_set_size_request (citizen_modify_createcar_button, 0, 0);
-  GTK_WIDGET_SET_FLAGS (citizen_modify_createcar_button, GTK_CAN_DEFAULT);
+  citizen_modify_logo = create_pixmap (citizen_window, "jhhhhhhh.JPG");
+  gtk_widget_show (citizen_modify_logo);
+  gtk_fixed_put (GTK_FIXED (citizen_modify_fixed), citizen_modify_logo, 0, 0);
+  gtk_widget_set_size_request (citizen_modify_logo, 104, 64);
 
-  alignment10 = gtk_alignment_new (0.5, 0.5, 0, 0);
-  gtk_widget_show (alignment10);
-  gtk_container_add (GTK_CONTAINER (citizen_modify_createcar_button), alignment10);
+  citizen_modify_password_entry = gtk_entry_new ();
+  gtk_widget_show (citizen_modify_password_entry);
+  gtk_fixed_put (GTK_FIXED (citizen_modify_fixed), citizen_modify_password_entry, 144, 344);
+  gtk_widget_set_size_request (citizen_modify_password_entry, 335, 27);
+  gtk_entry_set_visibility (GTK_ENTRY (citizen_modify_password_entry), FALSE);
+  gtk_entry_set_invisible_char (GTK_ENTRY (citizen_modify_password_entry), 8226);
 
-  hbox10 = gtk_hbox_new (FALSE, 2);
-  gtk_widget_show (hbox10);
-  gtk_container_add (GTK_CONTAINER (alignment10), hbox10);
+  label254 = gtk_label_new (_("E-mail :"));
+  gtk_widget_show (label254);
+  gtk_fixed_put (GTK_FIXED (citizen_modify_fixed), label254, 48, 240);
+  gtk_widget_set_size_request (label254, 81, 25);
 
-  image10 = gtk_image_new_from_stock ("gtk-add", GTK_ICON_SIZE_BUTTON);
-  gtk_widget_show (image10);
-  gtk_box_pack_start (GTK_BOX (hbox10), image10, FALSE, FALSE, 0);
+  citizen_modify_password_label = gtk_label_new (_("Passord: "));
+  gtk_widget_show (citizen_modify_password_label);
+  gtk_fixed_put (GTK_FIXED (citizen_modify_fixed), citizen_modify_password_label, 48, 344);
+  gtk_widget_set_size_request (citizen_modify_password_label, 81, 25);
 
-  label11 = gtk_label_new_with_mnemonic ("Add");
-  gtk_widget_show (label11);
-  gtk_box_pack_start (GTK_BOX (hbox10), label11, FALSE, FALSE, 0);
+  citizen_modify_car_entry = gtk_entry_new ();
+  gtk_widget_show (citizen_modify_car_entry);
+  gtk_fixed_put (GTK_FIXED (citizen_modify_fixed), citizen_modify_car_entry, 472, 184);
+  gtk_widget_set_size_request (citizen_modify_car_entry, 150, 27);
+  gtk_entry_set_invisible_char (GTK_ENTRY (citizen_modify_car_entry), 8226);
 
-  citizen_modify_city_label = gtk_label_new (_("Address: "));
+  citizen_modify_car_label = gtk_label_new (_("Car number: "));
+  gtk_widget_show (citizen_modify_car_label);
+  gtk_fixed_put (GTK_FIXED (citizen_modify_fixed), citizen_modify_car_label, 360, 184);
+  gtk_widget_set_size_request (citizen_modify_car_label, 116, 25);
+
+  citizen_modify_city_label = gtk_label_new (_("City: "));
   gtk_widget_show (citizen_modify_city_label);
   gtk_fixed_put (GTK_FIXED (citizen_modify_fixed), citizen_modify_city_label, 16, 136);
   gtk_widget_set_size_request (citizen_modify_city_label, 116, 25);
+
+  citizen_modify_street_entry = gtk_entry_new ();
+  gtk_widget_show (citizen_modify_street_entry);
+  gtk_fixed_put (GTK_FIXED (citizen_modify_fixed), citizen_modify_street_entry, 144, 192);
+  gtk_widget_set_size_request (citizen_modify_street_entry, 154, 27);
+  gtk_entry_set_invisible_char (GTK_ENTRY (citizen_modify_street_entry), 8226);
+
+  citizen_modify_street_label = gtk_label_new (_("Street :"));
+  gtk_widget_show (citizen_modify_street_label);
+  gtk_fixed_put (GTK_FIXED (citizen_modify_fixed), citizen_modify_street_label, 32, 192);
+  gtk_widget_set_size_request (citizen_modify_street_label, 97, 25);
+
+  citizen_modify_male_radio = gtk_radio_button_new_with_mnemonic (NULL, _("Male"));
+  gtk_widget_show (citizen_modify_male_radio);
+  gtk_fixed_put (GTK_FIXED (citizen_modify_fixed), citizen_modify_male_radio, 144, 288);
+  gtk_widget_set_size_request (citizen_modify_male_radio, 82, 25);
+  gtk_radio_button_set_group (GTK_RADIO_BUTTON (citizen_modify_male_radio), citizen_details_female_radio_group);
+  citizen_details_female_radio_group = gtk_radio_button_get_group (GTK_RADIO_BUTTON (citizen_modify_male_radio));
+
+  citizen_modify_female_radio = gtk_radio_button_new_with_mnemonic (NULL, _("Female"));
+  gtk_widget_show (citizen_modify_female_radio);
+  gtk_fixed_put (GTK_FIXED (citizen_modify_fixed), citizen_modify_female_radio, 224, 288);
+  gtk_widget_set_size_request (citizen_modify_female_radio, 83, 25);
+  gtk_radio_button_set_group (GTK_RADIO_BUTTON (citizen_modify_female_radio), citizen_details_female_radio_group);
+  citizen_details_female_radio_group = gtk_radio_button_get_group (GTK_RADIO_BUTTON (citizen_modify_female_radio));
 
   citizen_modify_address_comboboxentry = gtk_combo_box_entry_new_text ();
   gtk_widget_show (citizen_modify_address_comboboxentry);
@@ -2982,21 +2984,6 @@ create_citizen_window (void)
   gtk_combo_box_append_text (GTK_COMBO_BOX (citizen_modify_address_comboboxentry), _("\t\t\tTozeur  "));
   gtk_combo_box_append_text (GTK_COMBO_BOX (citizen_modify_address_comboboxentry), _("\t\t\tTunis  "));
   gtk_combo_box_append_text (GTK_COMBO_BOX (citizen_modify_address_comboboxentry), _("\t\t\tZaghouan  "));
-
-  citizen_modify_selectcar_combobox = gtk_combo_box_entry_new_text ();
-  gtk_widget_show (citizen_modify_selectcar_combobox);
-  gtk_fixed_put (GTK_FIXED (citizen_modify_fixed), citizen_modify_selectcar_combobox, 472, 184);
-  gtk_widget_set_size_request (citizen_modify_selectcar_combobox, 148, 27);
-
-  citizen_modify_logo = create_pixmap (citizen_window, "jhhhhhhh.JPG");
-  gtk_widget_show (citizen_modify_logo);
-  gtk_fixed_put (GTK_FIXED (citizen_modify_fixed), citizen_modify_logo, 0, 0);
-  gtk_widget_set_size_request (citizen_modify_logo, 104, 64);
-
-  citizen_modify_password_button = gtk_button_new_with_mnemonic (_("Change password"));
-  gtk_widget_show (citizen_modify_password_button);
-  gtk_fixed_put (GTK_FIXED (citizen_modify_fixed), citizen_modify_password_button, 152, 480);
-  gtk_widget_set_size_request (citizen_modify_password_button, 175, 37);
 
   citizen_modify_pager = gtk_label_new (_("Modify"));
   gtk_widget_show (citizen_modify_pager);
@@ -3915,12 +3902,6 @@ create_citizen_window (void)
   g_signal_connect ((gpointer) citizen_modify_cancel_button, "clicked",
                     G_CALLBACK (citizen_modify_cancel_clicked),
                     NULL);
-  g_signal_connect ((gpointer) citizen_modify_createcar_button, "clicked",
-                    G_CALLBACK (citizen_modify_createcar_button_clicked),
-                    NULL);
-  g_signal_connect ((gpointer) citizen_modify_password_button, "clicked",
-                    G_CALLBACK (citizen_modify_password_clicked),
-                    NULL);
   g_signal_connect ((gpointer) citizen_home_add_button, "clicked",
                     G_CALLBACK (citizen_list_add_clicked),
                     NULL);
@@ -4014,15 +3995,10 @@ create_citizen_window (void)
   GLADE_HOOKUP_OBJECT (citizen_window, citizen_modify_email_entry, "citizen_modify_email_entry");
   GLADE_HOOKUP_OBJECT (citizen_window, citizen_modify_firstname_label, "citizen_modify_firstname_label");
   GLADE_HOOKUP_OBJECT (citizen_window, citizen_modify_lastname_label, "citizen_modify_lastname_label");
-  GLADE_HOOKUP_OBJECT (citizen_window, citizen_modify_phone_label, "citizen_modify_phone_label");
   GLADE_HOOKUP_OBJECT (citizen_window, citizen_modify_gender_label, "citizen_modify_gender_label");
   GLADE_HOOKUP_OBJECT (citizen_window, citizen_modify_phone_label, "citizen_modify_phone_label");
-  GLADE_HOOKUP_OBJECT (citizen_window, citizen_modify_car_label, "citizen_modify_car_label");
   GLADE_HOOKUP_OBJECT (citizen_window, citizen_modify_datebirth_calendar, "citizen_modify_datebirth_calendar");
   GLADE_HOOKUP_OBJECT (citizen_window, citizen_modify_datebirth_label, "citizen_modify_datebirth_label");
-  GLADE_HOOKUP_OBJECT (citizen_window, citizen_modify_female_radio, "citizen_modify_female_radio");
-  GLADE_HOOKUP_OBJECT (citizen_window, citizen_modify_male_radio, "citizen_modify_male_radio");
-  GLADE_HOOKUP_OBJECT (citizen_window, citizen_modify_notsay_radio, "citizen_modify_notsay_radio");
   GLADE_HOOKUP_OBJECT (citizen_window, citizen_modify_button_box, "citizen_modify_button_box");
   GLADE_HOOKUP_OBJECT (citizen_window, citizen_modify_apply_button, "citizen_modify_apply_button");
   GLADE_HOOKUP_OBJECT (citizen_window, alignment1, "alignment1");
@@ -4034,16 +4010,18 @@ create_citizen_window (void)
   GLADE_HOOKUP_OBJECT (citizen_window, hbox2, "hbox2");
   GLADE_HOOKUP_OBJECT (citizen_window, image2, "image2");
   GLADE_HOOKUP_OBJECT (citizen_window, label2, "label2");
-  GLADE_HOOKUP_OBJECT (citizen_window, citizen_modify_createcar_button, "citizen_modify_createcar_button");
-  GLADE_HOOKUP_OBJECT (citizen_window, alignment10, "alignment10");
-  GLADE_HOOKUP_OBJECT (citizen_window, hbox10, "hbox10");
-  GLADE_HOOKUP_OBJECT (citizen_window, image10, "image10");
-  GLADE_HOOKUP_OBJECT (citizen_window, label11, "label11");
-  GLADE_HOOKUP_OBJECT (citizen_window, citizen_modify_city_label, "citizen_modify_city_label");
-  GLADE_HOOKUP_OBJECT (citizen_window, citizen_modify_address_comboboxentry, "citizen_modify_address_comboboxentry");
-  GLADE_HOOKUP_OBJECT (citizen_window, citizen_modify_selectcar_combobox, "citizen_modify_selectcar_combobox");
   GLADE_HOOKUP_OBJECT (citizen_window, citizen_modify_logo, "citizen_modify_logo");
-  GLADE_HOOKUP_OBJECT (citizen_window, citizen_modify_password_button, "citizen_modify_password_button");
+  GLADE_HOOKUP_OBJECT (citizen_window, citizen_modify_password_entry, "citizen_modify_password_entry");
+  GLADE_HOOKUP_OBJECT (citizen_window, label254, "label254");
+  GLADE_HOOKUP_OBJECT (citizen_window, citizen_modify_password_label, "citizen_modify_password_label");
+  GLADE_HOOKUP_OBJECT (citizen_window, citizen_modify_car_entry, "citizen_modify_car_entry");
+  GLADE_HOOKUP_OBJECT (citizen_window, citizen_modify_car_label, "citizen_modify_car_label");
+  GLADE_HOOKUP_OBJECT (citizen_window, citizen_modify_city_label, "citizen_modify_city_label");
+  GLADE_HOOKUP_OBJECT (citizen_window, citizen_modify_street_entry, "citizen_modify_street_entry");
+  GLADE_HOOKUP_OBJECT (citizen_window, citizen_modify_street_label, "citizen_modify_street_label");
+  GLADE_HOOKUP_OBJECT (citizen_window, citizen_modify_male_radio, "citizen_modify_male_radio");
+  GLADE_HOOKUP_OBJECT (citizen_window, citizen_modify_female_radio, "citizen_modify_female_radio");
+  GLADE_HOOKUP_OBJECT (citizen_window, citizen_modify_address_comboboxentry, "citizen_modify_address_comboboxentry");
   GLADE_HOOKUP_OBJECT (citizen_window, citizen_modify_pager, "citizen_modify_pager");
   GLADE_HOOKUP_OBJECT (citizen_window, citizen_list_fixed, "citizen_list_fixed");
   GLADE_HOOKUP_OBJECT (citizen_window, citizen_list_alignement, "citizen_list_alignement");
