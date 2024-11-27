@@ -20,6 +20,10 @@ citizen_t citizen_create(__uint64_t id, __int8_t *first_name, __int8_t *last_nam
       .address = address,
       .password = password,
       .gender = gender,
+      .monthly_bill = 0.0f,
+      .birth_date = time(NULL),
+      .registration_datetime = time(NULL),
+      .vehicle_num = 12345678,
       .last_login_datetime = time(NULL)  // Set to current time
   };
 
@@ -66,30 +70,30 @@ void citizen_delete() {
 }
 
 bool_t citizen_signin(__int8_t *email, __int8_t *password) {
-    FILE *file = fopen(PATH_CITIZEN_DATA, "rb");  // Open file for reading in binary mode
-    if (file == NULL) {
-      perror("Error opening file");
-      return false;
+  FILE *file = fopen(PATH_CITIZEN_DATA, "rb");  // Open file for reading in binary mode
+  if (file == NULL) {
+    perror("Error opening file");
+    return false;
+  }
+
+  citizen_t current_citizen;
+  size_t citizen_size = sizeof(citizen_t);
+
+  // Iterate through the file, reading one citizen at a time
+  while (fread(&current_citizen, citizen_size, 1, file) == 1) {
+    // Compare email and password
+    if (strcmp((char *)current_citizen.email, (char *)email) == 0 &&
+      strcmp((char *)current_citizen.password, (char *)password) == 0) {
+      fclose(file);
+      // Citizen account found, assign to the global variable
+      connected_citizen = current_citizen;
+      return true;
     }
+  }
 
-    citizen_t current_citizen;
-    size_t citizen_size = sizeof(citizen_t);
-
-    // Iterate through the file, reading one citizen at a time
-    while (fread(&current_citizen, citizen_size, 1, file) == 1) {
-      // Compare email and password
-      if (strcmp((char *)current_citizen.email, (char *)email) == 0 &&
-        strcmp((char *)current_citizen.password, (char *)password) == 0) {
-        fclose(file);
-        // Citizen account found, assign to the global variable
-        connected_citizen = current_citizen;
-        return true;
-      }
-    }
-
-    // If no match is found
-    fclose(file);
-    printf("No account found with the given email and password.\n");
+  // If no match is found
+  fclose(file);
+  printf("No account found with the given email and password.\n");
 }
 
 
@@ -118,10 +122,49 @@ void citizen_fetch(__uint64_t id) {
 }
 
 
-void citizen_modify(__uint64_t id){
+// Modify function that fills the connected_citizen struct
+void citizen_modify(const __int8_t *first_name, const __int8_t *last_name, const __int8_t *phone,
+                    const __int8_t *email, const __int8_t *street, const __int8_t *password,
+                    const __int8_t *car_num, const __int8_t *address, struct tm birth_time) {
 
+  // Fill in the connected_citizen struct with the passed values
+
+  // Copy strings into the Citizen struct fields
+  strncpy((char *)connected_citizen.first_name, first_name, sizeof(connected_citizen.first_name) - 1);
+  connected_citizen.first_name[sizeof(connected_citizen.first_name) - 1] = '\0'; // Null-terminate
+
+  strncpy((char *)connected_citizen.last_name, last_name, sizeof(connected_citizen.last_name) - 1);
+  connected_citizen.last_name[sizeof(connected_citizen.last_name) - 1] = '\0'; // Null-terminate
+
+  strncpy((char *)connected_citizen.phone, phone, sizeof(connected_citizen.phone) - 1);
+  connected_citizen.phone[sizeof(connected_citizen.phone) - 1] = '\0'; // Null-terminate
+
+  strncpy((char *)connected_citizen.email, email, sizeof(connected_citizen.email) - 1);
+  connected_citizen.email[sizeof(connected_citizen.email) - 1] = '\0'; // Null-terminate
+
+  strncpy((char *)connected_citizen.password, password, sizeof(connected_citizen.password) - 1);
+  connected_citizen.password[sizeof(connected_citizen.password) - 1] = '\0'; // Null-terminate
+
+  // Use snprintf to combine street and address into the address field
+  snprintf((char *)connected_citizen.address, sizeof(connected_citizen.address), "%s, %s", street, address);
+
+  // Set gender based on radio button values
+  if (is_male)
+      connected_citizen.gender = male;
+  else if (is_female)
+      connected_citizen.gender = female;
+
+  // Copy car number (vehicle number) into the Citizen struct
+  strncpy((char *)connected_citizen.vehicle_num, car_num, sizeof(connected_citizen.vehicle_num) - 1);
+  connected_citizen.vehicle_num[sizeof(connected_citizen.vehicle_num) - 1] = '\0'; // Null-terminate
+
+  // Set birth_date
+  connected_citizen.birth_date = mktime(&birth_time);
+
+  // Optionally, set registration and login datetime (for example, current time)
+  connected_citizen.registration_datetime = time(NULL); // Current time for registration
+  connected_citizen.last_login_datetime = time(NULL);  // Current time for last login
 }
-
 
 void citizen_calc_monthlybill() {
   // Open the binary file for reading

@@ -168,7 +168,3 @@ citizen_list_add_clicked               (GtkButton       *button,
 void
 citizen_list_delete_clicked            (GtkButton       *button,
                                         gpointer         user_data);
-
-void
-citizen_list_about_clicked             (GtkButton       *button,
-                                        gpointer         user_data);

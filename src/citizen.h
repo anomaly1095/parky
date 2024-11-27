@@ -20,6 +20,7 @@
     float monthly_bill;
     __int16_t total_reservations;
     __int8_t vehicle_num[16];
+    time_t birth_date;
     time_t registration_datetime;
     time_t last_login_datetime;
   }citizen_t; 
