@@ -44,7 +44,6 @@ create_signup_window (void)
   GtkWidget *signup_email_label;
   GtkWidget *signup_password_label;
   GtkWidget *signup_password_confirm_label;
-  GtkWidget *signup_button;
   GtkWidget *signup_male_radio;
   GSList *signup_male_radio_group = NULL;
   GtkWidget *signup_female_radio;
@@ -52,6 +51,7 @@ create_signup_window (void)
   GtkWidget *signup_address_label;
   GtkWidget *signup_logo;
   GtkWidget *signup_image;
+  GtkWidget *signup_button;
 
   signup_window = gtk_window_new (GTK_WINDOW_TOPLEVEL);
   gtk_widget_set_size_request (signup_window, 455, 670);
@@ -134,11 +134,6 @@ create_signup_window (void)
   gtk_fixed_put (GTK_FIXED (fixed30), signup_password_confirm_label, 0, 568);
   gtk_widget_set_size_request (signup_password_confirm_label, 176, 32);
 
-  signup_button = gtk_button_new_with_mnemonic (_("sign up"));
-  gtk_widget_show (signup_button);
-  gtk_fixed_put (GTK_FIXED (fixed30), signup_button, 40, 616);
-  gtk_widget_set_size_request (signup_button, 360, 37);
-
   signup_male_radio = gtk_radio_button_new_with_mnemonic (NULL, _("Male"));
   gtk_widget_show (signup_male_radio);
   gtk_fixed_put (GTK_FIXED (fixed30), signup_male_radio, 168, 488);
@@ -173,6 +168,11 @@ create_signup_window (void)
   gtk_fixed_put (GTK_FIXED (fixed30), signup_image, 112, 0);
   gtk_widget_set_size_request (signup_image, 288, 256);
 
+  signup_button = gtk_button_new_with_mnemonic (_("sign up"));
+  gtk_widget_show (signup_button);
+  gtk_fixed_put (GTK_FIXED (fixed30), signup_button, 40, 616);
+  gtk_widget_set_size_request (signup_button, 360, 37);
+
   g_signal_connect ((gpointer) signup_button, "clicked",
                     G_CALLBACK (signup_clicked),
                     NULL);
@@ -193,13 +193,13 @@ create_signup_window (void)
   GLADE_HOOKUP_OBJECT (signup_window, signup_email_label, "signup_email_label");
   GLADE_HOOKUP_OBJECT (signup_window, signup_password_label, "signup_password_label");
   GLADE_HOOKUP_OBJECT (signup_window, signup_password_confirm_label, "signup_password_confirm_label");
-  GLADE_HOOKUP_OBJECT (signup_window, signup_button, "signup_button");
   GLADE_HOOKUP_OBJECT (signup_window, signup_male_radio, "signup_male_radio");
   GLADE_HOOKUP_OBJECT (signup_window, signup_female_radio, "signup_female_radio");
   GLADE_HOOKUP_OBJECT (signup_window, signup_gender_label, "signup_gender_label");
   GLADE_HOOKUP_OBJECT (signup_window, signup_address_label, "signup_address_label");
   GLADE_HOOKUP_OBJECT (signup_window, signup_logo, "signup_logo");
   GLADE_HOOKUP_OBJECT (signup_window, signup_image, "signup_image");
+  GLADE_HOOKUP_OBJECT (signup_window, signup_button, "signup_button");
 
   return signup_window;
 }
@@ -214,12 +214,12 @@ create_signin_window (void)
   GtkWidget *signin_logo;
   GtkWidget *signin_email_label;
   GtkWidget *signin_password_label;
+  GtkWidget *signin_image;
   GtkWidget *signin_button;
   GtkWidget *alignment40;
   GtkWidget *hbox40;
   GtkWidget *image101;
   GtkWidget *label251;
-  GtkWidget *signin_image;
 
   signin_window = gtk_window_new (GTK_WINDOW_TOPLEVEL);
   gtk_widget_set_size_request (signin_window, 464, -1);
@@ -261,6 +261,11 @@ create_signin_window (void)
   gtk_fixed_put (GTK_FIXED (signin_grid), signin_password_label, 40, 344);
   gtk_widget_set_size_request (signin_password_label, 216, 48);
 
+  signin_image = create_pixmap (signin_window, "icon_signup.jpeg");
+  gtk_widget_show (signin_image);
+  gtk_fixed_put (GTK_FIXED (signin_grid), signin_image, 96, 0);
+  gtk_widget_set_size_request (signin_image, 300, 300);
+
   signin_button = gtk_button_new ();
   gtk_widget_show (signin_button);
   gtk_fixed_put (GTK_FIXED (signin_grid), signin_button, 144, 416);
@@ -283,11 +288,6 @@ create_signin_window (void)
   gtk_widget_show (label251);
   gtk_box_pack_start (GTK_BOX (hbox40), label251, FALSE, FALSE, 0);
 
-  signin_image = create_pixmap (signin_window, "icon_signup.jpeg");
-  gtk_widget_show (signin_image);
-  gtk_fixed_put (GTK_FIXED (signin_grid), signin_image, 96, 0);
-  gtk_widget_set_size_request (signin_image, 300, 300);
-
   g_signal_connect ((gpointer) signin_button, "clicked",
                     G_CALLBACK (signin_clicked),
                     NULL);
@@ -300,12 +300,12 @@ create_signin_window (void)
   GLADE_HOOKUP_OBJECT (signin_window, signin_logo, "signin_logo");
   GLADE_HOOKUP_OBJECT (signin_window, signin_email_label, "signin_email_label");
   GLADE_HOOKUP_OBJECT (signin_window, signin_password_label, "signin_password_label");
+  GLADE_HOOKUP_OBJECT (signin_window, signin_image, "signin_image");
   GLADE_HOOKUP_OBJECT (signin_window, signin_button, "signin_button");
   GLADE_HOOKUP_OBJECT (signin_window, alignment40, "alignment40");
   GLADE_HOOKUP_OBJECT (signin_window, hbox40, "hbox40");
   GLADE_HOOKUP_OBJECT (signin_window, image101, "image101");
   GLADE_HOOKUP_OBJECT (signin_window, label251, "label251");
-  GLADE_HOOKUP_OBJECT (signin_window, signin_image, "signin_image");
 
   return signin_window;
 }
@@ -319,26 +319,26 @@ create_admin_window (void)
   GtkWidget *parking_create_fixed;
   GtkWidget *parking_create_location_entry;
   GtkWidget *parking_create_capacity_entry;
-  GtkWidget *parking_create_availability_entry;
-  GtkWidget *parking_create_fees_entry;
-  GtkObject *parking_create_agent_spinbutton_adj;
-  GtkWidget *parking_create_agent_spinbutton;
-  GtkWidget *parking_create__cancel_button;
-  GtkWidget *parking_create__cancel_alignement;
-  GtkWidget *parking_create__cancel_hbox;
-  GtkWidget *parking_create__cancel_image;
-  GtkWidget *parking_create__cancel_label;
+  GtkWidget *parking_create_fees_label;
+  GtkWidget *parking_create_agent_label;
+  GtkWidget *parking_create_location_label;
+  GtkWidget *image78;
   GtkWidget *parking_create__confirm_button;
   GtkWidget *parking_create__confirm_alignement;
   GtkWidget *parking_create__confirm_hbox;
   GtkWidget *parking_create__confirm_image;
   GtkWidget *parking_create__confirm_label;
+  GtkWidget *parking_create__cancel_button;
+  GtkWidget *parking_create__cancel_alignement;
+  GtkWidget *parking_create__cancel_hbox;
+  GtkWidget *parking_create__cancel_image;
+  GtkWidget *parking_create__cancel_label;
+  GtkWidget *parking_create_fees_combobox;
+  GtkWidget *parking_create_id_agent_combobox;
+  GtkObject *parking_create__adj;
+  GtkWidget *parking_create_;
   GtkWidget *parking_create_availability_label;
-  GtkWidget *parking_create_fees_label;
-  GtkWidget *parking_create_agent_label;
   GtkWidget *parking_create_capacity_label;
-  GtkWidget *parking_create_location_label;
-  GtkWidget *image78;
   GtkWidget *parking_create_label;
   GtkWidget *parking_edit_fixed;
   GtkWidget *parking_edit_location_entry;
@@ -347,6 +347,12 @@ create_admin_window (void)
   GtkWidget *parking_edit_fees_entry;
   GtkObject *parking_edit_id_spinbutton_adj;
   GtkWidget *parking_edit_id_spinbutton;
+  GtkWidget *parking_edit_location_label;
+  GtkWidget *parking_edit_id_label;
+  GtkWidget *parking_edit_capacity_label;
+  GtkWidget *parking_edit_availability_label;
+  GtkWidget *parking_edit_fees_label;
+  GtkWidget *image82;
   GtkWidget *parking_edit_cancel_button;
   GtkWidget *alignment32;
   GtkWidget *hbox32;
@@ -357,28 +363,22 @@ create_admin_window (void)
   GtkWidget *hbox33;
   GtkWidget *image40;
   GtkWidget *label174;
-  GtkWidget *parking_edit_location_label;
-  GtkWidget *parking_edit_id_label;
-  GtkWidget *parking_edit_capacity_label;
-  GtkWidget *parking_edit_availability_label;
-  GtkWidget *parking_edit_fees_label;
-  GtkWidget *image82;
   GtkWidget *parking_edit_label;
   GtkWidget *parking_edit_delete_;
   GtkObject *parking_delete_id_spinbutton_adj;
   GtkWidget *parking_delete_id_spinbutton;
   GtkWidget *parking_delete_id_label;
-  GtkWidget *parking_delete_confirm_button;
-  GtkWidget *alignment34;
-  GtkWidget *hbox34;
-  GtkWidget *image41;
-  GtkWidget *label176;
+  GtkWidget *image83;
   GtkWidget *parking_delete_cancel_button;
   GtkWidget *alignment35;
   GtkWidget *hbox35;
   GtkWidget *image42;
   GtkWidget *label177;
-  GtkWidget *image83;
+  GtkWidget *parking_delete_confirm_button;
+  GtkWidget *alignment34;
+  GtkWidget *hbox34;
+  GtkWidget *image41;
+  GtkWidget *label176;
   GtkWidget *parking_delete_label;
   GtkWidget *fixed28;
   GtkObject *parking_dislay_id_spinbutton_adj;
@@ -386,19 +386,18 @@ create_admin_window (void)
   GtkWidget *scrolledwindow5;
   GtkWidget *parking_display_treeview;
   GtkWidget *parking_display_label;
+  GtkWidget *image84;
   GtkWidget *parking_display_search_button;
   GtkWidget *alignment36;
   GtkWidget *hbox36;
   GtkWidget *image45;
   GtkWidget *label181;
-  GtkWidget *image84;
   GtkWidget *parking_display_label;
   GtkWidget *admin_manage_parking_label;
   GtkWidget *admin_manage_services_notebook;
   GtkWidget *fixed17;
   GtkObject *Service_display_ID_code_adj;
   GtkWidget *Service_display_ID_code;
-  GtkWidget *Service_display_countity;
   GtkWidget *Service_display_clist;
   GtkWidget *Service_display_clist_id_service;
   GtkWidget *Service_display_clist_id_reservation;
@@ -407,31 +406,15 @@ create_admin_window (void)
   GtkWidget *Service_display_clist_Duration;
   GtkWidget *Service_display_clist_Price;
   GtkWidget *Service_display_ID;
+  GtkWidget *image92;
   GtkWidget *Service_main;
-  GtkWidget *Service_display_number;
-  GtkWidget *Service_display_Create;
-  GtkWidget *alignment5;
-  GtkWidget *hbox5;
-  GtkWidget *image5;
-  GtkWidget *label50;
-  GtkWidget *Service_display_Delete;
-  GtkWidget *alignment3;
-  GtkWidget *hbox3;
-  GtkWidget *image3;
-  GtkWidget *label48;
+  GtkWidget *Service_display_Reservations;
+  GtkWidget *Service_update_view_reservations;
   GtkWidget *Service_display_Search;
   GtkWidget *alignment2;
   GtkWidget *hbox2;
   GtkWidget *image2;
   GtkWidget *label15;
-  GtkWidget *Service_update_view_reservations;
-  GtkWidget *Service_display_Reservations;
-  GtkWidget *Service_display_Update;
-  GtkWidget *alignment4;
-  GtkWidget *hbox4;
-  GtkWidget *image4;
-  GtkWidget *label49;
-  GtkWidget *image92;
   GtkWidget *Service_Display;
   GtkWidget *fixed20;
   GtkWidget *Service_Create_name;
@@ -453,6 +436,7 @@ create_admin_window (void)
   GtkWidget *Service_Create_Price_notfree_Unit;
   GtkWidget *Service_Create_main;
   GtkWidget *image85;
+  GtkWidget *service_create_add_button;
   GtkWidget *Service_Create;
   GtkWidget *fixed21;
   GtkWidget *Service_update_Name;
@@ -474,14 +458,18 @@ create_admin_window (void)
   GtkWidget *Service_update_Name;
   GtkWidget *Service_update_main;
   GtkWidget *image86;
+  GtkWidget *button36;
   GtkWidget *Service_Update;
   GtkWidget *fixed14;
+  GtkWidget *image87;
+  GtkObject *service_delete_id_entry_SpinButton_adj;
+  GtkWidget *service_delete_id_entry_SpinButton;
+  GtkWidget *label252;
   GtkWidget *Service_Delete_button;
   GtkWidget *alignment6;
   GtkWidget *hbox6;
   GtkWidget *image6;
   GtkWidget *label51;
-  GtkWidget *image87;
   GtkWidget *Service_Delete;
   GtkWidget *admin_manage_service_label;
   GtkWidget *admin_manage_services_notebook;
@@ -501,21 +489,21 @@ create_admin_window (void)
   GtkWidget *agent_post_availablity_parking_clist_label;
   GtkWidget *agent_post_Number_Of_Availablity_Agent___entry;
   GtkWidget *agent_post_Total_Agent____entry;
+  GtkWidget *agent_post_id_comboboxentry;
+  GtkWidget *agent_post_total_agents;
+  GtkWidget *agent_post_id_label;
+  GtkWidget *agent_post_available_agents_label;
+  GtkWidget *image80;
   GtkWidget *agent_post_research_button;
   GtkWidget *alignment24;
   GtkWidget *hbox22;
   GtkWidget *agent_post_research_lmage;
   GtkWidget *agent_post_research_label;
-  GtkWidget *agent_post_id_comboboxentry;
-  GtkWidget *agent_post_total_agents;
-  GtkWidget *agent_post_id_label;
   GtkWidget *agent_post_update_button;
   GtkWidget *alignment19;
   GtkWidget *hbox19;
   GtkWidget *agent_post_update_lmage;
   GtkWidget *agent_post_update_label;
-  GtkWidget *agent_post_available_agents_label;
-  GtkWidget *image80;
   GtkWidget *Agent_Post_label;
   GtkWidget *fixed3;
   GtkWidget *agent_add_first_name_entry;
@@ -535,17 +523,17 @@ create_admin_window (void)
   GtkWidget *agent_add_last_name_label;
   GtkWidget *agent_add_phone_label;
   GtkWidget *agent_add_e_mail_label;
+  GtkWidget *image88;
+  GtkWidget *agent_add_add_button;
+  GtkWidget *alignment41;
+  GtkWidget *hbox41;
+  GtkWidget *image102;
+  GtkWidget *label253;
   GtkWidget *agent_add_cancel_button;
   GtkWidget *alignment2;
   GtkWidget *hbox2;
   GtkWidget *agent_add_cancel_image;
   GtkWidget *agent_add_cancel_label;
-  GtkWidget *agent_add_add_button;
-  GtkWidget *alignment1;
-  GtkWidget *hbox1;
-  GtkWidget *agent_add_add_image;
-  GtkWidget *agent_add_add_button;
-  GtkWidget *image88;
   GtkWidget *agent_add_label;
   GtkWidget *fixed9;
   GtkWidget *agent_modify_first_name_entry;
@@ -572,6 +560,9 @@ create_admin_window (void)
   GSList *agent_modify_availablity_status_available_RadioButton_group = NULL;
   GtkWidget *agent_modify_id_parking_ComboBoxEntry;
   GtkWidget *agent_modify_id_parking_label;
+  GtkWidget *agent_modify_availablity_status_not_available_RadioButton;
+  GSList *agent_modify_availablity_status_not_available_RadioButton_group = NULL;
+  GtkWidget *image89;
   GtkWidget *agent_modify_modity_button;
   GtkWidget *alignment16;
   GtkWidget *hbox16;
@@ -582,25 +573,22 @@ create_admin_window (void)
   GtkWidget *hbox14;
   GtkWidget *agent_modify_cancel_image;
   GtkWidget *agent_modify_cancel_label;
-  GtkWidget *agent_modify_availablity_status_not_available_RadioButton;
-  GSList *agent_modify_availablity_status_not_available_RadioButton_group = NULL;
-  GtkWidget *image89;
   GtkWidget *agent_modify_label;
   GtkWidget *fixed10;
   GtkObject *agent_delete_id_spinbutton_adj;
   GtkWidget *agent_delete_id_spinbutton;
+  GtkWidget *agent_delete_id_label;
+  GtkWidget *image90;
   GtkWidget *agent_delete_return_button;
   GtkWidget *alignment17;
   GtkWidget *hbox17;
   GtkWidget *agent_delete_return_image;
   GtkWidget *agent_delete_return_label;
-  GtkWidget *agent_delete_id_label;
   GtkWidget *agent_delete_delete_button;
   GtkWidget *alignment18;
   GtkWidget *hbox18;
   GtkWidget *agent_delete_delete_image;
   GtkWidget *agent_delete_delete_label;
-  GtkWidget *image90;
   GtkWidget *agent_delete_label;
   GtkWidget *admin_manage_agent_label;
   GtkWidget *fixed11;
@@ -613,18 +601,18 @@ create_admin_window (void)
   GtkWidget *scrolledwindow2;
   GtkWidget *agent_display_treeview;
   GtkWidget *agent_display_Reservation_list_label;
-  GtkWidget *agent_display_update_Button;
-  GtkWidget *alignment23;
-  GtkWidget *hbox21;
-  GtkWidget *agent_display_update_image;
-  GtkWidget *agent_display_update_label;
+  GtkWidget *agent_display_Reservation_date_label;
+  GtkWidget *image81;
   GtkWidget *agent_display_search_Button;
   GtkWidget *alignment22;
   GtkWidget *hbox20;
   GtkWidget *agent_display_search_image;
   GtkWidget *agent_display_search_label;
-  GtkWidget *agent_display_Reservation_date_label;
-  GtkWidget *image81;
+  GtkWidget *agent_display_update_Button;
+  GtkWidget *alignment23;
+  GtkWidget *hbox21;
+  GtkWidget *agent_display_update_image;
+  GtkWidget *agent_display_update_label;
   GtkWidget *admin_display_reservations;
 
   admin_window = gtk_window_new (GTK_WINDOW_TOPLEVEL);
@@ -658,45 +646,25 @@ create_admin_window (void)
   gtk_widget_set_size_request (parking_create_capacity_entry, 160, 27);
   gtk_entry_set_invisible_char (GTK_ENTRY (parking_create_capacity_entry), 8226);
 
-  parking_create_availability_entry = gtk_entry_new ();
-  gtk_widget_show (parking_create_availability_entry);
-  gtk_fixed_put (GTK_FIXED (parking_create_fixed), parking_create_availability_entry, 288, 240);
-  gtk_widget_set_size_request (parking_create_availability_entry, 160, 27);
-  gtk_entry_set_invisible_char (GTK_ENTRY (parking_create_availability_entry), 8226);
+  parking_create_fees_label = gtk_label_new (_("Fees"));
+  gtk_widget_show (parking_create_fees_label);
+  gtk_fixed_put (GTK_FIXED (parking_create_fixed), parking_create_fees_label, 128, 296);
+  gtk_widget_set_size_request (parking_create_fees_label, 216, 48);
 
-  parking_create_fees_entry = gtk_entry_new ();
-  gtk_widget_show (parking_create_fees_entry);
-  gtk_fixed_put (GTK_FIXED (parking_create_fixed), parking_create_fees_entry, 288, 304);
-  gtk_widget_set_size_request (parking_create_fees_entry, 160, 27);
-  gtk_entry_set_invisible_char (GTK_ENTRY (parking_create_fees_entry), 8226);
+  parking_create_agent_label = gtk_label_new (_("id-agent"));
+  gtk_widget_show (parking_create_agent_label);
+  gtk_fixed_put (GTK_FIXED (parking_create_fixed), parking_create_agent_label, 128, 360);
+  gtk_widget_set_size_request (parking_create_agent_label, 216, 48);
 
-  parking_create_agent_spinbutton_adj = gtk_adjustment_new (1, 0, 100, 1, 10, 10);
-  parking_create_agent_spinbutton = gtk_spin_button_new (GTK_ADJUSTMENT (parking_create_agent_spinbutton_adj), 1, 0);
-  gtk_widget_show (parking_create_agent_spinbutton);
-  gtk_fixed_put (GTK_FIXED (parking_create_fixed), parking_create_agent_spinbutton, 288, 376);
-  gtk_widget_set_size_request (parking_create_agent_spinbutton, 160, 27);
+  parking_create_location_label = gtk_label_new (_("Location"));
+  gtk_widget_show (parking_create_location_label);
+  gtk_fixed_put (GTK_FIXED (parking_create_fixed), parking_create_location_label, 120, 96);
+  gtk_widget_set_size_request (parking_create_location_label, 216, 48);
 
-  parking_create__cancel_button = gtk_button_new ();
-  gtk_widget_show (parking_create__cancel_button);
-  gtk_fixed_put (GTK_FIXED (parking_create_fixed), parking_create__cancel_button, 152, 440);
-  gtk_widget_set_size_request (parking_create__cancel_button, 216, 48);
-  gtk_container_set_border_width (GTK_CONTAINER (parking_create__cancel_button), 2);
-
-  parking_create__cancel_alignement = gtk_alignment_new (0.5, 0.5, 0, 0);
-  gtk_widget_show (parking_create__cancel_alignement);
-  gtk_container_add (GTK_CONTAINER (parking_create__cancel_button), parking_create__cancel_alignement);
-
-  parking_create__cancel_hbox = gtk_hbox_new (FALSE, 2);
-  gtk_widget_show (parking_create__cancel_hbox);
-  gtk_container_add (GTK_CONTAINER (parking_create__cancel_alignement), parking_create__cancel_hbox);
-
-  parking_create__cancel_image = gtk_image_new_from_stock ("gtk-cancel", GTK_ICON_SIZE_BUTTON);
-  gtk_widget_show (parking_create__cancel_image);
-  gtk_box_pack_start (GTK_BOX (parking_create__cancel_hbox), parking_create__cancel_image, FALSE, FALSE, 0);
-
-  parking_create__cancel_label = gtk_label_new_with_mnemonic (_("Cancel"));
-  gtk_widget_show (parking_create__cancel_label);
-  gtk_box_pack_start (GTK_BOX (parking_create__cancel_hbox), parking_create__cancel_label, FALSE, FALSE, 0);
+  image78 = create_pixmap (admin_window, "jhhhhhhh.JPG");
+  gtk_widget_show (image78);
+  gtk_fixed_put (GTK_FIXED (parking_create_fixed), image78, 24, 8);
+  gtk_widget_set_size_request (image78, 50, 50);
 
   parking_create__confirm_button = gtk_button_new ();
   gtk_widget_show (parking_create__confirm_button);
@@ -720,35 +688,55 @@ create_admin_window (void)
   gtk_widget_show (parking_create__confirm_label);
   gtk_box_pack_start (GTK_BOX (parking_create__confirm_hbox), parking_create__confirm_label, FALSE, FALSE, 0);
 
-  parking_create_availability_label = gtk_label_new (_("Availability"));
+  parking_create__cancel_button = gtk_button_new ();
+  gtk_widget_show (parking_create__cancel_button);
+  gtk_fixed_put (GTK_FIXED (parking_create_fixed), parking_create__cancel_button, 152, 440);
+  gtk_widget_set_size_request (parking_create__cancel_button, 216, 48);
+  gtk_container_set_border_width (GTK_CONTAINER (parking_create__cancel_button), 2);
+
+  parking_create__cancel_alignement = gtk_alignment_new (0.5, 0.5, 0, 0);
+  gtk_widget_show (parking_create__cancel_alignement);
+  gtk_container_add (GTK_CONTAINER (parking_create__cancel_button), parking_create__cancel_alignement);
+
+  parking_create__cancel_hbox = gtk_hbox_new (FALSE, 2);
+  gtk_widget_show (parking_create__cancel_hbox);
+  gtk_container_add (GTK_CONTAINER (parking_create__cancel_alignement), parking_create__cancel_hbox);
+
+  parking_create__cancel_image = gtk_image_new_from_stock ("gtk-cancel", GTK_ICON_SIZE_BUTTON);
+  gtk_widget_show (parking_create__cancel_image);
+  gtk_box_pack_start (GTK_BOX (parking_create__cancel_hbox), parking_create__cancel_image, FALSE, FALSE, 0);
+
+  parking_create__cancel_label = gtk_label_new_with_mnemonic (_("Cancel"));
+  gtk_widget_show (parking_create__cancel_label);
+  gtk_box_pack_start (GTK_BOX (parking_create__cancel_hbox), parking_create__cancel_label, FALSE, FALSE, 0);
+
+  parking_create_fees_combobox = gtk_combo_box_new_text ();
+  gtk_widget_show (parking_create_fees_combobox);
+  gtk_fixed_put (GTK_FIXED (parking_create_fixed), parking_create_fees_combobox, 288, 304);
+  gtk_widget_set_size_request (parking_create_fees_combobox, 160, 32);
+  gtk_combo_box_append_text (GTK_COMBO_BOX (parking_create_fees_combobox), _("0"));
+
+  parking_create_id_agent_combobox = gtk_combo_box_new_text ();
+  gtk_widget_show (parking_create_id_agent_combobox);
+  gtk_fixed_put (GTK_FIXED (parking_create_fixed), parking_create_id_agent_combobox, 288, 368);
+  gtk_widget_set_size_request (parking_create_id_agent_combobox, 160, 32);
+  gtk_combo_box_append_text (GTK_COMBO_BOX (parking_create_id_agent_combobox), _("0"));
+
+  parking_create__adj = gtk_adjustment_new (1, 0, 100, 1, 10, 10);
+  parking_create_ = gtk_spin_button_new (GTK_ADJUSTMENT (parking_create__adj), 1, 0);
+  gtk_widget_show (parking_create_);
+  gtk_fixed_put (GTK_FIXED (parking_create_fixed), parking_create_, 288, 232);
+  gtk_widget_set_size_request (parking_create_, 152, 32);
+
+  parking_create_availability_label = gtk_label_new (_("Available places: "));
   gtk_widget_show (parking_create_availability_label);
-  gtk_fixed_put (GTK_FIXED (parking_create_fixed), parking_create_availability_label, 128, 224);
+  gtk_fixed_put (GTK_FIXED (parking_create_fixed), parking_create_availability_label, 120, 224);
   gtk_widget_set_size_request (parking_create_availability_label, 216, 48);
-
-  parking_create_fees_label = gtk_label_new (_("Fees"));
-  gtk_widget_show (parking_create_fees_label);
-  gtk_fixed_put (GTK_FIXED (parking_create_fixed), parking_create_fees_label, 128, 296);
-  gtk_widget_set_size_request (parking_create_fees_label, 216, 48);
-
-  parking_create_agent_label = gtk_label_new (_("id-agent"));
-  gtk_widget_show (parking_create_agent_label);
-  gtk_fixed_put (GTK_FIXED (parking_create_fixed), parking_create_agent_label, 128, 360);
-  gtk_widget_set_size_request (parking_create_agent_label, 216, 48);
 
   parking_create_capacity_label = gtk_label_new (_("Capacity"));
   gtk_widget_show (parking_create_capacity_label);
   gtk_fixed_put (GTK_FIXED (parking_create_fixed), parking_create_capacity_label, 128, 160);
   gtk_widget_set_size_request (parking_create_capacity_label, 216, 48);
-
-  parking_create_location_label = gtk_label_new (_("Location"));
-  gtk_widget_show (parking_create_location_label);
-  gtk_fixed_put (GTK_FIXED (parking_create_fixed), parking_create_location_label, 120, 96);
-  gtk_widget_set_size_request (parking_create_location_label, 216, 48);
-
-  image78 = create_pixmap (admin_window, "jhhhhhhh.JPG");
-  gtk_widget_show (image78);
-  gtk_fixed_put (GTK_FIXED (parking_create_fixed), image78, 24, 8);
-  gtk_widget_set_size_request (image78, 50, 50);
 
   parking_create_label = gtk_label_new (_("Create "));
   gtk_widget_show (parking_create_label);
@@ -787,6 +775,36 @@ create_admin_window (void)
   gtk_widget_show (parking_edit_id_spinbutton);
   gtk_fixed_put (GTK_FIXED (parking_edit_fixed), parking_edit_id_spinbutton, 297, 96);
   gtk_widget_set_size_request (parking_edit_id_spinbutton, 160, 27);
+
+  parking_edit_location_label = gtk_label_new (_("Location"));
+  gtk_widget_show (parking_edit_location_label);
+  gtk_fixed_put (GTK_FIXED (parking_edit_fixed), parking_edit_location_label, 112, 152);
+  gtk_widget_set_size_request (parking_edit_location_label, 216, 48);
+
+  parking_edit_id_label = gtk_label_new (_("id-parking"));
+  gtk_widget_show (parking_edit_id_label);
+  gtk_fixed_put (GTK_FIXED (parking_edit_fixed), parking_edit_id_label, 104, 88);
+  gtk_widget_set_size_request (parking_edit_id_label, 216, 48);
+
+  parking_edit_capacity_label = gtk_label_new (_("Capacity"));
+  gtk_widget_show (parking_edit_capacity_label);
+  gtk_fixed_put (GTK_FIXED (parking_edit_fixed), parking_edit_capacity_label, 96, 216);
+  gtk_widget_set_size_request (parking_edit_capacity_label, 246, 48);
+
+  parking_edit_availability_label = gtk_label_new (_("Availability"));
+  gtk_widget_show (parking_edit_availability_label);
+  gtk_fixed_put (GTK_FIXED (parking_edit_fixed), parking_edit_availability_label, 120, 280);
+  gtk_widget_set_size_request (parking_edit_availability_label, 216, 48);
+
+  parking_edit_fees_label = gtk_label_new (_("Fees"));
+  gtk_widget_show (parking_edit_fees_label);
+  gtk_fixed_put (GTK_FIXED (parking_edit_fixed), parking_edit_fees_label, 136, 344);
+  gtk_widget_set_size_request (parking_edit_fees_label, 216, 48);
+
+  image82 = create_pixmap (admin_window, "jhhhhhhh.JPG");
+  gtk_widget_show (image82);
+  gtk_fixed_put (GTK_FIXED (parking_edit_fixed), image82, 24, 8);
+  gtk_widget_set_size_request (image82, 50, 50);
 
   parking_edit_cancel_button = gtk_button_new ();
   gtk_widget_show (parking_edit_cancel_button);
@@ -832,36 +850,6 @@ create_admin_window (void)
   gtk_widget_show (label174);
   gtk_box_pack_start (GTK_BOX (hbox33), label174, FALSE, FALSE, 0);
 
-  parking_edit_location_label = gtk_label_new (_("Location"));
-  gtk_widget_show (parking_edit_location_label);
-  gtk_fixed_put (GTK_FIXED (parking_edit_fixed), parking_edit_location_label, 112, 152);
-  gtk_widget_set_size_request (parking_edit_location_label, 216, 48);
-
-  parking_edit_id_label = gtk_label_new (_("id-parking"));
-  gtk_widget_show (parking_edit_id_label);
-  gtk_fixed_put (GTK_FIXED (parking_edit_fixed), parking_edit_id_label, 104, 88);
-  gtk_widget_set_size_request (parking_edit_id_label, 216, 48);
-
-  parking_edit_capacity_label = gtk_label_new (_("Capacity"));
-  gtk_widget_show (parking_edit_capacity_label);
-  gtk_fixed_put (GTK_FIXED (parking_edit_fixed), parking_edit_capacity_label, 96, 216);
-  gtk_widget_set_size_request (parking_edit_capacity_label, 246, 48);
-
-  parking_edit_availability_label = gtk_label_new (_("Availability"));
-  gtk_widget_show (parking_edit_availability_label);
-  gtk_fixed_put (GTK_FIXED (parking_edit_fixed), parking_edit_availability_label, 120, 280);
-  gtk_widget_set_size_request (parking_edit_availability_label, 216, 48);
-
-  parking_edit_fees_label = gtk_label_new (_("Fees"));
-  gtk_widget_show (parking_edit_fees_label);
-  gtk_fixed_put (GTK_FIXED (parking_edit_fixed), parking_edit_fees_label, 136, 344);
-  gtk_widget_set_size_request (parking_edit_fees_label, 216, 48);
-
-  image82 = create_pixmap (admin_window, "jhhhhhhh.JPG");
-  gtk_widget_show (image82);
-  gtk_fixed_put (GTK_FIXED (parking_edit_fixed), image82, 24, 8);
-  gtk_widget_set_size_request (image82, 50, 50);
-
   parking_edit_label = gtk_label_new (_("Edit"));
   gtk_widget_show (parking_edit_label);
   gtk_notebook_set_tab_label (GTK_NOTEBOOK (parking_notebook), gtk_notebook_get_nth_page (GTK_NOTEBOOK (parking_notebook), 1), parking_edit_label);
@@ -881,27 +869,10 @@ create_admin_window (void)
   gtk_fixed_put (GTK_FIXED (parking_edit_delete_), parking_delete_id_label, 152, 64);
   gtk_widget_set_size_request (parking_delete_id_label, 216, 48);
 
-  parking_delete_confirm_button = gtk_button_new ();
-  gtk_widget_show (parking_delete_confirm_button);
-  gtk_fixed_put (GTK_FIXED (parking_edit_delete_), parking_delete_confirm_button, 368, 216);
-  gtk_widget_set_size_request (parking_delete_confirm_button, 216, 48);
-  gtk_container_set_border_width (GTK_CONTAINER (parking_delete_confirm_button), 2);
-
-  alignment34 = gtk_alignment_new (0.5, 0.5, 0, 0);
-  gtk_widget_show (alignment34);
-  gtk_container_add (GTK_CONTAINER (parking_delete_confirm_button), alignment34);
-
-  hbox34 = gtk_hbox_new (FALSE, 2);
-  gtk_widget_show (hbox34);
-  gtk_container_add (GTK_CONTAINER (alignment34), hbox34);
-
-  image41 = gtk_image_new_from_stock ("gtk-yes", GTK_ICON_SIZE_BUTTON);
-  gtk_widget_show (image41);
-  gtk_box_pack_start (GTK_BOX (hbox34), image41, FALSE, FALSE, 0);
-
-  label176 = gtk_label_new_with_mnemonic (_("Confirm"));
-  gtk_widget_show (label176);
-  gtk_box_pack_start (GTK_BOX (hbox34), label176, FALSE, FALSE, 0);
+  image83 = create_pixmap (admin_window, "jhhhhhhh.JPG");
+  gtk_widget_show (image83);
+  gtk_fixed_put (GTK_FIXED (parking_edit_delete_), image83, 24, 8);
+  gtk_widget_set_size_request (image83, 50, 50);
 
   parking_delete_cancel_button = gtk_button_new ();
   gtk_widget_show (parking_delete_cancel_button);
@@ -925,10 +896,27 @@ create_admin_window (void)
   gtk_widget_show (label177);
   gtk_box_pack_start (GTK_BOX (hbox35), label177, FALSE, FALSE, 0);
 
-  image83 = create_pixmap (admin_window, "jhhhhhhh.JPG");
-  gtk_widget_show (image83);
-  gtk_fixed_put (GTK_FIXED (parking_edit_delete_), image83, 24, 8);
-  gtk_widget_set_size_request (image83, 50, 50);
+  parking_delete_confirm_button = gtk_button_new ();
+  gtk_widget_show (parking_delete_confirm_button);
+  gtk_fixed_put (GTK_FIXED (parking_edit_delete_), parking_delete_confirm_button, 368, 216);
+  gtk_widget_set_size_request (parking_delete_confirm_button, 216, 48);
+  gtk_container_set_border_width (GTK_CONTAINER (parking_delete_confirm_button), 2);
+
+  alignment34 = gtk_alignment_new (0.5, 0.5, 0, 0);
+  gtk_widget_show (alignment34);
+  gtk_container_add (GTK_CONTAINER (parking_delete_confirm_button), alignment34);
+
+  hbox34 = gtk_hbox_new (FALSE, 2);
+  gtk_widget_show (hbox34);
+  gtk_container_add (GTK_CONTAINER (alignment34), hbox34);
+
+  image41 = gtk_image_new_from_stock ("gtk-yes", GTK_ICON_SIZE_BUTTON);
+  gtk_widget_show (image41);
+  gtk_box_pack_start (GTK_BOX (hbox34), image41, FALSE, FALSE, 0);
+
+  label176 = gtk_label_new_with_mnemonic (_("Confirm"));
+  gtk_widget_show (label176);
+  gtk_box_pack_start (GTK_BOX (hbox34), label176, FALSE, FALSE, 0);
 
   parking_delete_label = gtk_label_new (_("Delete"));
   gtk_widget_show (parking_delete_label);
@@ -959,6 +947,11 @@ create_admin_window (void)
   gtk_fixed_put (GTK_FIXED (fixed28), parking_display_label, 160, 32);
   gtk_widget_set_size_request (parking_display_label, 216, 48);
 
+  image84 = create_pixmap (admin_window, "jhhhhhhh.JPG");
+  gtk_widget_show (image84);
+  gtk_fixed_put (GTK_FIXED (fixed28), image84, 16, 16);
+  gtk_widget_set_size_request (image84, 80, 72);
+
   parking_display_search_button = gtk_button_new ();
   gtk_widget_show (parking_display_search_button);
   gtk_fixed_put (GTK_FIXED (fixed28), parking_display_search_button, 392, 128);
@@ -979,11 +972,6 @@ create_admin_window (void)
   label181 = gtk_label_new_with_mnemonic (_("Search"));
   gtk_widget_show (label181);
   gtk_box_pack_start (GTK_BOX (hbox36), label181, FALSE, FALSE, 0);
-
-  image84 = create_pixmap (admin_window, "jhhhhhhh.JPG");
-  gtk_widget_show (image84);
-  gtk_fixed_put (GTK_FIXED (fixed28), image84, 16, 16);
-  gtk_widget_set_size_request (image84, 80, 72);
 
   parking_display_label = gtk_label_new (_("Display"));
   gtk_widget_show (parking_display_label);
@@ -1006,12 +994,6 @@ create_admin_window (void)
   gtk_widget_show (Service_display_ID_code);
   gtk_fixed_put (GTK_FIXED (fixed17), Service_display_ID_code, 360, 104);
   gtk_widget_set_size_request (Service_display_ID_code, 120, 30);
-
-  Service_display_countity = gtk_entry_new ();
-  gtk_widget_show (Service_display_countity);
-  gtk_fixed_put (GTK_FIXED (fixed17), Service_display_countity, 432, 480);
-  gtk_widget_set_size_request (Service_display_countity, 80, 30);
-  gtk_entry_set_invisible_char (GTK_ENTRY (Service_display_countity), 8226);
 
   Service_display_clist = gtk_clist_new (6);
   gtk_widget_show (Service_display_clist);
@@ -1056,57 +1038,25 @@ create_admin_window (void)
   gtk_fixed_put (GTK_FIXED (fixed17), Service_display_ID, 280, 104);
   gtk_widget_set_size_request (Service_display_ID, 100, 30);
 
+  image92 = create_pixmap (admin_window, "jhhhhhhh.JPG");
+  gtk_widget_show (image92);
+  gtk_fixed_put (GTK_FIXED (fixed17), image92, 32, 24);
+  gtk_widget_set_size_request (image92, 50, 50);
+
   Service_main = gtk_label_new (_("Service's list "));
   gtk_widget_show (Service_main);
   gtk_fixed_put (GTK_FIXED (fixed17), Service_main, 400, 32);
   gtk_widget_set_size_request (Service_main, 150, 30);
 
-  Service_display_number = gtk_label_new (_("Total number of services :"));
-  gtk_widget_show (Service_display_number);
-  gtk_fixed_put (GTK_FIXED (fixed17), Service_display_number, 240, 480);
-  gtk_widget_set_size_request (Service_display_number, 200, 30);
+  Service_display_Reservations = gtk_label_new (_("Confirm service reservations :"));
+  gtk_widget_show (Service_display_Reservations);
+  gtk_fixed_put (GTK_FIXED (fixed17), Service_display_Reservations, 512, 400);
+  gtk_widget_set_size_request (Service_display_Reservations, 200, 30);
 
-  Service_display_Create = gtk_button_new ();
-  gtk_widget_show (Service_display_Create);
-  gtk_fixed_put (GTK_FIXED (fixed17), Service_display_Create, 552, 480);
-  gtk_widget_set_size_request (Service_display_Create, 80, 30);
-
-  alignment5 = gtk_alignment_new (0.5, 0.5, 0, 0);
-  gtk_widget_show (alignment5);
-  gtk_container_add (GTK_CONTAINER (Service_display_Create), alignment5);
-
-  hbox5 = gtk_hbox_new (FALSE, 2);
-  gtk_widget_show (hbox5);
-  gtk_container_add (GTK_CONTAINER (alignment5), hbox5);
-
-  image5 = gtk_image_new_from_stock ("gtk-add", GTK_ICON_SIZE_BUTTON);
-  gtk_widget_show (image5);
-  gtk_box_pack_start (GTK_BOX (hbox5), image5, FALSE, FALSE, 0);
-
-  label50 = gtk_label_new_with_mnemonic (_("Create"));
-  gtk_widget_show (label50);
-  gtk_box_pack_start (GTK_BOX (hbox5), label50, FALSE, FALSE, 0);
-
-  Service_display_Delete = gtk_button_new ();
-  gtk_widget_show (Service_display_Delete);
-  gtk_fixed_put (GTK_FIXED (fixed17), Service_display_Delete, 760, 480);
-  gtk_widget_set_size_request (Service_display_Delete, 80, 30);
-
-  alignment3 = gtk_alignment_new (0.5, 0.5, 0, 0);
-  gtk_widget_show (alignment3);
-  gtk_container_add (GTK_CONTAINER (Service_display_Delete), alignment3);
-
-  hbox3 = gtk_hbox_new (FALSE, 2);
-  gtk_widget_show (hbox3);
-  gtk_container_add (GTK_CONTAINER (alignment3), hbox3);
-
-  image3 = gtk_image_new_from_stock ("gtk-delete", GTK_ICON_SIZE_BUTTON);
-  gtk_widget_show (image3);
-  gtk_box_pack_start (GTK_BOX (hbox3), image3, FALSE, FALSE, 0);
-
-  label48 = gtk_label_new_with_mnemonic (_("Delete"));
-  gtk_widget_show (label48);
-  gtk_box_pack_start (GTK_BOX (hbox3), label48, FALSE, FALSE, 0);
+  Service_update_view_reservations = gtk_button_new_with_mnemonic (_("Reservations"));
+  gtk_widget_show (Service_update_view_reservations);
+  gtk_fixed_put (GTK_FIXED (fixed17), Service_update_view_reservations, 720, 400);
+  gtk_widget_set_size_request (Service_update_view_reservations, 120, 30);
 
   Service_display_Search = gtk_button_new ();
   gtk_widget_show (Service_display_Search);
@@ -1128,42 +1078,6 @@ create_admin_window (void)
   label15 = gtk_label_new_with_mnemonic (_("Search"));
   gtk_widget_show (label15);
   gtk_box_pack_start (GTK_BOX (hbox2), label15, FALSE, FALSE, 0);
-
-  Service_update_view_reservations = gtk_button_new_with_mnemonic (_("Reservations"));
-  gtk_widget_show (Service_update_view_reservations);
-  gtk_fixed_put (GTK_FIXED (fixed17), Service_update_view_reservations, 720, 400);
-  gtk_widget_set_size_request (Service_update_view_reservations, 120, 30);
-
-  Service_display_Reservations = gtk_label_new (_("Confirm service reservations :"));
-  gtk_widget_show (Service_display_Reservations);
-  gtk_fixed_put (GTK_FIXED (fixed17), Service_display_Reservations, 512, 400);
-  gtk_widget_set_size_request (Service_display_Reservations, 200, 30);
-
-  Service_display_Update = gtk_button_new ();
-  gtk_widget_show (Service_display_Update);
-  gtk_fixed_put (GTK_FIXED (fixed17), Service_display_Update, 656, 480);
-  gtk_widget_set_size_request (Service_display_Update, 88, 30);
-
-  alignment4 = gtk_alignment_new (0.5, 0.5, 0, 0);
-  gtk_widget_show (alignment4);
-  gtk_container_add (GTK_CONTAINER (Service_display_Update), alignment4);
-
-  hbox4 = gtk_hbox_new (FALSE, 2);
-  gtk_widget_show (hbox4);
-  gtk_container_add (GTK_CONTAINER (alignment4), hbox4);
-
-  image4 = gtk_image_new_from_stock ("gtk-preferences", GTK_ICON_SIZE_BUTTON);
-  gtk_widget_show (image4);
-  gtk_box_pack_start (GTK_BOX (hbox4), image4, FALSE, FALSE, 0);
-
-  label49 = gtk_label_new_with_mnemonic (_("Update"));
-  gtk_widget_show (label49);
-  gtk_box_pack_start (GTK_BOX (hbox4), label49, FALSE, FALSE, 0);
-
-  image92 = create_pixmap (admin_window, "jhhhhhhh.JPG");
-  gtk_widget_show (image92);
-  gtk_fixed_put (GTK_FIXED (fixed17), image92, 32, 24);
-  gtk_widget_set_size_request (image92, 50, 50);
 
   Service_Display = gtk_label_new (_("Display"));
   gtk_widget_show (Service_Display);
@@ -1257,6 +1171,11 @@ create_admin_window (void)
   gtk_fixed_put (GTK_FIXED (fixed20), image85, 16, 16);
   gtk_widget_set_size_request (image85, 80, 72);
 
+  service_create_add_button = gtk_button_new_from_stock ("gtk-add");
+  gtk_widget_show (service_create_add_button);
+  gtk_fixed_put (GTK_FIXED (fixed20), service_create_add_button, 416, 456);
+  gtk_widget_set_size_request (service_create_add_button, 74, 29);
+
   Service_Create = gtk_label_new (_("Create"));
   gtk_widget_show (Service_Create);
   gtk_notebook_set_tab_label (GTK_NOTEBOOK (admin_manage_services_notebook), gtk_notebook_get_nth_page (GTK_NOTEBOOK (admin_manage_services_notebook), 1), Service_Create);
@@ -1349,6 +1268,11 @@ create_admin_window (void)
   gtk_fixed_put (GTK_FIXED (fixed21), image86, 16, 16);
   gtk_widget_set_size_request (image86, 80, 72);
 
+  button36 = gtk_button_new_from_stock ("gtk-apply");
+  gtk_widget_show (button36);
+  gtk_fixed_put (GTK_FIXED (fixed21), button36, 400, 456);
+  gtk_widget_set_size_request (button36, 74, 29);
+
   Service_Update = gtk_label_new (_("Update"));
   gtk_widget_show (Service_Update);
   gtk_notebook_set_tab_label (GTK_NOTEBOOK (admin_manage_services_notebook), gtk_notebook_get_nth_page (GTK_NOTEBOOK (admin_manage_services_notebook), 2), Service_Update);
@@ -1357,9 +1281,25 @@ create_admin_window (void)
   gtk_widget_show (fixed14);
   gtk_container_add (GTK_CONTAINER (admin_manage_services_notebook), fixed14);
 
+  image87 = create_pixmap (admin_window, "jhhhhhhh.JPG");
+  gtk_widget_show (image87);
+  gtk_fixed_put (GTK_FIXED (fixed14), image87, 16, 16);
+  gtk_widget_set_size_request (image87, 80, 72);
+
+  service_delete_id_entry_SpinButton_adj = gtk_adjustment_new (1, 0, 100, 1, 10, 10);
+  service_delete_id_entry_SpinButton = gtk_spin_button_new (GTK_ADJUSTMENT (service_delete_id_entry_SpinButton_adj), 1, 0);
+  gtk_widget_show (service_delete_id_entry_SpinButton);
+  gtk_fixed_put (GTK_FIXED (fixed14), service_delete_id_entry_SpinButton, 448, 104);
+  gtk_widget_set_size_request (service_delete_id_entry_SpinButton, 112, 24);
+
+  label252 = gtk_label_new (_("Id of service: "));
+  gtk_widget_show (label252);
+  gtk_fixed_put (GTK_FIXED (fixed14), label252, 320, 104);
+  gtk_widget_set_size_request (label252, 104, 25);
+
   Service_Delete_button = gtk_button_new ();
   gtk_widget_show (Service_Delete_button);
-  gtk_fixed_put (GTK_FIXED (fixed14), Service_Delete_button, 336, 192);
+  gtk_fixed_put (GTK_FIXED (fixed14), Service_Delete_button, 320, 192);
   gtk_widget_set_size_request (Service_Delete_button, 250, 30);
 
   alignment6 = gtk_alignment_new (0.5, 0.5, 0, 0);
@@ -1377,11 +1317,6 @@ create_admin_window (void)
   label51 = gtk_label_new_with_mnemonic (_("Delete this service  ?"));
   gtk_widget_show (label51);
   gtk_box_pack_start (GTK_BOX (hbox6), label51, FALSE, FALSE, 0);
-
-  image87 = create_pixmap (admin_window, "jhhhhhhh.JPG");
-  gtk_widget_show (image87);
-  gtk_fixed_put (GTK_FIXED (fixed14), image87, 16, 16);
-  gtk_widget_set_size_request (image87, 80, 72);
 
   Service_Delete = gtk_label_new (_("Delete"));
   gtk_widget_show (Service_Delete);
@@ -1477,6 +1412,31 @@ create_admin_window (void)
   gtk_widget_set_size_request (agent_post_Total_Agent____entry, 50, 27);
   gtk_entry_set_invisible_char (GTK_ENTRY (agent_post_Total_Agent____entry), 8226);
 
+  agent_post_id_comboboxentry = gtk_combo_box_entry_new_text ();
+  gtk_widget_show (agent_post_id_comboboxentry);
+  gtk_fixed_put (GTK_FIXED (fixed2), agent_post_id_comboboxentry, 288, 24);
+  gtk_widget_set_size_request (agent_post_id_comboboxentry, 189, 40);
+
+  agent_post_total_agents = gtk_label_new (_("Total Agents: "));
+  gtk_widget_show (agent_post_total_agents);
+  gtk_fixed_put (GTK_FIXED (fixed2), agent_post_total_agents, 424, 360);
+  gtk_widget_set_size_request (agent_post_total_agents, 250, 41);
+
+  agent_post_id_label = gtk_label_new (_("ID :"));
+  gtk_widget_show (agent_post_id_label);
+  gtk_fixed_put (GTK_FIXED (fixed2), agent_post_id_label, 208, 32);
+  gtk_widget_set_size_request (agent_post_id_label, 56, 25);
+
+  agent_post_available_agents_label = gtk_label_new (_("Number of available agents:"));
+  gtk_widget_show (agent_post_available_agents_label);
+  gtk_fixed_put (GTK_FIXED (fixed2), agent_post_available_agents_label, 96, 360);
+  gtk_widget_set_size_request (agent_post_available_agents_label, 250, 41);
+
+  image80 = create_pixmap (admin_window, "jhhhhhhh.JPG");
+  gtk_widget_show (image80);
+  gtk_fixed_put (GTK_FIXED (fixed2), image80, 40, 24);
+  gtk_widget_set_size_request (image80, 50, 50);
+
   agent_post_research_button = gtk_button_new ();
   gtk_widget_show (agent_post_research_button);
   gtk_fixed_put (GTK_FIXED (fixed2), agent_post_research_button, 504, 24);
@@ -1498,21 +1458,6 @@ create_admin_window (void)
   gtk_widget_show (agent_post_research_label);
   gtk_box_pack_start (GTK_BOX (hbox22), agent_post_research_label, FALSE, FALSE, 0);
 
-  agent_post_id_comboboxentry = gtk_combo_box_entry_new_text ();
-  gtk_widget_show (agent_post_id_comboboxentry);
-  gtk_fixed_put (GTK_FIXED (fixed2), agent_post_id_comboboxentry, 288, 24);
-  gtk_widget_set_size_request (agent_post_id_comboboxentry, 189, 40);
-
-  agent_post_total_agents = gtk_label_new (_("Total Agents: "));
-  gtk_widget_show (agent_post_total_agents);
-  gtk_fixed_put (GTK_FIXED (fixed2), agent_post_total_agents, 424, 360);
-  gtk_widget_set_size_request (agent_post_total_agents, 250, 41);
-
-  agent_post_id_label = gtk_label_new (_("ID :"));
-  gtk_widget_show (agent_post_id_label);
-  gtk_fixed_put (GTK_FIXED (fixed2), agent_post_id_label, 208, 32);
-  gtk_widget_set_size_request (agent_post_id_label, 56, 25);
-
   agent_post_update_button = gtk_button_new ();
   gtk_widget_show (agent_post_update_button);
   gtk_fixed_put (GTK_FIXED (fixed2), agent_post_update_button, 688, 424);
@@ -1533,16 +1478,6 @@ create_admin_window (void)
   agent_post_update_label = gtk_label_new_with_mnemonic (_("Update"));
   gtk_widget_show (agent_post_update_label);
   gtk_box_pack_start (GTK_BOX (hbox19), agent_post_update_label, FALSE, FALSE, 0);
-
-  agent_post_available_agents_label = gtk_label_new (_("Number of available agents:"));
-  gtk_widget_show (agent_post_available_agents_label);
-  gtk_fixed_put (GTK_FIXED (fixed2), agent_post_available_agents_label, 96, 360);
-  gtk_widget_set_size_request (agent_post_available_agents_label, 250, 41);
-
-  image80 = create_pixmap (admin_window, "jhhhhhhh.JPG");
-  gtk_widget_show (image80);
-  gtk_fixed_put (GTK_FIXED (fixed2), image80, 40, 24);
-  gtk_widget_set_size_request (image80, 50, 50);
 
   Agent_Post_label = gtk_label_new (_("Post"));
   gtk_widget_show (Agent_Post_label);
@@ -1631,6 +1566,32 @@ create_admin_window (void)
   gtk_fixed_put (GTK_FIXED (fixed3), agent_add_e_mail_label, 56, 184);
   gtk_widget_set_size_request (agent_add_e_mail_label, 81, 25);
 
+  image88 = create_pixmap (admin_window, "jhhhhhhh.JPG");
+  gtk_widget_show (image88);
+  gtk_fixed_put (GTK_FIXED (fixed3), image88, 16, 16);
+  gtk_widget_set_size_request (image88, 80, 72);
+
+  agent_add_add_button = gtk_button_new ();
+  gtk_widget_show (agent_add_add_button);
+  gtk_fixed_put (GTK_FIXED (fixed3), agent_add_add_button, 488, 416);
+  gtk_widget_set_size_request (agent_add_add_button, 100, 40);
+
+  alignment41 = gtk_alignment_new (0.5, 0.5, 0, 0);
+  gtk_widget_show (alignment41);
+  gtk_container_add (GTK_CONTAINER (agent_add_add_button), alignment41);
+
+  hbox41 = gtk_hbox_new (FALSE, 2);
+  gtk_widget_show (hbox41);
+  gtk_container_add (GTK_CONTAINER (alignment41), hbox41);
+
+  image102 = gtk_image_new_from_stock ("gtk-add", GTK_ICON_SIZE_BUTTON);
+  gtk_widget_show (image102);
+  gtk_box_pack_start (GTK_BOX (hbox41), image102, FALSE, FALSE, 0);
+
+  label253 = gtk_label_new_with_mnemonic (_("add"));
+  gtk_widget_show (label253);
+  gtk_box_pack_start (GTK_BOX (hbox41), label253, FALSE, FALSE, 0);
+
   agent_add_cancel_button = gtk_button_new ();
   gtk_widget_show (agent_add_cancel_button);
   gtk_fixed_put (GTK_FIXED (fixed3), agent_add_cancel_button, 600, 416);
@@ -1651,32 +1612,6 @@ create_admin_window (void)
   agent_add_cancel_label = gtk_label_new_with_mnemonic (_("Cancel"));
   gtk_widget_show (agent_add_cancel_label);
   gtk_box_pack_start (GTK_BOX (hbox2), agent_add_cancel_label, FALSE, FALSE, 0);
-
-  agent_add_add_button = gtk_button_new ();
-  gtk_widget_show (agent_add_add_button);
-  gtk_fixed_put (GTK_FIXED (fixed3), agent_add_add_button, 488, 416);
-  gtk_widget_set_size_request (agent_add_add_button, 100, 40);
-
-  alignment1 = gtk_alignment_new (0.5, 0.5, 0, 0);
-  gtk_widget_show (alignment1);
-  gtk_container_add (GTK_CONTAINER (agent_add_add_button), alignment1);
-
-  hbox1 = gtk_hbox_new (FALSE, 2);
-  gtk_widget_show (hbox1);
-  gtk_container_add (GTK_CONTAINER (alignment1), hbox1);
-
-  agent_add_add_image = gtk_image_new_from_stock ("gtk-add", GTK_ICON_SIZE_BUTTON);
-  gtk_widget_show (agent_add_add_image);
-  gtk_box_pack_start (GTK_BOX (hbox1), agent_add_add_image, FALSE, FALSE, 0);
-
-  agent_add_add_button = gtk_label_new_with_mnemonic (_("ADD"));
-  gtk_widget_show (agent_add_add_button);
-  gtk_box_pack_start (GTK_BOX (hbox1), agent_add_add_button, FALSE, FALSE, 0);
-
-  image88 = create_pixmap (admin_window, "jhhhhhhh.JPG");
-  gtk_widget_show (image88);
-  gtk_fixed_put (GTK_FIXED (fixed3), image88, 16, 16);
-  gtk_widget_set_size_request (image88, 80, 72);
 
   agent_add_label = gtk_label_new (_("Add "));
   gtk_widget_show (agent_add_label);
@@ -1797,6 +1732,18 @@ create_admin_window (void)
   gtk_fixed_put (GTK_FIXED (fixed9), agent_modify_id_parking_label, 336, 304);
   gtk_widget_set_size_request (agent_modify_id_parking_label, 144, 33);
 
+  agent_modify_availablity_status_not_available_RadioButton = gtk_radio_button_new_with_mnemonic (NULL, _("Not Available"));
+  gtk_widget_show (agent_modify_availablity_status_not_available_RadioButton);
+  gtk_fixed_put (GTK_FIXED (fixed9), agent_modify_availablity_status_not_available_RadioButton, 136, 384);
+  gtk_widget_set_size_request (agent_modify_availablity_status_not_available_RadioButton, 128, 24);
+  gtk_radio_button_set_group (GTK_RADIO_BUTTON (agent_modify_availablity_status_not_available_RadioButton), agent_modify_availablity_status_not_available_RadioButton_group);
+  agent_modify_availablity_status_not_available_RadioButton_group = gtk_radio_button_get_group (GTK_RADIO_BUTTON (agent_modify_availablity_status_not_available_RadioButton));
+
+  image89 = create_pixmap (admin_window, "jhhhhhhh.JPG");
+  gtk_widget_show (image89);
+  gtk_fixed_put (GTK_FIXED (fixed9), image89, 16, 16);
+  gtk_widget_set_size_request (image89, 80, 72);
+
   agent_modify_modity_button = gtk_button_new ();
   gtk_widget_show (agent_modify_modity_button);
   gtk_fixed_put (GTK_FIXED (fixed9), agent_modify_modity_button, 488, 416);
@@ -1839,18 +1786,6 @@ create_admin_window (void)
   gtk_widget_show (agent_modify_cancel_label);
   gtk_box_pack_start (GTK_BOX (hbox14), agent_modify_cancel_label, FALSE, FALSE, 0);
 
-  agent_modify_availablity_status_not_available_RadioButton = gtk_radio_button_new_with_mnemonic (NULL, _("Not Available"));
-  gtk_widget_show (agent_modify_availablity_status_not_available_RadioButton);
-  gtk_fixed_put (GTK_FIXED (fixed9), agent_modify_availablity_status_not_available_RadioButton, 136, 384);
-  gtk_widget_set_size_request (agent_modify_availablity_status_not_available_RadioButton, 128, 24);
-  gtk_radio_button_set_group (GTK_RADIO_BUTTON (agent_modify_availablity_status_not_available_RadioButton), agent_modify_availablity_status_not_available_RadioButton_group);
-  agent_modify_availablity_status_not_available_RadioButton_group = gtk_radio_button_get_group (GTK_RADIO_BUTTON (agent_modify_availablity_status_not_available_RadioButton));
-
-  image89 = create_pixmap (admin_window, "jhhhhhhh.JPG");
-  gtk_widget_show (image89);
-  gtk_fixed_put (GTK_FIXED (fixed9), image89, 16, 16);
-  gtk_widget_set_size_request (image89, 80, 72);
-
   agent_modify_label = gtk_label_new (_("Modify"));
   gtk_widget_show (agent_modify_label);
   gtk_notebook_set_tab_label (GTK_NOTEBOOK (admin_manage_services_notebook), gtk_notebook_get_nth_page (GTK_NOTEBOOK (admin_manage_services_notebook), 2), agent_modify_label);
@@ -1864,6 +1799,16 @@ create_admin_window (void)
   gtk_widget_show (agent_delete_id_spinbutton);
   gtk_fixed_put (GTK_FIXED (fixed10), agent_delete_id_spinbutton, 344, 168);
   gtk_widget_set_size_request (agent_delete_id_spinbutton, 80, 33);
+
+  agent_delete_id_label = gtk_label_new (_("ID :"));
+  gtk_widget_show (agent_delete_id_label);
+  gtk_fixed_put (GTK_FIXED (fixed10), agent_delete_id_label, 272, 168);
+  gtk_widget_set_size_request (agent_delete_id_label, 72, 33);
+
+  image90 = create_pixmap (admin_window, "jhhhhhhh.JPG");
+  gtk_widget_show (image90);
+  gtk_fixed_put (GTK_FIXED (fixed10), image90, 16, 16);
+  gtk_widget_set_size_request (image90, 80, 72);
 
   agent_delete_return_button = gtk_button_new ();
   gtk_widget_show (agent_delete_return_button);
@@ -1886,11 +1831,6 @@ create_admin_window (void)
   gtk_widget_show (agent_delete_return_label);
   gtk_box_pack_start (GTK_BOX (hbox17), agent_delete_return_label, FALSE, FALSE, 0);
 
-  agent_delete_id_label = gtk_label_new (_("ID :"));
-  gtk_widget_show (agent_delete_id_label);
-  gtk_fixed_put (GTK_FIXED (fixed10), agent_delete_id_label, 272, 168);
-  gtk_widget_set_size_request (agent_delete_id_label, 72, 33);
-
   agent_delete_delete_button = gtk_button_new ();
   gtk_widget_show (agent_delete_delete_button);
   gtk_fixed_put (GTK_FIXED (fixed10), agent_delete_delete_button, 560, 168);
@@ -1911,11 +1851,6 @@ create_admin_window (void)
   agent_delete_delete_label = gtk_label_new_with_mnemonic (_("Delete"));
   gtk_widget_show (agent_delete_delete_label);
   gtk_box_pack_start (GTK_BOX (hbox18), agent_delete_delete_label, FALSE, FALSE, 0);
-
-  image90 = create_pixmap (admin_window, "jhhhhhhh.JPG");
-  gtk_widget_show (image90);
-  gtk_fixed_put (GTK_FIXED (fixed10), image90, 16, 16);
-  gtk_widget_set_size_request (image90, 80, 72);
 
   agent_delete_label = gtk_label_new (_("Delete"));
   gtk_widget_show (agent_delete_label);
@@ -1962,26 +1897,15 @@ create_admin_window (void)
   gtk_fixed_put (GTK_FIXED (fixed11), agent_display_Reservation_list_label, 320, 16);
   gtk_widget_set_size_request (agent_display_Reservation_list_label, 128, 32);
 
-  agent_display_update_Button = gtk_button_new ();
-  gtk_widget_show (agent_display_update_Button);
-  gtk_fixed_put (GTK_FIXED (fixed11), agent_display_update_Button, 688, 424);
-  gtk_widget_set_size_request (agent_display_update_Button, 100, 40);
+  agent_display_Reservation_date_label = gtk_label_new (_("Reservation date :"));
+  gtk_widget_show (agent_display_Reservation_date_label);
+  gtk_fixed_put (GTK_FIXED (fixed11), agent_display_Reservation_date_label, 16, 72);
+  gtk_widget_set_size_request (agent_display_Reservation_date_label, 144, 32);
 
-  alignment23 = gtk_alignment_new (0.5, 0.5, 0, 0);
-  gtk_widget_show (alignment23);
-  gtk_container_add (GTK_CONTAINER (agent_display_update_Button), alignment23);
-
-  hbox21 = gtk_hbox_new (FALSE, 2);
-  gtk_widget_show (hbox21);
-  gtk_container_add (GTK_CONTAINER (alignment23), hbox21);
-
-  agent_display_update_image = gtk_image_new_from_stock ("gtk-refresh", GTK_ICON_SIZE_BUTTON);
-  gtk_widget_show (agent_display_update_image);
-  gtk_box_pack_start (GTK_BOX (hbox21), agent_display_update_image, FALSE, FALSE, 0);
-
-  agent_display_update_label = gtk_label_new_with_mnemonic (_("Update"));
-  gtk_widget_show (agent_display_update_label);
-  gtk_box_pack_start (GTK_BOX (hbox21), agent_display_update_label, FALSE, FALSE, 0);
+  image81 = create_pixmap (admin_window, "jhhhhhhh.JPG");
+  gtk_widget_show (image81);
+  gtk_fixed_put (GTK_FIXED (fixed11), image81, 24, 8);
+  gtk_widget_set_size_request (image81, 50, 50);
 
   agent_display_search_Button = gtk_button_new ();
   gtk_widget_show (agent_display_search_Button);
@@ -2004,49 +1928,96 @@ create_admin_window (void)
   gtk_widget_show (agent_display_search_label);
   gtk_box_pack_start (GTK_BOX (hbox20), agent_display_search_label, FALSE, FALSE, 0);
 
-  agent_display_Reservation_date_label = gtk_label_new (_("Reservation date :"));
-  gtk_widget_show (agent_display_Reservation_date_label);
-  gtk_fixed_put (GTK_FIXED (fixed11), agent_display_Reservation_date_label, 16, 72);
-  gtk_widget_set_size_request (agent_display_Reservation_date_label, 144, 32);
+  agent_display_update_Button = gtk_button_new ();
+  gtk_widget_show (agent_display_update_Button);
+  gtk_fixed_put (GTK_FIXED (fixed11), agent_display_update_Button, 688, 424);
+  gtk_widget_set_size_request (agent_display_update_Button, 100, 40);
 
-  image81 = create_pixmap (admin_window, "jhhhhhhh.JPG");
-  gtk_widget_show (image81);
-  gtk_fixed_put (GTK_FIXED (fixed11), image81, 24, 8);
-  gtk_widget_set_size_request (image81, 50, 50);
+  alignment23 = gtk_alignment_new (0.5, 0.5, 0, 0);
+  gtk_widget_show (alignment23);
+  gtk_container_add (GTK_CONTAINER (agent_display_update_Button), alignment23);
+
+  hbox21 = gtk_hbox_new (FALSE, 2);
+  gtk_widget_show (hbox21);
+  gtk_container_add (GTK_CONTAINER (alignment23), hbox21);
+
+  agent_display_update_image = gtk_image_new_from_stock ("gtk-refresh", GTK_ICON_SIZE_BUTTON);
+  gtk_widget_show (agent_display_update_image);
+  gtk_box_pack_start (GTK_BOX (hbox21), agent_display_update_image, FALSE, FALSE, 0);
+
+  agent_display_update_label = gtk_label_new_with_mnemonic (_("Update"));
+  gtk_widget_show (agent_display_update_label);
+  gtk_box_pack_start (GTK_BOX (hbox21), agent_display_update_label, FALSE, FALSE, 0);
 
   admin_display_reservations = gtk_label_new (_("Display Reservations"));
   gtk_widget_show (admin_display_reservations);
   gtk_notebook_set_tab_label (GTK_NOTEBOOK (admin_notebook), gtk_notebook_get_nth_page (GTK_NOTEBOOK (admin_notebook), 3), admin_display_reservations);
 
-  g_signal_connect ((gpointer) Service_display_Search, "clicked",
-                    G_CALLBACK (on_Service_main_search_button_clicked),
+  g_signal_connect ((gpointer) parking_create__confirm_button, "clicked",
+                    G_CALLBACK (parking_create_confirm_clicked),
+                    NULL);
+  g_signal_connect ((gpointer) parking_create__cancel_button, "clicked",
+                    G_CALLBACK (parking_create_cancel_clicked),
+                    NULL);
+  g_signal_connect ((gpointer) parking_edit_cancel_button, "clicked",
+                    G_CALLBACK (parking_edit_cancel_clicked),
+                    NULL);
+  g_signal_connect ((gpointer) parking_edit_apply_button, "clicked",
+                    G_CALLBACK (parking_edit_apply_clicked),
+                    NULL);
+  g_signal_connect ((gpointer) parking_delete_cancel_button, "clicked",
+                    G_CALLBACK (parking_delete_cancel_clicked),
+                    NULL);
+  g_signal_connect ((gpointer) parking_delete_confirm_button, "clicked",
+                    G_CALLBACK (parking_delete_confirm_clicked),
+                    NULL);
+  g_signal_connect ((gpointer) parking_display_search_button, "clicked",
+                    G_CALLBACK (parking_display_search_clicked),
                     NULL);
   g_signal_connect ((gpointer) Service_update_view_reservations, "clicked",
-                    G_CALLBACK (on_button1_clicked),
+                    G_CALLBACK (service_display_reservation_clicked),
+                    NULL);
+  g_signal_connect ((gpointer) Service_display_Search, "clicked",
+                    G_CALLBACK (service_display_search_clicked),
+                    NULL);
+  g_signal_connect ((gpointer) service_create_add_button, "clicked",
+                    G_CALLBACK (service_create_add_clicked),
+                    NULL);
+  g_signal_connect ((gpointer) button36, "clicked",
+                    G_CALLBACK (service_update_apply_clicked),
                     NULL);
   g_signal_connect ((gpointer) Service_Delete_button, "clicked",
-                    G_CALLBACK (on_Service_Delete_clicked),
+                    G_CALLBACK (service_delete_clicked),
+                    NULL);
+  g_signal_connect ((gpointer) agent_post_research_button, "clicked",
+                    G_CALLBACK (agent_post_research_clicked),
                     NULL);
   g_signal_connect ((gpointer) agent_post_update_button, "clicked",
-                    G_CALLBACK (on_B_Ac_clicked),
-                    NULL);
-  g_signal_connect ((gpointer) agent_add_cancel_button, "clicked",
-                    G_CALLBACK (on_cancel_clicked),
+                    G_CALLBACK (agent_post_update_clicked),
                     NULL);
   g_signal_connect ((gpointer) agent_add_add_button, "clicked",
-                    G_CALLBACK (on_ADD_A_clicked),
+                    G_CALLBACK (agent_add_clicked),
+                    NULL);
+  g_signal_connect ((gpointer) agent_add_cancel_button, "clicked",
+                    G_CALLBACK (agent_add_cancel_clicked),
                     NULL);
   g_signal_connect ((gpointer) agent_modify_modity_button, "clicked",
-                    G_CALLBACK (on_ADD_A_clicked),
+                    G_CALLBACK (agent_modify_clicked),
                     NULL);
   g_signal_connect ((gpointer) agent_modify_cancel_button, "clicked",
-                    G_CALLBACK (on_cancel_clicked),
+                    G_CALLBACK (agent_modify_cancel_clicked),
                     NULL);
-  g_signal_connect ((gpointer) agent_display_update_Button, "clicked",
-                    G_CALLBACK (on_B_Ac_clicked),
+  g_signal_connect ((gpointer) agent_delete_return_button, "clicked",
+                    G_CALLBACK (agent_delete_return_clicked),
+                    NULL);
+  g_signal_connect ((gpointer) agent_delete_delete_button, "clicked",
+                    G_CALLBACK (agent_delete_clicked),
                     NULL);
   g_signal_connect ((gpointer) agent_display_search_Button, "clicked",
-                    G_CALLBACK (on_B_S_clicked),
+                    G_CALLBACK (admin_reservation_search_clicked),
+                    NULL);
+  g_signal_connect ((gpointer) agent_display_update_Button, "clicked",
+                    G_CALLBACK (admin_reservation_update_clicked),
                     NULL);
 
   /* Store pointers to all widgets, for use by lookup_widget(). */
@@ -2056,25 +2027,25 @@ create_admin_window (void)
   GLADE_HOOKUP_OBJECT (admin_window, parking_create_fixed, "parking_create_fixed");
   GLADE_HOOKUP_OBJECT (admin_window, parking_create_location_entry, "parking_create_location_entry");
   GLADE_HOOKUP_OBJECT (admin_window, parking_create_capacity_entry, "parking_create_capacity_entry");
-  GLADE_HOOKUP_OBJECT (admin_window, parking_create_availability_entry, "parking_create_availability_entry");
-  GLADE_HOOKUP_OBJECT (admin_window, parking_create_fees_entry, "parking_create_fees_entry");
-  GLADE_HOOKUP_OBJECT (admin_window, parking_create_agent_spinbutton, "parking_create_agent_spinbutton");
-  GLADE_HOOKUP_OBJECT (admin_window, parking_create__cancel_button, "parking_create__cancel_button");
-  GLADE_HOOKUP_OBJECT (admin_window, parking_create__cancel_alignement, "parking_create__cancel_alignement");
-  GLADE_HOOKUP_OBJECT (admin_window, parking_create__cancel_hbox, "parking_create__cancel_hbox");
-  GLADE_HOOKUP_OBJECT (admin_window, parking_create__cancel_image, "parking_create__cancel_image");
-  GLADE_HOOKUP_OBJECT (admin_window, parking_create__cancel_label, "parking_create__cancel_label");
+  GLADE_HOOKUP_OBJECT (admin_window, parking_create_fees_label, "parking_create_fees_label");
+  GLADE_HOOKUP_OBJECT (admin_window, parking_create_agent_label, "parking_create_agent_label");
+  GLADE_HOOKUP_OBJECT (admin_window, parking_create_location_label, "parking_create_location_label");
+  GLADE_HOOKUP_OBJECT (admin_window, image78, "image78");
   GLADE_HOOKUP_OBJECT (admin_window, parking_create__confirm_button, "parking_create__confirm_button");
   GLADE_HOOKUP_OBJECT (admin_window, parking_create__confirm_alignement, "parking_create__confirm_alignement");
   GLADE_HOOKUP_OBJECT (admin_window, parking_create__confirm_hbox, "parking_create__confirm_hbox");
   GLADE_HOOKUP_OBJECT (admin_window, parking_create__confirm_image, "parking_create__confirm_image");
   GLADE_HOOKUP_OBJECT (admin_window, parking_create__confirm_label, "parking_create__confirm_label");
+  GLADE_HOOKUP_OBJECT (admin_window, parking_create__cancel_button, "parking_create__cancel_button");
+  GLADE_HOOKUP_OBJECT (admin_window, parking_create__cancel_alignement, "parking_create__cancel_alignement");
+  GLADE_HOOKUP_OBJECT (admin_window, parking_create__cancel_hbox, "parking_create__cancel_hbox");
+  GLADE_HOOKUP_OBJECT (admin_window, parking_create__cancel_image, "parking_create__cancel_image");
+  GLADE_HOOKUP_OBJECT (admin_window, parking_create__cancel_label, "parking_create__cancel_label");
+  GLADE_HOOKUP_OBJECT (admin_window, parking_create_fees_combobox, "parking_create_fees_combobox");
+  GLADE_HOOKUP_OBJECT (admin_window, parking_create_id_agent_combobox, "parking_create_id_agent_combobox");
+  GLADE_HOOKUP_OBJECT (admin_window, parking_create_, "parking_create_");
   GLADE_HOOKUP_OBJECT (admin_window, parking_create_availability_label, "parking_create_availability_label");
-  GLADE_HOOKUP_OBJECT (admin_window, parking_create_fees_label, "parking_create_fees_label");
-  GLADE_HOOKUP_OBJECT (admin_window, parking_create_agent_label, "parking_create_agent_label");
   GLADE_HOOKUP_OBJECT (admin_window, parking_create_capacity_label, "parking_create_capacity_label");
-  GLADE_HOOKUP_OBJECT (admin_window, parking_create_location_label, "parking_create_location_label");
-  GLADE_HOOKUP_OBJECT (admin_window, image78, "image78");
   GLADE_HOOKUP_OBJECT (admin_window, parking_create_label, "parking_create_label");
   GLADE_HOOKUP_OBJECT (admin_window, parking_edit_fixed, "parking_edit_fixed");
   GLADE_HOOKUP_OBJECT (admin_window, parking_edit_location_entry, "parking_edit_location_entry");
@@ -2082,6 +2053,12 @@ create_admin_window (void)
   GLADE_HOOKUP_OBJECT (admin_window, parking_edit_availability_entry, "parking_edit_availability_entry");
   GLADE_HOOKUP_OBJECT (admin_window, parking_edit_fees_entry, "parking_edit_fees_entry");
   GLADE_HOOKUP_OBJECT (admin_window, parking_edit_id_spinbutton, "parking_edit_id_spinbutton");
+  GLADE_HOOKUP_OBJECT (admin_window, parking_edit_location_label, "parking_edit_location_label");
+  GLADE_HOOKUP_OBJECT (admin_window, parking_edit_id_label, "parking_edit_id_label");
+  GLADE_HOOKUP_OBJECT (admin_window, parking_edit_capacity_label, "parking_edit_capacity_label");
+  GLADE_HOOKUP_OBJECT (admin_window, parking_edit_availability_label, "parking_edit_availability_label");
+  GLADE_HOOKUP_OBJECT (admin_window, parking_edit_fees_label, "parking_edit_fees_label");
+  GLADE_HOOKUP_OBJECT (admin_window, image82, "image82");
   GLADE_HOOKUP_OBJECT (admin_window, parking_edit_cancel_button, "parking_edit_cancel_button");
   GLADE_HOOKUP_OBJECT (admin_window, alignment32, "alignment32");
   GLADE_HOOKUP_OBJECT (admin_window, hbox32, "hbox32");
@@ -2092,45 +2069,38 @@ create_admin_window (void)
   GLADE_HOOKUP_OBJECT (admin_window, hbox33, "hbox33");
   GLADE_HOOKUP_OBJECT (admin_window, image40, "image40");
   GLADE_HOOKUP_OBJECT (admin_window, label174, "label174");
-  GLADE_HOOKUP_OBJECT (admin_window, parking_edit_location_label, "parking_edit_location_label");
-  GLADE_HOOKUP_OBJECT (admin_window, parking_edit_id_label, "parking_edit_id_label");
-  GLADE_HOOKUP_OBJECT (admin_window, parking_edit_capacity_label, "parking_edit_capacity_label");
-  GLADE_HOOKUP_OBJECT (admin_window, parking_edit_availability_label, "parking_edit_availability_label");
-  GLADE_HOOKUP_OBJECT (admin_window, parking_edit_fees_label, "parking_edit_fees_label");
-  GLADE_HOOKUP_OBJECT (admin_window, image82, "image82");
   GLADE_HOOKUP_OBJECT (admin_window, parking_edit_label, "parking_edit_label");
   GLADE_HOOKUP_OBJECT (admin_window, parking_edit_delete_, "parking_edit_delete_");
   GLADE_HOOKUP_OBJECT (admin_window, parking_delete_id_spinbutton, "parking_delete_id_spinbutton");
   GLADE_HOOKUP_OBJECT (admin_window, parking_delete_id_label, "parking_delete_id_label");
-  GLADE_HOOKUP_OBJECT (admin_window, parking_delete_confirm_button, "parking_delete_confirm_button");
-  GLADE_HOOKUP_OBJECT (admin_window, alignment34, "alignment34");
-  GLADE_HOOKUP_OBJECT (admin_window, hbox34, "hbox34");
-  GLADE_HOOKUP_OBJECT (admin_window, image41, "image41");
-  GLADE_HOOKUP_OBJECT (admin_window, label176, "label176");
+  GLADE_HOOKUP_OBJECT (admin_window, image83, "image83");
   GLADE_HOOKUP_OBJECT (admin_window, parking_delete_cancel_button, "parking_delete_cancel_button");
   GLADE_HOOKUP_OBJECT (admin_window, alignment35, "alignment35");
   GLADE_HOOKUP_OBJECT (admin_window, hbox35, "hbox35");
   GLADE_HOOKUP_OBJECT (admin_window, image42, "image42");
   GLADE_HOOKUP_OBJECT (admin_window, label177, "label177");
-  GLADE_HOOKUP_OBJECT (admin_window, image83, "image83");
+  GLADE_HOOKUP_OBJECT (admin_window, parking_delete_confirm_button, "parking_delete_confirm_button");
+  GLADE_HOOKUP_OBJECT (admin_window, alignment34, "alignment34");
+  GLADE_HOOKUP_OBJECT (admin_window, hbox34, "hbox34");
+  GLADE_HOOKUP_OBJECT (admin_window, image41, "image41");
+  GLADE_HOOKUP_OBJECT (admin_window, label176, "label176");
   GLADE_HOOKUP_OBJECT (admin_window, parking_delete_label, "parking_delete_label");
   GLADE_HOOKUP_OBJECT (admin_window, fixed28, "fixed28");
   GLADE_HOOKUP_OBJECT (admin_window, parking_dislay_id_spinbutton, "parking_dislay_id_spinbutton");
   GLADE_HOOKUP_OBJECT (admin_window, scrolledwindow5, "scrolledwindow5");
   GLADE_HOOKUP_OBJECT (admin_window, parking_display_treeview, "parking_display_treeview");
   GLADE_HOOKUP_OBJECT (admin_window, parking_display_label, "parking_display_label");
+  GLADE_HOOKUP_OBJECT (admin_window, image84, "image84");
   GLADE_HOOKUP_OBJECT (admin_window, parking_display_search_button, "parking_display_search_button");
   GLADE_HOOKUP_OBJECT (admin_window, alignment36, "alignment36");
   GLADE_HOOKUP_OBJECT (admin_window, hbox36, "hbox36");
   GLADE_HOOKUP_OBJECT (admin_window, image45, "image45");
   GLADE_HOOKUP_OBJECT (admin_window, label181, "label181");
-  GLADE_HOOKUP_OBJECT (admin_window, image84, "image84");
   GLADE_HOOKUP_OBJECT (admin_window, parking_display_label, "parking_display_label");
   GLADE_HOOKUP_OBJECT (admin_window, admin_manage_parking_label, "admin_manage_parking_label");
   GLADE_HOOKUP_OBJECT (admin_window, admin_manage_services_notebook, "admin_manage_services_notebook");
   GLADE_HOOKUP_OBJECT (admin_window, fixed17, "fixed17");
   GLADE_HOOKUP_OBJECT (admin_window, Service_display_ID_code, "Service_display_ID_code");
-  GLADE_HOOKUP_OBJECT (admin_window, Service_display_countity, "Service_display_countity");
   GLADE_HOOKUP_OBJECT (admin_window, Service_display_clist, "Service_display_clist");
   GLADE_HOOKUP_OBJECT (admin_window, Service_display_clist_id_service, "Service_display_clist_id_service");
   GLADE_HOOKUP_OBJECT (admin_window, Service_display_clist_id_reservation, "Service_display_clist_id_reservation");
@@ -2139,31 +2109,15 @@ create_admin_window (void)
   GLADE_HOOKUP_OBJECT (admin_window, Service_display_clist_Duration, "Service_display_clist_Duration");
   GLADE_HOOKUP_OBJECT (admin_window, Service_display_clist_Price, "Service_display_clist_Price");
   GLADE_HOOKUP_OBJECT (admin_window, Service_display_ID, "Service_display_ID");
+  GLADE_HOOKUP_OBJECT (admin_window, image92, "image92");
   GLADE_HOOKUP_OBJECT (admin_window, Service_main, "Service_main");
-  GLADE_HOOKUP_OBJECT (admin_window, Service_display_number, "Service_display_number");
-  GLADE_HOOKUP_OBJECT (admin_window, Service_display_Create, "Service_display_Create");
-  GLADE_HOOKUP_OBJECT (admin_window, alignment5, "alignment5");
-  GLADE_HOOKUP_OBJECT (admin_window, hbox5, "hbox5");
-  GLADE_HOOKUP_OBJECT (admin_window, image5, "image5");
-  GLADE_HOOKUP_OBJECT (admin_window, label50, "label50");
-  GLADE_HOOKUP_OBJECT (admin_window, Service_display_Delete, "Service_display_Delete");
-  GLADE_HOOKUP_OBJECT (admin_window, alignment3, "alignment3");
-  GLADE_HOOKUP_OBJECT (admin_window, hbox3, "hbox3");
-  GLADE_HOOKUP_OBJECT (admin_window, image3, "image3");
-  GLADE_HOOKUP_OBJECT (admin_window, label48, "label48");
+  GLADE_HOOKUP_OBJECT (admin_window, Service_display_Reservations, "Service_display_Reservations");
+  GLADE_HOOKUP_OBJECT (admin_window, Service_update_view_reservations, "Service_update_view_reservations");
   GLADE_HOOKUP_OBJECT (admin_window, Service_display_Search, "Service_display_Search");
   GLADE_HOOKUP_OBJECT (admin_window, alignment2, "alignment2");
   GLADE_HOOKUP_OBJECT (admin_window, hbox2, "hbox2");
   GLADE_HOOKUP_OBJECT (admin_window, image2, "image2");
   GLADE_HOOKUP_OBJECT (admin_window, label15, "label15");
-  GLADE_HOOKUP_OBJECT (admin_window, Service_update_view_reservations, "Service_update_view_reservations");
-  GLADE_HOOKUP_OBJECT (admin_window, Service_display_Reservations, "Service_display_Reservations");
-  GLADE_HOOKUP_OBJECT (admin_window, Service_display_Update, "Service_display_Update");
-  GLADE_HOOKUP_OBJECT (admin_window, alignment4, "alignment4");
-  GLADE_HOOKUP_OBJECT (admin_window, hbox4, "hbox4");
-  GLADE_HOOKUP_OBJECT (admin_window, image4, "image4");
-  GLADE_HOOKUP_OBJECT (admin_window, label49, "label49");
-  GLADE_HOOKUP_OBJECT (admin_window, image92, "image92");
   GLADE_HOOKUP_OBJECT (admin_window, Service_Display, "Service_Display");
   GLADE_HOOKUP_OBJECT (admin_window, fixed20, "fixed20");
   GLADE_HOOKUP_OBJECT (admin_window, Service_Create_name, "Service_Create_name");
@@ -2181,6 +2135,7 @@ create_admin_window (void)
   GLADE_HOOKUP_OBJECT (admin_window, Service_Create_Price_notfree_Unit, "Service_Create_Price_notfree_Unit");
   GLADE_HOOKUP_OBJECT (admin_window, Service_Create_main, "Service_Create_main");
   GLADE_HOOKUP_OBJECT (admin_window, image85, "image85");
+  GLADE_HOOKUP_OBJECT (admin_window, service_create_add_button, "service_create_add_button");
   GLADE_HOOKUP_OBJECT (admin_window, Service_Create, "Service_Create");
   GLADE_HOOKUP_OBJECT (admin_window, fixed21, "fixed21");
   GLADE_HOOKUP_OBJECT (admin_window, Service_update_Name, "Service_update_Name");
@@ -2198,14 +2153,17 @@ create_admin_window (void)
   GLADE_HOOKUP_OBJECT (admin_window, Service_update_Name, "Service_update_Name");
   GLADE_HOOKUP_OBJECT (admin_window, Service_update_main, "Service_update_main");
   GLADE_HOOKUP_OBJECT (admin_window, image86, "image86");
+  GLADE_HOOKUP_OBJECT (admin_window, button36, "button36");
   GLADE_HOOKUP_OBJECT (admin_window, Service_Update, "Service_Update");
   GLADE_HOOKUP_OBJECT (admin_window, fixed14, "fixed14");
+  GLADE_HOOKUP_OBJECT (admin_window, image87, "image87");
+  GLADE_HOOKUP_OBJECT (admin_window, service_delete_id_entry_SpinButton, "service_delete_id_entry_SpinButton");
+  GLADE_HOOKUP_OBJECT (admin_window, label252, "label252");
   GLADE_HOOKUP_OBJECT (admin_window, Service_Delete_button, "Service_Delete_button");
   GLADE_HOOKUP_OBJECT (admin_window, alignment6, "alignment6");
   GLADE_HOOKUP_OBJECT (admin_window, hbox6, "hbox6");
   GLADE_HOOKUP_OBJECT (admin_window, image6, "image6");
   GLADE_HOOKUP_OBJECT (admin_window, label51, "label51");
-  GLADE_HOOKUP_OBJECT (admin_window, image87, "image87");
   GLADE_HOOKUP_OBJECT (admin_window, Service_Delete, "Service_Delete");
   GLADE_HOOKUP_OBJECT (admin_window, admin_manage_service_label, "admin_manage_service_label");
   GLADE_HOOKUP_OBJECT (admin_window, admin_manage_services_notebook, "admin_manage_services_notebook");
@@ -2225,21 +2183,21 @@ create_admin_window (void)
   GLADE_HOOKUP_OBJECT (admin_window, agent_post_availablity_parking_clist_label, "agent_post_availablity_parking_clist_label");
   GLADE_HOOKUP_OBJECT (admin_window, agent_post_Number_Of_Availablity_Agent___entry, "agent_post_Number_Of_Availablity_Agent___entry");
   GLADE_HOOKUP_OBJECT (admin_window, agent_post_Total_Agent____entry, "agent_post_Total_Agent____entry");
+  GLADE_HOOKUP_OBJECT (admin_window, agent_post_id_comboboxentry, "agent_post_id_comboboxentry");
+  GLADE_HOOKUP_OBJECT (admin_window, agent_post_total_agents, "agent_post_total_agents");
+  GLADE_HOOKUP_OBJECT (admin_window, agent_post_id_label, "agent_post_id_label");
+  GLADE_HOOKUP_OBJECT (admin_window, agent_post_available_agents_label, "agent_post_available_agents_label");
+  GLADE_HOOKUP_OBJECT (admin_window, image80, "image80");
   GLADE_HOOKUP_OBJECT (admin_window, agent_post_research_button, "agent_post_research_button");
   GLADE_HOOKUP_OBJECT (admin_window, alignment24, "alignment24");
   GLADE_HOOKUP_OBJECT (admin_window, hbox22, "hbox22");
   GLADE_HOOKUP_OBJECT (admin_window, agent_post_research_lmage, "agent_post_research_lmage");
   GLADE_HOOKUP_OBJECT (admin_window, agent_post_research_label, "agent_post_research_label");
-  GLADE_HOOKUP_OBJECT (admin_window, agent_post_id_comboboxentry, "agent_post_id_comboboxentry");
-  GLADE_HOOKUP_OBJECT (admin_window, agent_post_total_agents, "agent_post_total_agents");
-  GLADE_HOOKUP_OBJECT (admin_window, agent_post_id_label, "agent_post_id_label");
   GLADE_HOOKUP_OBJECT (admin_window, agent_post_update_button, "agent_post_update_button");
   GLADE_HOOKUP_OBJECT (admin_window, alignment19, "alignment19");
   GLADE_HOOKUP_OBJECT (admin_window, hbox19, "hbox19");
   GLADE_HOOKUP_OBJECT (admin_window, agent_post_update_lmage, "agent_post_update_lmage");
   GLADE_HOOKUP_OBJECT (admin_window, agent_post_update_label, "agent_post_update_label");
-  GLADE_HOOKUP_OBJECT (admin_window, agent_post_available_agents_label, "agent_post_available_agents_label");
-  GLADE_HOOKUP_OBJECT (admin_window, image80, "image80");
   GLADE_HOOKUP_OBJECT (admin_window, Agent_Post_label, "Agent_Post_label");
   GLADE_HOOKUP_OBJECT (admin_window, fixed3, "fixed3");
   GLADE_HOOKUP_OBJECT (admin_window, agent_add_first_name_entry, "agent_add_first_name_entry");
@@ -2256,17 +2214,17 @@ create_admin_window (void)
   GLADE_HOOKUP_OBJECT (admin_window, agent_add_last_name_label, "agent_add_last_name_label");
   GLADE_HOOKUP_OBJECT (admin_window, agent_add_phone_label, "agent_add_phone_label");
   GLADE_HOOKUP_OBJECT (admin_window, agent_add_e_mail_label, "agent_add_e_mail_label");
+  GLADE_HOOKUP_OBJECT (admin_window, image88, "image88");
+  GLADE_HOOKUP_OBJECT (admin_window, agent_add_add_button, "agent_add_add_button");
+  GLADE_HOOKUP_OBJECT (admin_window, alignment41, "alignment41");
+  GLADE_HOOKUP_OBJECT (admin_window, hbox41, "hbox41");
+  GLADE_HOOKUP_OBJECT (admin_window, image102, "image102");
+  GLADE_HOOKUP_OBJECT (admin_window, label253, "label253");
   GLADE_HOOKUP_OBJECT (admin_window, agent_add_cancel_button, "agent_add_cancel_button");
   GLADE_HOOKUP_OBJECT (admin_window, alignment2, "alignment2");
   GLADE_HOOKUP_OBJECT (admin_window, hbox2, "hbox2");
   GLADE_HOOKUP_OBJECT (admin_window, agent_add_cancel_image, "agent_add_cancel_image");
   GLADE_HOOKUP_OBJECT (admin_window, agent_add_cancel_label, "agent_add_cancel_label");
-  GLADE_HOOKUP_OBJECT (admin_window, agent_add_add_button, "agent_add_add_button");
-  GLADE_HOOKUP_OBJECT (admin_window, alignment1, "alignment1");
-  GLADE_HOOKUP_OBJECT (admin_window, hbox1, "hbox1");
-  GLADE_HOOKUP_OBJECT (admin_window, agent_add_add_image, "agent_add_add_image");
-  GLADE_HOOKUP_OBJECT (admin_window, agent_add_add_button, "agent_add_add_button");
-  GLADE_HOOKUP_OBJECT (admin_window, image88, "image88");
   GLADE_HOOKUP_OBJECT (admin_window, agent_add_label, "agent_add_label");
   GLADE_HOOKUP_OBJECT (admin_window, fixed9, "fixed9");
   GLADE_HOOKUP_OBJECT (admin_window, agent_modify_first_name_entry, "agent_modify_first_name_entry");
@@ -2289,6 +2247,8 @@ create_admin_window (void)
   GLADE_HOOKUP_OBJECT (admin_window, agent_modify_availablity_status_available_RadioButton, "agent_modify_availablity_status_available_RadioButton");
   GLADE_HOOKUP_OBJECT (admin_window, agent_modify_id_parking_ComboBoxEntry, "agent_modify_id_parking_ComboBoxEntry");
   GLADE_HOOKUP_OBJECT (admin_window, agent_modify_id_parking_label, "agent_modify_id_parking_label");
+  GLADE_HOOKUP_OBJECT (admin_window, agent_modify_availablity_status_not_available_RadioButton, "agent_modify_availablity_status_not_available_RadioButton");
+  GLADE_HOOKUP_OBJECT (admin_window, image89, "image89");
   GLADE_HOOKUP_OBJECT (admin_window, agent_modify_modity_button, "agent_modify_modity_button");
   GLADE_HOOKUP_OBJECT (admin_window, alignment16, "alignment16");
   GLADE_HOOKUP_OBJECT (admin_window, hbox16, "hbox16");
@@ -2299,23 +2259,21 @@ create_admin_window (void)
   GLADE_HOOKUP_OBJECT (admin_window, hbox14, "hbox14");
   GLADE_HOOKUP_OBJECT (admin_window, agent_modify_cancel_image, "agent_modify_cancel_image");
   GLADE_HOOKUP_OBJECT (admin_window, agent_modify_cancel_label, "agent_modify_cancel_label");
-  GLADE_HOOKUP_OBJECT (admin_window, agent_modify_availablity_status_not_available_RadioButton, "agent_modify_availablity_status_not_available_RadioButton");
-  GLADE_HOOKUP_OBJECT (admin_window, image89, "image89");
   GLADE_HOOKUP_OBJECT (admin_window, agent_modify_label, "agent_modify_label");
   GLADE_HOOKUP_OBJECT (admin_window, fixed10, "fixed10");
   GLADE_HOOKUP_OBJECT (admin_window, agent_delete_id_spinbutton, "agent_delete_id_spinbutton");
+  GLADE_HOOKUP_OBJECT (admin_window, agent_delete_id_label, "agent_delete_id_label");
+  GLADE_HOOKUP_OBJECT (admin_window, image90, "image90");
   GLADE_HOOKUP_OBJECT (admin_window, agent_delete_return_button, "agent_delete_return_button");
   GLADE_HOOKUP_OBJECT (admin_window, alignment17, "alignment17");
   GLADE_HOOKUP_OBJECT (admin_window, hbox17, "hbox17");
   GLADE_HOOKUP_OBJECT (admin_window, agent_delete_return_image, "agent_delete_return_image");
   GLADE_HOOKUP_OBJECT (admin_window, agent_delete_return_label, "agent_delete_return_label");
-  GLADE_HOOKUP_OBJECT (admin_window, agent_delete_id_label, "agent_delete_id_label");
   GLADE_HOOKUP_OBJECT (admin_window, agent_delete_delete_button, "agent_delete_delete_button");
   GLADE_HOOKUP_OBJECT (admin_window, alignment18, "alignment18");
   GLADE_HOOKUP_OBJECT (admin_window, hbox18, "hbox18");
   GLADE_HOOKUP_OBJECT (admin_window, agent_delete_delete_image, "agent_delete_delete_image");
   GLADE_HOOKUP_OBJECT (admin_window, agent_delete_delete_label, "agent_delete_delete_label");
-  GLADE_HOOKUP_OBJECT (admin_window, image90, "image90");
   GLADE_HOOKUP_OBJECT (admin_window, agent_delete_label, "agent_delete_label");
   GLADE_HOOKUP_OBJECT (admin_window, admin_manage_agent_label, "admin_manage_agent_label");
   GLADE_HOOKUP_OBJECT (admin_window, fixed11, "fixed11");
@@ -2325,18 +2283,18 @@ create_admin_window (void)
   GLADE_HOOKUP_OBJECT (admin_window, scrolledwindow2, "scrolledwindow2");
   GLADE_HOOKUP_OBJECT (admin_window, agent_display_treeview, "agent_display_treeview");
   GLADE_HOOKUP_OBJECT (admin_window, agent_display_Reservation_list_label, "agent_display_Reservation_list_label");
-  GLADE_HOOKUP_OBJECT (admin_window, agent_display_update_Button, "agent_display_update_Button");
-  GLADE_HOOKUP_OBJECT (admin_window, alignment23, "alignment23");
-  GLADE_HOOKUP_OBJECT (admin_window, hbox21, "hbox21");
-  GLADE_HOOKUP_OBJECT (admin_window, agent_display_update_image, "agent_display_update_image");
-  GLADE_HOOKUP_OBJECT (admin_window, agent_display_update_label, "agent_display_update_label");
+  GLADE_HOOKUP_OBJECT (admin_window, agent_display_Reservation_date_label, "agent_display_Reservation_date_label");
+  GLADE_HOOKUP_OBJECT (admin_window, image81, "image81");
   GLADE_HOOKUP_OBJECT (admin_window, agent_display_search_Button, "agent_display_search_Button");
   GLADE_HOOKUP_OBJECT (admin_window, alignment22, "alignment22");
   GLADE_HOOKUP_OBJECT (admin_window, hbox20, "hbox20");
   GLADE_HOOKUP_OBJECT (admin_window, agent_display_search_image, "agent_display_search_image");
   GLADE_HOOKUP_OBJECT (admin_window, agent_display_search_label, "agent_display_search_label");
-  GLADE_HOOKUP_OBJECT (admin_window, agent_display_Reservation_date_label, "agent_display_Reservation_date_label");
-  GLADE_HOOKUP_OBJECT (admin_window, image81, "image81");
+  GLADE_HOOKUP_OBJECT (admin_window, agent_display_update_Button, "agent_display_update_Button");
+  GLADE_HOOKUP_OBJECT (admin_window, alignment23, "alignment23");
+  GLADE_HOOKUP_OBJECT (admin_window, hbox21, "hbox21");
+  GLADE_HOOKUP_OBJECT (admin_window, agent_display_update_image, "agent_display_update_image");
+  GLADE_HOOKUP_OBJECT (admin_window, agent_display_update_label, "agent_display_update_label");
   GLADE_HOOKUP_OBJECT (admin_window, admin_display_reservations, "admin_display_reservations");
 
   return admin_window;
@@ -2443,50 +2401,25 @@ create_citizen_window (void)
   GtkWidget *citizen_list_reservations_label;
   GtkWidget *citizen_list_parkingspots_label;
   GtkWidget *citizen_list_label;
+  GtkWidget *citizen_list_logo;
   GtkWidget *citizen_home_add_button;
   GtkWidget *alignment5;
   GtkWidget *hbox5;
   GtkWidget *image5;
   GtkWidget *label5;
-  GtkWidget *citizen_list_about_button;
-  GtkWidget *alignment3;
-  GtkWidget *hbox3;
-  GtkWidget *image3;
-  GtkWidget *label3;
   GtkWidget *citizen_list_delete;
   GtkWidget *alignment4;
   GtkWidget *hbox4;
   GtkWidget *image4;
   GtkWidget *label4;
-  GtkWidget *citizen_list_logo;
+  GtkWidget *citizen_list_about_button;
+  GtkWidget *alignment3;
+  GtkWidget *hbox3;
+  GtkWidget *image3;
+  GtkWidget *label3;
   GtkWidget *citizen_list_pager;
   GtkWidget *citizen_monthlybill_vbox0;
   GtkWidget *citizen_monthlybill_curve;
-  GtkWidget *citizen_monthlybill_hbox;
-  GtkWidget *citizen_monthlybill_vbox1;
-  GtkWidget *citizen_monthlybill_fixed1;
-  GtkWidget *citizen_monthlybill_services_label;
-  GtkWidget *citizen_monthlybill_services_button;
-  GtkWidget *alignment8;
-  GtkWidget *hbox8;
-  GtkWidget *image8;
-  GtkWidget *label8;
-  GtkWidget *citizen_monthlybill_vbox2;
-  GtkWidget *citizen_monthlybill_fixed2;
-  GtkWidget *citizen_monthlybill_reservations_label;
-  GtkWidget *citizen_monthlybill_reservations_button;
-  GtkWidget *alignment6;
-  GtkWidget *hbox6;
-  GtkWidget *image6;
-  GtkWidget *label6;
-  GtkWidget *citizen_monthlybill_vbox3;
-  GtkWidget *citizen_monthlybill_fixed3;
-  GtkWidget *citizen_monthlybill_parkings_label;
-  GtkWidget *citizen_monthlybill_parkings_button;
-  GtkWidget *alignment7;
-  GtkWidget *hbox7;
-  GtkWidget *image7;
-  GtkWidget *label7;
   GtkWidget *citizen_monthlybill_pager;
   GtkWidget *citizen_account_label;
   GtkWidget *notebook1;
@@ -2496,8 +2429,6 @@ create_citizen_window (void)
   GtkWidget *reservation_read_table;
   GtkWidget *reservation_read_TreeView;
   GtkWidget *reservation_read_id_text;
-  GtkWidget *reservation_read_button1;
-  GtkWidget *reservation_read_button1_image;
   GtkWidget *reservation_main_text;
   GtkWidget *image95;
   GtkWidget *image52;
@@ -2506,6 +2437,8 @@ create_citizen_window (void)
   GtkWidget *hbox1;
   GtkWidget *reservation_read_button2_image;
   GtkWidget *reservation_read_button2_label;
+  GtkWidget *reservation_read_button1;
+  GtkWidget *reservation_read_button1_image;
   GtkWidget *reservation_read_title_text;
   GtkWidget *fixed8;
   GtkWidget *fixed9;
@@ -2522,8 +2455,6 @@ create_citizen_window (void)
   GtkWidget *image53;
   GtkWidget *reservation_update_title_text;
   GtkWidget *reservation_update_Id_citizen;
-  GtkWidget *reservation_update_button1;
-  GtkWidget *reservation_update_button1_image;
   GtkWidget *reservation_update_ID_reservation;
   GtkWidget *reservation_update_Id_parking_text;
   GtkWidget *reservation_update_Id_parking_combo;
@@ -2540,6 +2471,8 @@ create_citizen_window (void)
   GSList *reservation_update_duration_2h_group = NULL;
   GtkWidget *reservation_update_duration_text;
   GtkWidget *reservation_update_reservation_date_text;
+  GtkWidget *reservation_update_button1;
+  GtkWidget *reservation_update_button1_image;
   GtkWidget *button25;
   GtkWidget *alignment15;
   GtkWidget *hbox14;
@@ -2551,6 +2484,9 @@ create_citizen_window (void)
   GtkWidget *image97;
   GtkWidget *reservation_update_title_text;
   GtkWidget *reservation_delete_search_text;
+  GtkWidget *image54;
+  GtkWidget *reservation_delete_search_button;
+  GtkWidget *reservation_delete_search_button_image;
   GtkWidget *reservation_delete_button1;
   GtkWidget *alignment5;
   GtkWidget *hbox4;
@@ -2561,9 +2497,6 @@ create_citizen_window (void)
   GtkWidget *hbox5;
   GtkWidget *reservation_delete_button2_image;
   GtkWidget *reservation_delete_button2_label;
-  GtkWidget *reservation_delete_search_button;
-  GtkWidget *reservation_delete_search_button_image;
-  GtkWidget *image54;
   GtkWidget *reservation_delete_main;
   GtkWidget *fixed29;
   GtkWidget *entry9;
@@ -2579,8 +2512,6 @@ create_citizen_window (void)
   GtkWidget *image55;
   GtkWidget *label233;
   GtkWidget *label236;
-  GtkWidget *button30;
-  GtkWidget *image50;
   GtkWidget *label235;
   GtkWidget *label237;
   GtkWidget *comboboxentry4;
@@ -2589,11 +2520,6 @@ create_citizen_window (void)
   GtkWidget *checkbutton2;
   GtkWidget *checkbutton3;
   GtkWidget *label232;
-  GtkWidget *button29;
-  GtkWidget *alignment39;
-  GtkWidget *hbox39;
-  GtkWidget *image49;
-  GtkWidget *label231;
   GtkWidget *radiobutton4;
   GSList *radiobutton4_group = NULL;
   GtkWidget *radiobutton5;
@@ -2602,6 +2528,13 @@ create_citizen_window (void)
   GtkWidget *radiobutton6;
   GtkWidget *label238;
   GtkWidget *label239;
+  GtkWidget *button30;
+  GtkWidget *image50;
+  GtkWidget *button29;
+  GtkWidget *alignment39;
+  GtkWidget *hbox39;
+  GtkWidget *image49;
+  GtkWidget *label231;
   GtkWidget *eventbox1;
   GtkWidget *reservation_create_main;
   GtkWidget *fixed10;
@@ -2609,17 +2542,17 @@ create_citizen_window (void)
   GtkWidget *entry11;
   GtkWidget *entry12;
   GtkWidget *reservation_calcul_ID_reservation_text;
-  GtkWidget *button;
   GtkWidget *label241;
-  GtkWidget *button33;
   GtkWidget *label243;
+  GtkWidget *image56;
+  GtkWidget *image100;
   GtkWidget *reservation_delete_refresh_button;
   GtkWidget *alignment14;
   GtkWidget *hbox13;
   GtkWidget *reservation_calcul_refresh_image;
   GtkWidget *reservation_calcul_refresh_label;
-  GtkWidget *image56;
-  GtkWidget *image100;
+  GtkWidget *button;
+  GtkWidget *button33;
   GtkWidget *reservation_calcul_main;
   GtkWidget *citizen_reservations_label;
   GtkWidget *citizen_reviews_notebook;
@@ -3167,6 +3100,11 @@ create_citizen_window (void)
   gtk_fixed_put (GTK_FIXED (citizen_list_fixed), citizen_list_label, 264, 40);
   gtk_widget_set_size_request (citizen_list_label, 205, 25);
 
+  citizen_list_logo = create_pixmap (citizen_window, "jhhhhhhh.JPG");
+  gtk_widget_show (citizen_list_logo);
+  gtk_fixed_put (GTK_FIXED (citizen_list_fixed), citizen_list_logo, 0, 8);
+  gtk_widget_set_size_request (citizen_list_logo, 104, 64);
+
   citizen_home_add_button = gtk_button_new ();
   gtk_widget_show (citizen_home_add_button);
   gtk_fixed_put (GTK_FIXED (citizen_list_fixed), citizen_home_add_button, 144, 472);
@@ -3187,27 +3125,6 @@ create_citizen_window (void)
   label5 = gtk_label_new_with_mnemonic ("Add");
   gtk_widget_show (label5);
   gtk_box_pack_start (GTK_BOX (hbox5), label5, FALSE, FALSE, 0);
-
-  citizen_list_about_button = gtk_button_new ();
-  gtk_widget_show (citizen_list_about_button);
-  gtk_fixed_put (GTK_FIXED (citizen_list_fixed), citizen_list_about_button, 392, 472);
-  gtk_widget_set_size_request (citizen_list_about_button, 100, 40);
-
-  alignment3 = gtk_alignment_new (0.5, 0.5, 0, 0);
-  gtk_widget_show (alignment3);
-  gtk_container_add (GTK_CONTAINER (citizen_list_about_button), alignment3);
-
-  hbox3 = gtk_hbox_new (FALSE, 2);
-  gtk_widget_show (hbox3);
-  gtk_container_add (GTK_CONTAINER (alignment3), hbox3);
-
-  image3 = gtk_image_new_from_stock ("gtk-about", GTK_ICON_SIZE_BUTTON);
-  gtk_widget_show (image3);
-  gtk_box_pack_start (GTK_BOX (hbox3), image3, FALSE, FALSE, 0);
-
-  label3 = gtk_label_new_with_mnemonic ("About\n\t\t\t");
-  gtk_widget_show (label3);
-  gtk_box_pack_start (GTK_BOX (hbox3), label3, FALSE, FALSE, 0);
 
   citizen_list_delete = gtk_button_new ();
   gtk_widget_show (citizen_list_delete);
@@ -3230,10 +3147,26 @@ create_citizen_window (void)
   gtk_widget_show (label4);
   gtk_box_pack_start (GTK_BOX (hbox4), label4, FALSE, FALSE, 0);
 
-  citizen_list_logo = create_pixmap (citizen_window, "jhhhhhhh.JPG");
-  gtk_widget_show (citizen_list_logo);
-  gtk_fixed_put (GTK_FIXED (citizen_list_fixed), citizen_list_logo, 0, 8);
-  gtk_widget_set_size_request (citizen_list_logo, 104, 64);
+  citizen_list_about_button = gtk_button_new ();
+  gtk_widget_show (citizen_list_about_button);
+  gtk_fixed_put (GTK_FIXED (citizen_list_fixed), citizen_list_about_button, 392, 472);
+  gtk_widget_set_size_request (citizen_list_about_button, 100, 40);
+
+  alignment3 = gtk_alignment_new (0.5, 0.5, 0, 0);
+  gtk_widget_show (alignment3);
+  gtk_container_add (GTK_CONTAINER (citizen_list_about_button), alignment3);
+
+  hbox3 = gtk_hbox_new (FALSE, 2);
+  gtk_widget_show (hbox3);
+  gtk_container_add (GTK_CONTAINER (alignment3), hbox3);
+
+  image3 = gtk_image_new_from_stock ("gtk-about", GTK_ICON_SIZE_BUTTON);
+  gtk_widget_show (image3);
+  gtk_box_pack_start (GTK_BOX (hbox3), image3, FALSE, FALSE, 0);
+
+  label3 = gtk_label_new_with_mnemonic ("About\n\t\t\t");
+  gtk_widget_show (label3);
+  gtk_box_pack_start (GTK_BOX (hbox3), label3, FALSE, FALSE, 0);
 
   citizen_list_pager = gtk_label_new (_("List"));
   gtk_widget_show (citizen_list_pager);
@@ -3248,110 +3181,6 @@ create_citizen_window (void)
   gtk_box_pack_start (GTK_BOX (citizen_monthlybill_vbox0), citizen_monthlybill_curve, TRUE, TRUE, 0);
   gtk_widget_set_size_request (citizen_monthlybill_curve, -1, 390);
   gtk_curve_set_range (GTK_CURVE (citizen_monthlybill_curve), 0, 1, 0, 1);
-
-  citizen_monthlybill_hbox = gtk_hbox_new (FALSE, 0);
-  gtk_widget_show (citizen_monthlybill_hbox);
-  gtk_box_pack_start (GTK_BOX (citizen_monthlybill_vbox0), citizen_monthlybill_hbox, TRUE, TRUE, 0);
-  gtk_widget_set_size_request (citizen_monthlybill_hbox, -1, 1);
-
-  citizen_monthlybill_vbox1 = gtk_vbox_new (FALSE, 0);
-  gtk_widget_show (citizen_monthlybill_vbox1);
-  gtk_box_pack_start (GTK_BOX (citizen_monthlybill_hbox), citizen_monthlybill_vbox1, TRUE, TRUE, 0);
-
-  citizen_monthlybill_fixed1 = gtk_fixed_new ();
-  gtk_widget_show (citizen_monthlybill_fixed1);
-  gtk_box_pack_start (GTK_BOX (citizen_monthlybill_vbox1), citizen_monthlybill_fixed1, TRUE, TRUE, 0);
-
-  citizen_monthlybill_services_label = gtk_label_new (_("Check this month's list of\n\t\t\t\t used services"));
-  gtk_widget_show (citizen_monthlybill_services_label);
-  gtk_fixed_put (GTK_FIXED (citizen_monthlybill_fixed1), citizen_monthlybill_services_label, 40, 50);
-  gtk_widget_set_size_request (citizen_monthlybill_services_label, 240, 54);
-
-  citizen_monthlybill_services_button = gtk_button_new ();
-  gtk_widget_show (citizen_monthlybill_services_button);
-  gtk_box_pack_start (GTK_BOX (citizen_monthlybill_vbox1), citizen_monthlybill_services_button, FALSE, FALSE, 0);
-
-  alignment8 = gtk_alignment_new (0.5, 0.5, 0, 0);
-  gtk_widget_show (alignment8);
-  gtk_container_add (GTK_CONTAINER (citizen_monthlybill_services_button), alignment8);
-
-  hbox8 = gtk_hbox_new (FALSE, 2);
-  gtk_widget_show (hbox8);
-  gtk_container_add (GTK_CONTAINER (alignment8), hbox8);
-
-  image8 = gtk_image_new_from_stock ("gtk-open", GTK_ICON_SIZE_BUTTON);
-  gtk_widget_show (image8);
-  gtk_box_pack_start (GTK_BOX (hbox8), image8, FALSE, FALSE, 0);
-
-  label8 = gtk_label_new_with_mnemonic ("Open");
-  gtk_widget_show (label8);
-  gtk_box_pack_start (GTK_BOX (hbox8), label8, FALSE, FALSE, 0);
-
-  citizen_monthlybill_vbox2 = gtk_vbox_new (FALSE, 0);
-  gtk_widget_show (citizen_monthlybill_vbox2);
-  gtk_box_pack_start (GTK_BOX (citizen_monthlybill_hbox), citizen_monthlybill_vbox2, TRUE, TRUE, 0);
-
-  citizen_monthlybill_fixed2 = gtk_fixed_new ();
-  gtk_widget_show (citizen_monthlybill_fixed2);
-  gtk_box_pack_start (GTK_BOX (citizen_monthlybill_vbox2), citizen_monthlybill_fixed2, TRUE, TRUE, 0);
-
-  citizen_monthlybill_reservations_label = gtk_label_new (_("Check this month's list of\n\t\t\t\t\t reservations"));
-  gtk_widget_show (citizen_monthlybill_reservations_label);
-  gtk_fixed_put (GTK_FIXED (citizen_monthlybill_fixed2), citizen_monthlybill_reservations_label, 40, 50);
-  gtk_widget_set_size_request (citizen_monthlybill_reservations_label, 272, 70);
-
-  citizen_monthlybill_reservations_button = gtk_button_new ();
-  gtk_widget_show (citizen_monthlybill_reservations_button);
-  gtk_box_pack_start (GTK_BOX (citizen_monthlybill_vbox2), citizen_monthlybill_reservations_button, FALSE, FALSE, 0);
-
-  alignment6 = gtk_alignment_new (0.5, 0.5, 0, 0);
-  gtk_widget_show (alignment6);
-  gtk_container_add (GTK_CONTAINER (citizen_monthlybill_reservations_button), alignment6);
-
-  hbox6 = gtk_hbox_new (FALSE, 2);
-  gtk_widget_show (hbox6);
-  gtk_container_add (GTK_CONTAINER (alignment6), hbox6);
-
-  image6 = gtk_image_new_from_stock ("gtk-open", GTK_ICON_SIZE_BUTTON);
-  gtk_widget_show (image6);
-  gtk_box_pack_start (GTK_BOX (hbox6), image6, FALSE, FALSE, 0);
-
-  label6 = gtk_label_new_with_mnemonic ("Open");
-  gtk_widget_show (label6);
-  gtk_box_pack_start (GTK_BOX (hbox6), label6, FALSE, FALSE, 0);
-
-  citizen_monthlybill_vbox3 = gtk_vbox_new (FALSE, 0);
-  gtk_widget_show (citizen_monthlybill_vbox3);
-  gtk_box_pack_start (GTK_BOX (citizen_monthlybill_hbox), citizen_monthlybill_vbox3, TRUE, TRUE, 0);
-
-  citizen_monthlybill_fixed3 = gtk_fixed_new ();
-  gtk_widget_show (citizen_monthlybill_fixed3);
-  gtk_box_pack_start (GTK_BOX (citizen_monthlybill_vbox3), citizen_monthlybill_fixed3, TRUE, TRUE, 0);
-
-  citizen_monthlybill_parkings_label = gtk_label_new (_("Check this month's list of\n\t\t\t\t\tparkings"));
-  gtk_widget_show (citizen_monthlybill_parkings_label);
-  gtk_fixed_put (GTK_FIXED (citizen_monthlybill_fixed3), citizen_monthlybill_parkings_label, 40, 50);
-  gtk_widget_set_size_request (citizen_monthlybill_parkings_label, 240, 54);
-
-  citizen_monthlybill_parkings_button = gtk_button_new ();
-  gtk_widget_show (citizen_monthlybill_parkings_button);
-  gtk_box_pack_start (GTK_BOX (citizen_monthlybill_vbox3), citizen_monthlybill_parkings_button, FALSE, FALSE, 0);
-
-  alignment7 = gtk_alignment_new (0.5, 0.5, 0, 0);
-  gtk_widget_show (alignment7);
-  gtk_container_add (GTK_CONTAINER (citizen_monthlybill_parkings_button), alignment7);
-
-  hbox7 = gtk_hbox_new (FALSE, 2);
-  gtk_widget_show (hbox7);
-  gtk_container_add (GTK_CONTAINER (alignment7), hbox7);
-
-  image7 = gtk_image_new_from_stock ("gtk-open", GTK_ICON_SIZE_BUTTON);
-  gtk_widget_show (image7);
-  gtk_box_pack_start (GTK_BOX (hbox7), image7, FALSE, FALSE, 0);
-
-  label7 = gtk_label_new_with_mnemonic ("Open");
-  gtk_widget_show (label7);
-  gtk_box_pack_start (GTK_BOX (hbox7), label7, FALSE, FALSE, 0);
 
   citizen_monthlybill_pager = gtk_label_new (_("Monthly bill"));
   gtk_widget_show (citizen_monthlybill_pager);
@@ -3398,15 +3227,6 @@ create_citizen_window (void)
   gtk_fixed_put (GTK_FIXED (fixed5), reservation_read_id_text, 16, 72);
   gtk_widget_set_size_request (reservation_read_id_text, 100, 20);
 
-  reservation_read_button1 = gtk_button_new ();
-  gtk_widget_show (reservation_read_button1);
-  gtk_fixed_put (GTK_FIXED (fixed5), reservation_read_button1, 296, 64);
-  gtk_widget_set_size_request (reservation_read_button1, 64, 32);
-
-  reservation_read_button1_image = gtk_image_new_from_stock ("gtk-find", GTK_ICON_SIZE_BUTTON);
-  gtk_widget_show (reservation_read_button1_image);
-  gtk_container_add (GTK_CONTAINER (reservation_read_button1), reservation_read_button1_image);
-
   reservation_main_text = gtk_label_new (_("Read reservations"));
   gtk_widget_show (reservation_main_text);
   gtk_fixed_put (GTK_FIXED (fixed5), reservation_main_text, 240, 24);
@@ -3442,6 +3262,15 @@ create_citizen_window (void)
   reservation_read_button2_label = gtk_label_new_with_mnemonic (_("refresh"));
   gtk_widget_show (reservation_read_button2_label);
   gtk_box_pack_start (GTK_BOX (hbox1), reservation_read_button2_label, FALSE, FALSE, 0);
+
+  reservation_read_button1 = gtk_button_new ();
+  gtk_widget_show (reservation_read_button1);
+  gtk_fixed_put (GTK_FIXED (fixed5), reservation_read_button1, 296, 64);
+  gtk_widget_set_size_request (reservation_read_button1, 64, 32);
+
+  reservation_read_button1_image = gtk_image_new_from_stock ("gtk-find", GTK_ICON_SIZE_BUTTON);
+  gtk_widget_show (reservation_read_button1_image);
+  gtk_container_add (GTK_CONTAINER (reservation_read_button1), reservation_read_button1_image);
 
   reservation_read_title_text = gtk_label_new (_("read"));
   gtk_widget_show (reservation_read_title_text);
@@ -3523,15 +3352,6 @@ create_citizen_window (void)
   gtk_fixed_put (GTK_FIXED (fixed9), reservation_update_Id_citizen, 32, 80);
   gtk_widget_set_size_request (reservation_update_Id_citizen, 100, 20);
 
-  reservation_update_button1 = gtk_button_new ();
-  gtk_widget_show (reservation_update_button1);
-  gtk_fixed_put (GTK_FIXED (fixed9), reservation_update_button1, 240, 104);
-  gtk_widget_set_size_request (reservation_update_button1, 40, 32);
-
-  reservation_update_button1_image = gtk_image_new_from_stock ("gtk-apply", GTK_ICON_SIZE_BUTTON);
-  gtk_widget_show (reservation_update_button1_image);
-  gtk_container_add (GTK_CONTAINER (reservation_update_button1), reservation_update_button1_image);
-
   reservation_update_ID_reservation = gtk_label_new (_("id-reservation"));
   gtk_widget_show (reservation_update_ID_reservation);
   gtk_fixed_put (GTK_FIXED (fixed9), reservation_update_ID_reservation, 56, 160);
@@ -3610,6 +3430,15 @@ create_citizen_window (void)
   gtk_fixed_put (GTK_FIXED (fixed9), reservation_update_reservation_date_text, 368, 72);
   gtk_widget_set_size_request (reservation_update_reservation_date_text, 180, 20);
 
+  reservation_update_button1 = gtk_button_new ();
+  gtk_widget_show (reservation_update_button1);
+  gtk_fixed_put (GTK_FIXED (fixed9), reservation_update_button1, 240, 104);
+  gtk_widget_set_size_request (reservation_update_button1, 40, 32);
+
+  reservation_update_button1_image = gtk_image_new_from_stock ("gtk-apply", GTK_ICON_SIZE_BUTTON);
+  gtk_widget_show (reservation_update_button1_image);
+  gtk_container_add (GTK_CONTAINER (reservation_update_button1), reservation_update_button1_image);
+
   button25 = gtk_button_new ();
   gtk_widget_show (button25);
   gtk_fixed_put (GTK_FIXED (fixed9), button25, 640, 472);
@@ -3661,6 +3490,20 @@ create_citizen_window (void)
   gtk_fixed_put (GTK_FIXED (fixed3), reservation_delete_search_text, 168, 160);
   gtk_widget_set_size_request (reservation_delete_search_text, 100, 20);
 
+  image54 = create_pixmap (citizen_window, "jhhhhhhh.JPG");
+  gtk_widget_show (image54);
+  gtk_fixed_put (GTK_FIXED (fixed3), image54, 0, 8);
+  gtk_widget_set_size_request (image54, 104, 64);
+
+  reservation_delete_search_button = gtk_button_new ();
+  gtk_widget_show (reservation_delete_search_button);
+  gtk_fixed_put (GTK_FIXED (fixed3), reservation_delete_search_button, 496, 152);
+  gtk_widget_set_size_request (reservation_delete_search_button, 56, 32);
+
+  reservation_delete_search_button_image = gtk_image_new_from_stock ("gtk-find", GTK_ICON_SIZE_BUTTON);
+  gtk_widget_show (reservation_delete_search_button_image);
+  gtk_container_add (GTK_CONTAINER (reservation_delete_search_button), reservation_delete_search_button_image);
+
   reservation_delete_button1 = gtk_button_new ();
   gtk_widget_show (reservation_delete_button1);
   gtk_fixed_put (GTK_FIXED (fixed3), reservation_delete_button1, 232, 240);
@@ -3702,20 +3545,6 @@ create_citizen_window (void)
   reservation_delete_button2_label = gtk_label_new_with_mnemonic (_("close\n"));
   gtk_widget_show (reservation_delete_button2_label);
   gtk_box_pack_start (GTK_BOX (hbox5), reservation_delete_button2_label, FALSE, FALSE, 0);
-
-  reservation_delete_search_button = gtk_button_new ();
-  gtk_widget_show (reservation_delete_search_button);
-  gtk_fixed_put (GTK_FIXED (fixed3), reservation_delete_search_button, 496, 152);
-  gtk_widget_set_size_request (reservation_delete_search_button, 56, 32);
-
-  reservation_delete_search_button_image = gtk_image_new_from_stock ("gtk-find", GTK_ICON_SIZE_BUTTON);
-  gtk_widget_show (reservation_delete_search_button_image);
-  gtk_container_add (GTK_CONTAINER (reservation_delete_search_button), reservation_delete_search_button_image);
-
-  image54 = create_pixmap (citizen_window, "jhhhhhhh.JPG");
-  gtk_widget_show (image54);
-  gtk_fixed_put (GTK_FIXED (fixed3), image54, 0, 8);
-  gtk_widget_set_size_request (image54, 104, 64);
 
   reservation_delete_main = gtk_label_new (_("delete"));
   gtk_widget_show (reservation_delete_main);
@@ -3793,15 +3622,6 @@ create_citizen_window (void)
   gtk_fixed_put (GTK_FIXED (fixed29), label236, 32, 96);
   gtk_widget_set_size_request (label236, 100, 20);
 
-  button30 = gtk_button_new ();
-  gtk_widget_show (button30);
-  gtk_fixed_put (GTK_FIXED (fixed29), button30, 232, 128);
-  gtk_widget_set_size_request (button30, 40, 32);
-
-  image50 = gtk_image_new_from_stock ("gtk-apply", GTK_ICON_SIZE_BUTTON);
-  gtk_widget_show (image50);
-  gtk_container_add (GTK_CONTAINER (button30), image50);
-
   label235 = gtk_label_new (_("id-citizen"));
   gtk_widget_show (label235);
   gtk_fixed_put (GTK_FIXED (fixed29), label235, 16, 192);
@@ -3842,28 +3662,6 @@ create_citizen_window (void)
   gtk_fixed_put (GTK_FIXED (fixed29), label232, 384, 400);
   gtk_widget_set_size_request (label232, 150, 20);
 
-  button29 = gtk_button_new ();
-  gtk_widget_show (button29);
-  gtk_fixed_put (GTK_FIXED (fixed29), button29, 640, 472);
-  gtk_widget_set_size_request (button29, 80, 30);
-
-  alignment39 = gtk_alignment_new (0.5, 0.5, 0, 0);
-  gtk_widget_show (alignment39);
-  gtk_container_add (GTK_CONTAINER (button29), alignment39);
-
-  hbox39 = gtk_hbox_new (FALSE, 2);
-  gtk_widget_show (hbox39);
-  gtk_container_add (GTK_CONTAINER (alignment39), hbox39);
-
-  image49 = gtk_image_new_from_stock ("gtk-add", GTK_ICON_SIZE_BUTTON);
-  gtk_widget_show (image49);
-  gtk_box_pack_start (GTK_BOX (hbox39), image49, FALSE, FALSE, 0);
-
-  label231 = gtk_label_new_with_mnemonic (_("  add"));
-  gtk_widget_show (label231);
-  gtk_box_pack_start (GTK_BOX (hbox39), label231, FALSE, FALSE, 0);
-  gtk_widget_set_size_request (label231, 47, 17);
-
   radiobutton4 = gtk_radio_button_new_with_mnemonic (NULL, _("1H "));
   gtk_widget_show (radiobutton4);
   gtk_fixed_put (GTK_FIXED (fixed29), radiobutton4, 424, 288);
@@ -3902,6 +3700,37 @@ create_citizen_window (void)
   gtk_fixed_put (GTK_FIXED (fixed29), label239, 368, 72);
   gtk_widget_set_size_request (label239, 180, 20);
 
+  button30 = gtk_button_new ();
+  gtk_widget_show (button30);
+  gtk_fixed_put (GTK_FIXED (fixed29), button30, 232, 128);
+  gtk_widget_set_size_request (button30, 40, 32);
+
+  image50 = gtk_image_new_from_stock ("gtk-apply", GTK_ICON_SIZE_BUTTON);
+  gtk_widget_show (image50);
+  gtk_container_add (GTK_CONTAINER (button30), image50);
+
+  button29 = gtk_button_new ();
+  gtk_widget_show (button29);
+  gtk_fixed_put (GTK_FIXED (fixed29), button29, 640, 472);
+  gtk_widget_set_size_request (button29, 80, 30);
+
+  alignment39 = gtk_alignment_new (0.5, 0.5, 0, 0);
+  gtk_widget_show (alignment39);
+  gtk_container_add (GTK_CONTAINER (button29), alignment39);
+
+  hbox39 = gtk_hbox_new (FALSE, 2);
+  gtk_widget_show (hbox39);
+  gtk_container_add (GTK_CONTAINER (alignment39), hbox39);
+
+  image49 = gtk_image_new_from_stock ("gtk-add", GTK_ICON_SIZE_BUTTON);
+  gtk_widget_show (image49);
+  gtk_box_pack_start (GTK_BOX (hbox39), image49, FALSE, FALSE, 0);
+
+  label231 = gtk_label_new_with_mnemonic (_("  add"));
+  gtk_widget_show (label231);
+  gtk_box_pack_start (GTK_BOX (hbox39), label231, FALSE, FALSE, 0);
+  gtk_widget_set_size_request (label231, 47, 17);
+
   eventbox1 = gtk_event_box_new ();
   gtk_widget_show (eventbox1);
   gtk_notebook_set_tab_label (GTK_NOTEBOOK (notebook1), gtk_notebook_get_nth_page (GTK_NOTEBOOK (notebook1), 3), eventbox1);
@@ -3937,25 +3766,25 @@ create_citizen_window (void)
   gtk_fixed_put (GTK_FIXED (fixed10), reservation_calcul_ID_reservation_text, 256, 8);
   gtk_widget_set_size_request (reservation_calcul_ID_reservation_text, 144, 32);
 
-  button = gtk_button_new_from_stock ("gtk-find");
-  gtk_widget_show (button);
-  gtk_fixed_put (GTK_FIXED (fixed10), button, 296, 144);
-  gtk_widget_set_size_request (button, 64, 32);
-
   label241 = gtk_label_new (_("id-parking\n"));
   gtk_widget_show (label241);
   gtk_fixed_put (GTK_FIXED (fixed10), label241, 384, 120);
   gtk_widget_set_size_request (label241, 120, 17);
 
-  button33 = gtk_button_new_with_mnemonic (_("find\n"));
-  gtk_widget_show (button33);
-  gtk_fixed_put (GTK_FIXED (fixed10), button33, 544, 144);
-  gtk_widget_set_size_request (button33, 74, 29);
-
   label243 = gtk_label_new (_("id-reservation"));
   gtk_widget_show (label243);
   gtk_fixed_put (GTK_FIXED (fixed10), label243, 136, 120);
   gtk_widget_set_size_request (label243, 120, 17);
+
+  image56 = create_pixmap (citizen_window, "jhhhhhhh.JPG");
+  gtk_widget_show (image56);
+  gtk_fixed_put (GTK_FIXED (fixed10), image56, 0, 8);
+  gtk_widget_set_size_request (image56, 104, 64);
+
+  image100 = create_pixmap (citizen_window, "fond2.jpg");
+  gtk_widget_show (image100);
+  gtk_fixed_put (GTK_FIXED (fixed10), image100, 0, 0);
+  gtk_widget_set_size_request (image100, 0, 0);
 
   reservation_delete_refresh_button = gtk_button_new ();
   gtk_widget_show (reservation_delete_refresh_button);
@@ -3978,15 +3807,15 @@ create_citizen_window (void)
   gtk_widget_show (reservation_calcul_refresh_label);
   gtk_box_pack_start (GTK_BOX (hbox13), reservation_calcul_refresh_label, FALSE, FALSE, 0);
 
-  image56 = create_pixmap (citizen_window, "jhhhhhhh.JPG");
-  gtk_widget_show (image56);
-  gtk_fixed_put (GTK_FIXED (fixed10), image56, 0, 8);
-  gtk_widget_set_size_request (image56, 104, 64);
+  button = gtk_button_new_from_stock ("gtk-find");
+  gtk_widget_show (button);
+  gtk_fixed_put (GTK_FIXED (fixed10), button, 296, 144);
+  gtk_widget_set_size_request (button, 64, 32);
 
-  image100 = create_pixmap (citizen_window, "fond2.jpg");
-  gtk_widget_show (image100);
-  gtk_fixed_put (GTK_FIXED (fixed10), image100, 0, 0);
-  gtk_widget_set_size_request (image100, 0, 0);
+  button33 = gtk_button_new_with_mnemonic (_("find\n"));
+  gtk_widget_show (button33);
+  gtk_fixed_put (GTK_FIXED (fixed10), button33, 544, 144);
+  gtk_widget_set_size_request (button33, 74, 29);
 
   reservation_calcul_main = gtk_label_new (_("calcul\n"));
   gtk_widget_show (reservation_calcul_main);
@@ -4093,22 +3922,49 @@ create_citizen_window (void)
                     G_CALLBACK (citizen_modify_password_clicked),
                     NULL);
   g_signal_connect ((gpointer) citizen_home_add_button, "clicked",
-                    G_CALLBACK (on_B_M_clicked),
-                    NULL);
-  g_signal_connect ((gpointer) citizen_list_about_button, "clicked",
-                    G_CALLBACK (on_B_M_clicked),
+                    G_CALLBACK (citizen_list_add_clicked),
                     NULL);
   g_signal_connect ((gpointer) citizen_list_delete, "clicked",
-                    G_CALLBACK (on_B_M_clicked),
+                    G_CALLBACK (citizen_list_delete_clicked),
                     NULL);
-  g_signal_connect ((gpointer) citizen_monthlybill_services_button, "clicked",
-                    G_CALLBACK (citizen_monthlybill_services_button_clicked),
+  g_signal_connect ((gpointer) citizen_list_about_button, "clicked",
+                    G_CALLBACK (citizen_list_about_clicked),
                     NULL);
-  g_signal_connect ((gpointer) citizen_monthlybill_reservations_button, "clicked",
-                    G_CALLBACK (citizen_monthlybill_reservations_button_clicked),
+  g_signal_connect ((gpointer) reservation_read_button2, "clicked",
+                    G_CALLBACK (reservation_refresh_clicked),
                     NULL);
-  g_signal_connect ((gpointer) citizen_monthlybill_parkings_button, "clicked",
-                    G_CALLBACK (citizen_monthlybill_parkings_button_clicked),
+  g_signal_connect ((gpointer) reservation_read_button1, "clicked",
+                    G_CALLBACK (reservation_read_search_clicked),
+                    NULL);
+  g_signal_connect ((gpointer) reservation_update_button1, "clicked",
+                    G_CALLBACK (reservation_update_check_clicked),
+                    NULL);
+  g_signal_connect ((gpointer) button25, "clicked",
+                    G_CALLBACK (reservation_update_add_clicked),
+                    NULL);
+  g_signal_connect ((gpointer) reservation_delete_search_button, "clicked",
+                    G_CALLBACK (reservation_delete_search_clicked),
+                    NULL);
+  g_signal_connect ((gpointer) reservation_delete_button1, "clicked",
+                    G_CALLBACK (reservation_delete_clicked),
+                    NULL);
+  g_signal_connect ((gpointer) reservation_delete_button2, "clicked",
+                    G_CALLBACK (reservation_delete_close_clicked),
+                    NULL);
+  g_signal_connect ((gpointer) button30, "clicked",
+                    G_CALLBACK (reservation_id_confirm_clicked),
+                    NULL);
+  g_signal_connect ((gpointer) button29, "clicked",
+                    G_CALLBACK (reservation_create_add_clicked),
+                    NULL);
+  g_signal_connect ((gpointer) reservation_delete_refresh_button, "clicked",
+                    G_CALLBACK (reservation_refresh_clicked),
+                    NULL);
+  g_signal_connect ((gpointer) button, "clicked",
+                    G_CALLBACK (reservation_calcul_find_id_res_clicked),
+                    NULL);
+  g_signal_connect ((gpointer) button33, "clicked",
+                    G_CALLBACK (reservation_id_park_find_clicked),
                     NULL);
 
   /* Store pointers to all widgets, for use by lookup_widget(). */
@@ -4208,50 +4064,25 @@ create_citizen_window (void)
   GLADE_HOOKUP_OBJECT (citizen_window, citizen_list_reservations_label, "citizen_list_reservations_label");
   GLADE_HOOKUP_OBJECT (citizen_window, citizen_list_parkingspots_label, "citizen_list_parkingspots_label");
   GLADE_HOOKUP_OBJECT (citizen_window, citizen_list_label, "citizen_list_label");
+  GLADE_HOOKUP_OBJECT (citizen_window, citizen_list_logo, "citizen_list_logo");
   GLADE_HOOKUP_OBJECT (citizen_window, citizen_home_add_button, "citizen_home_add_button");
   GLADE_HOOKUP_OBJECT (citizen_window, alignment5, "alignment5");
   GLADE_HOOKUP_OBJECT (citizen_window, hbox5, "hbox5");
   GLADE_HOOKUP_OBJECT (citizen_window, image5, "image5");
   GLADE_HOOKUP_OBJECT (citizen_window, label5, "label5");
-  GLADE_HOOKUP_OBJECT (citizen_window, citizen_list_about_button, "citizen_list_about_button");
-  GLADE_HOOKUP_OBJECT (citizen_window, alignment3, "alignment3");
-  GLADE_HOOKUP_OBJECT (citizen_window, hbox3, "hbox3");
-  GLADE_HOOKUP_OBJECT (citizen_window, image3, "image3");
-  GLADE_HOOKUP_OBJECT (citizen_window, label3, "label3");
   GLADE_HOOKUP_OBJECT (citizen_window, citizen_list_delete, "citizen_list_delete");
   GLADE_HOOKUP_OBJECT (citizen_window, alignment4, "alignment4");
   GLADE_HOOKUP_OBJECT (citizen_window, hbox4, "hbox4");
   GLADE_HOOKUP_OBJECT (citizen_window, image4, "image4");
   GLADE_HOOKUP_OBJECT (citizen_window, label4, "label4");
-  GLADE_HOOKUP_OBJECT (citizen_window, citizen_list_logo, "citizen_list_logo");
+  GLADE_HOOKUP_OBJECT (citizen_window, citizen_list_about_button, "citizen_list_about_button");
+  GLADE_HOOKUP_OBJECT (citizen_window, alignment3, "alignment3");
+  GLADE_HOOKUP_OBJECT (citizen_window, hbox3, "hbox3");
+  GLADE_HOOKUP_OBJECT (citizen_window, image3, "image3");
+  GLADE_HOOKUP_OBJECT (citizen_window, label3, "label3");
   GLADE_HOOKUP_OBJECT (citizen_window, citizen_list_pager, "citizen_list_pager");
   GLADE_HOOKUP_OBJECT (citizen_window, citizen_monthlybill_vbox0, "citizen_monthlybill_vbox0");
   GLADE_HOOKUP_OBJECT (citizen_window, citizen_monthlybill_curve, "citizen_monthlybill_curve");
-  GLADE_HOOKUP_OBJECT (citizen_window, citizen_monthlybill_hbox, "citizen_monthlybill_hbox");
-  GLADE_HOOKUP_OBJECT (citizen_window, citizen_monthlybill_vbox1, "citizen_monthlybill_vbox1");
-  GLADE_HOOKUP_OBJECT (citizen_window, citizen_monthlybill_fixed1, "citizen_monthlybill_fixed1");
-  GLADE_HOOKUP_OBJECT (citizen_window, citizen_monthlybill_services_label, "citizen_monthlybill_services_label");
-  GLADE_HOOKUP_OBJECT (citizen_window, citizen_monthlybill_services_button, "citizen_monthlybill_services_button");
-  GLADE_HOOKUP_OBJECT (citizen_window, alignment8, "alignment8");
-  GLADE_HOOKUP_OBJECT (citizen_window, hbox8, "hbox8");
-  GLADE_HOOKUP_OBJECT (citizen_window, image8, "image8");
-  GLADE_HOOKUP_OBJECT (citizen_window, label8, "label8");
-  GLADE_HOOKUP_OBJECT (citizen_window, citizen_monthlybill_vbox2, "citizen_monthlybill_vbox2");
-  GLADE_HOOKUP_OBJECT (citizen_window, citizen_monthlybill_fixed2, "citizen_monthlybill_fixed2");
-  GLADE_HOOKUP_OBJECT (citizen_window, citizen_monthlybill_reservations_label, "citizen_monthlybill_reservations_label");
-  GLADE_HOOKUP_OBJECT (citizen_window, citizen_monthlybill_reservations_button, "citizen_monthlybill_reservations_button");
-  GLADE_HOOKUP_OBJECT (citizen_window, alignment6, "alignment6");
-  GLADE_HOOKUP_OBJECT (citizen_window, hbox6, "hbox6");
-  GLADE_HOOKUP_OBJECT (citizen_window, image6, "image6");
-  GLADE_HOOKUP_OBJECT (citizen_window, label6, "label6");
-  GLADE_HOOKUP_OBJECT (citizen_window, citizen_monthlybill_vbox3, "citizen_monthlybill_vbox3");
-  GLADE_HOOKUP_OBJECT (citizen_window, citizen_monthlybill_fixed3, "citizen_monthlybill_fixed3");
-  GLADE_HOOKUP_OBJECT (citizen_window, citizen_monthlybill_parkings_label, "citizen_monthlybill_parkings_label");
-  GLADE_HOOKUP_OBJECT (citizen_window, citizen_monthlybill_parkings_button, "citizen_monthlybill_parkings_button");
-  GLADE_HOOKUP_OBJECT (citizen_window, alignment7, "alignment7");
-  GLADE_HOOKUP_OBJECT (citizen_window, hbox7, "hbox7");
-  GLADE_HOOKUP_OBJECT (citizen_window, image7, "image7");
-  GLADE_HOOKUP_OBJECT (citizen_window, label7, "label7");
   GLADE_HOOKUP_OBJECT (citizen_window, citizen_monthlybill_pager, "citizen_monthlybill_pager");
   GLADE_HOOKUP_OBJECT (citizen_window, citizen_account_label, "citizen_account_label");
   GLADE_HOOKUP_OBJECT (citizen_window, notebook1, "notebook1");
@@ -4261,8 +4092,6 @@ create_citizen_window (void)
   GLADE_HOOKUP_OBJECT (citizen_window, reservation_read_table, "reservation_read_table");
   GLADE_HOOKUP_OBJECT (citizen_window, reservation_read_TreeView, "reservation_read_TreeView");
   GLADE_HOOKUP_OBJECT (citizen_window, reservation_read_id_text, "reservation_read_id_text");
-  GLADE_HOOKUP_OBJECT (citizen_window, reservation_read_button1, "reservation_read_button1");
-  GLADE_HOOKUP_OBJECT (citizen_window, reservation_read_button1_image, "reservation_read_button1_image");
   GLADE_HOOKUP_OBJECT (citizen_window, reservation_main_text, "reservation_main_text");
   GLADE_HOOKUP_OBJECT (citizen_window, image95, "image95");
   GLADE_HOOKUP_OBJECT (citizen_window, image52, "image52");
@@ -4271,6 +4100,8 @@ create_citizen_window (void)
   GLADE_HOOKUP_OBJECT (citizen_window, hbox1, "hbox1");
   GLADE_HOOKUP_OBJECT (citizen_window, reservation_read_button2_image, "reservation_read_button2_image");
   GLADE_HOOKUP_OBJECT (citizen_window, reservation_read_button2_label, "reservation_read_button2_label");
+  GLADE_HOOKUP_OBJECT (citizen_window, reservation_read_button1, "reservation_read_button1");
+  GLADE_HOOKUP_OBJECT (citizen_window, reservation_read_button1_image, "reservation_read_button1_image");
   GLADE_HOOKUP_OBJECT (citizen_window, reservation_read_title_text, "reservation_read_title_text");
   GLADE_HOOKUP_OBJECT (citizen_window, fixed8, "fixed8");
   GLADE_HOOKUP_OBJECT (citizen_window, fixed9, "fixed9");
@@ -4287,8 +4118,6 @@ create_citizen_window (void)
   GLADE_HOOKUP_OBJECT (citizen_window, image53, "image53");
   GLADE_HOOKUP_OBJECT (citizen_window, reservation_update_title_text, "reservation_update_title_text");
   GLADE_HOOKUP_OBJECT (citizen_window, reservation_update_Id_citizen, "reservation_update_Id_citizen");
-  GLADE_HOOKUP_OBJECT (citizen_window, reservation_update_button1, "reservation_update_button1");
-  GLADE_HOOKUP_OBJECT (citizen_window, reservation_update_button1_image, "reservation_update_button1_image");
   GLADE_HOOKUP_OBJECT (citizen_window, reservation_update_ID_reservation, "reservation_update_ID_reservation");
   GLADE_HOOKUP_OBJECT (citizen_window, reservation_update_Id_parking_text, "reservation_update_Id_parking_text");
   GLADE_HOOKUP_OBJECT (citizen_window, reservation_update_Id_parking_combo, "reservation_update_Id_parking_combo");
@@ -4303,6 +4132,8 @@ create_citizen_window (void)
   GLADE_HOOKUP_OBJECT (citizen_window, reservation_update_duration_2h, "reservation_update_duration_2h");
   GLADE_HOOKUP_OBJECT (citizen_window, reservation_update_duration_text, "reservation_update_duration_text");
   GLADE_HOOKUP_OBJECT (citizen_window, reservation_update_reservation_date_text, "reservation_update_reservation_date_text");
+  GLADE_HOOKUP_OBJECT (citizen_window, reservation_update_button1, "reservation_update_button1");
+  GLADE_HOOKUP_OBJECT (citizen_window, reservation_update_button1_image, "reservation_update_button1_image");
   GLADE_HOOKUP_OBJECT (citizen_window, button25, "button25");
   GLADE_HOOKUP_OBJECT (citizen_window, alignment15, "alignment15");
   GLADE_HOOKUP_OBJECT (citizen_window, hbox14, "hbox14");
@@ -4314,6 +4145,9 @@ create_citizen_window (void)
   GLADE_HOOKUP_OBJECT (citizen_window, image97, "image97");
   GLADE_HOOKUP_OBJECT (citizen_window, reservation_update_title_text, "reservation_update_title_text");
   GLADE_HOOKUP_OBJECT (citizen_window, reservation_delete_search_text, "reservation_delete_search_text");
+  GLADE_HOOKUP_OBJECT (citizen_window, image54, "image54");
+  GLADE_HOOKUP_OBJECT (citizen_window, reservation_delete_search_button, "reservation_delete_search_button");
+  GLADE_HOOKUP_OBJECT (citizen_window, reservation_delete_search_button_image, "reservation_delete_search_button_image");
   GLADE_HOOKUP_OBJECT (citizen_window, reservation_delete_button1, "reservation_delete_button1");
   GLADE_HOOKUP_OBJECT (citizen_window, alignment5, "alignment5");
   GLADE_HOOKUP_OBJECT (citizen_window, hbox4, "hbox4");
@@ -4324,9 +4158,6 @@ create_citizen_window (void)
   GLADE_HOOKUP_OBJECT (citizen_window, hbox5, "hbox5");
   GLADE_HOOKUP_OBJECT (citizen_window, reservation_delete_button2_image, "reservation_delete_button2_image");
   GLADE_HOOKUP_OBJECT (citizen_window, reservation_delete_button2_label, "reservation_delete_button2_label");
-  GLADE_HOOKUP_OBJECT (citizen_window, reservation_delete_search_button, "reservation_delete_search_button");
-  GLADE_HOOKUP_OBJECT (citizen_window, reservation_delete_search_button_image, "reservation_delete_search_button_image");
-  GLADE_HOOKUP_OBJECT (citizen_window, image54, "image54");
   GLADE_HOOKUP_OBJECT (citizen_window, reservation_delete_main, "reservation_delete_main");
   GLADE_HOOKUP_OBJECT (citizen_window, fixed29, "fixed29");
   GLADE_HOOKUP_OBJECT (citizen_window, entry9, "entry9");
@@ -4342,8 +4173,6 @@ create_citizen_window (void)
   GLADE_HOOKUP_OBJECT (citizen_window, image55, "image55");
   GLADE_HOOKUP_OBJECT (citizen_window, label233, "label233");
   GLADE_HOOKUP_OBJECT (citizen_window, label236, "label236");
-  GLADE_HOOKUP_OBJECT (citizen_window, button30, "button30");
-  GLADE_HOOKUP_OBJECT (citizen_window, image50, "image50");
   GLADE_HOOKUP_OBJECT (citizen_window, label235, "label235");
   GLADE_HOOKUP_OBJECT (citizen_window, label237, "label237");
   GLADE_HOOKUP_OBJECT (citizen_window, comboboxentry4, "comboboxentry4");
@@ -4352,17 +4181,19 @@ create_citizen_window (void)
   GLADE_HOOKUP_OBJECT (citizen_window, checkbutton2, "checkbutton2");
   GLADE_HOOKUP_OBJECT (citizen_window, checkbutton3, "checkbutton3");
   GLADE_HOOKUP_OBJECT (citizen_window, label232, "label232");
-  GLADE_HOOKUP_OBJECT (citizen_window, button29, "button29");
-  GLADE_HOOKUP_OBJECT (citizen_window, alignment39, "alignment39");
-  GLADE_HOOKUP_OBJECT (citizen_window, hbox39, "hbox39");
-  GLADE_HOOKUP_OBJECT (citizen_window, image49, "image49");
-  GLADE_HOOKUP_OBJECT (citizen_window, label231, "label231");
   GLADE_HOOKUP_OBJECT (citizen_window, radiobutton4, "radiobutton4");
   GLADE_HOOKUP_OBJECT (citizen_window, radiobutton5, "radiobutton5");
   GLADE_HOOKUP_OBJECT (citizen_window, radiobutton7, "radiobutton7");
   GLADE_HOOKUP_OBJECT (citizen_window, radiobutton6, "radiobutton6");
   GLADE_HOOKUP_OBJECT (citizen_window, label238, "label238");
   GLADE_HOOKUP_OBJECT (citizen_window, label239, "label239");
+  GLADE_HOOKUP_OBJECT (citizen_window, button30, "button30");
+  GLADE_HOOKUP_OBJECT (citizen_window, image50, "image50");
+  GLADE_HOOKUP_OBJECT (citizen_window, button29, "button29");
+  GLADE_HOOKUP_OBJECT (citizen_window, alignment39, "alignment39");
+  GLADE_HOOKUP_OBJECT (citizen_window, hbox39, "hbox39");
+  GLADE_HOOKUP_OBJECT (citizen_window, image49, "image49");
+  GLADE_HOOKUP_OBJECT (citizen_window, label231, "label231");
   GLADE_HOOKUP_OBJECT (citizen_window, eventbox1, "eventbox1");
   GLADE_HOOKUP_OBJECT (citizen_window, reservation_create_main, "reservation_create_main");
   GLADE_HOOKUP_OBJECT (citizen_window, fixed10, "fixed10");
@@ -4370,17 +4201,17 @@ create_citizen_window (void)
   GLADE_HOOKUP_OBJECT (citizen_window, entry11, "entry11");
   GLADE_HOOKUP_OBJECT (citizen_window, entry12, "entry12");
   GLADE_HOOKUP_OBJECT (citizen_window, reservation_calcul_ID_reservation_text, "reservation_calcul_ID_reservation_text");
-  GLADE_HOOKUP_OBJECT (citizen_window, button, "button");
   GLADE_HOOKUP_OBJECT (citizen_window, label241, "label241");
-  GLADE_HOOKUP_OBJECT (citizen_window, button33, "button33");
   GLADE_HOOKUP_OBJECT (citizen_window, label243, "label243");
+  GLADE_HOOKUP_OBJECT (citizen_window, image56, "image56");
+  GLADE_HOOKUP_OBJECT (citizen_window, image100, "image100");
   GLADE_HOOKUP_OBJECT (citizen_window, reservation_delete_refresh_button, "reservation_delete_refresh_button");
   GLADE_HOOKUP_OBJECT (citizen_window, alignment14, "alignment14");
   GLADE_HOOKUP_OBJECT (citizen_window, hbox13, "hbox13");
   GLADE_HOOKUP_OBJECT (citizen_window, reservation_calcul_refresh_image, "reservation_calcul_refresh_image");
   GLADE_HOOKUP_OBJECT (citizen_window, reservation_calcul_refresh_label, "reservation_calcul_refresh_label");
-  GLADE_HOOKUP_OBJECT (citizen_window, image56, "image56");
-  GLADE_HOOKUP_OBJECT (citizen_window, image100, "image100");
+  GLADE_HOOKUP_OBJECT (citizen_window, button, "button");
+  GLADE_HOOKUP_OBJECT (citizen_window, button33, "button33");
   GLADE_HOOKUP_OBJECT (citizen_window, reservation_calcul_main, "reservation_calcul_main");
   GLADE_HOOKUP_OBJECT (citizen_window, citizen_reservations_label, "citizen_reservations_label");
   GLADE_HOOKUP_OBJECT (citizen_window, citizen_reviews_notebook, "citizen_reviews_notebook");
@@ -4412,6 +4243,7 @@ create_admin_service_display_dialog (void)
   GtkWidget *Service_Display_Reservations_main;
   GtkWidget *entry18;
   GtkWidget *label250;
+  GtkWidget *button34;
   GtkWidget *dialog_action_area3;
   GtkWidget *service_display_close_button;
 
@@ -4452,14 +4284,19 @@ create_admin_service_display_dialog (void)
 
   entry18 = gtk_entry_new ();
   gtk_widget_show (entry18);
-  gtk_fixed_put (GTK_FIXED (fixed22), entry18, 264, 224);
+  gtk_fixed_put (GTK_FIXED (fixed22), entry18, 224, 224);
   gtk_widget_set_size_request (entry18, 160, 30);
   gtk_entry_set_invisible_char (GTK_ENTRY (entry18), 8226);
 
   label250 = gtk_label_new (_("put the ID for this reservation :"));
   gtk_widget_show (label250);
-  gtk_fixed_put (GTK_FIXED (fixed22), label250, 24, 224);
+  gtk_fixed_put (GTK_FIXED (fixed22), label250, 0, 224);
   gtk_widget_set_size_request (label250, 230, 30);
+
+  button34 = gtk_button_new_with_mnemonic (_("Affect"));
+  gtk_widget_show (button34);
+  gtk_fixed_put (GTK_FIXED (fixed22), button34, 408, 224);
+  gtk_widget_set_size_request (button34, 74, 29);
 
   dialog_action_area3 = GTK_DIALOG (admin_service_display_dialog)->action_area;
   gtk_widget_show (dialog_action_area3);
@@ -4469,6 +4306,13 @@ create_admin_service_display_dialog (void)
   gtk_widget_show (service_display_close_button);
   gtk_dialog_add_action_widget (GTK_DIALOG (admin_service_display_dialog), service_display_close_button, GTK_RESPONSE_CLOSE);
   GTK_WIDGET_SET_FLAGS (service_display_close_button, GTK_CAN_DEFAULT);
+
+  g_signal_connect ((gpointer) button34, "clicked",
+                    G_CALLBACK (service_affect_clicked),
+                    NULL);
+  g_signal_connect ((gpointer) service_display_close_button, "clicked",
+                    G_CALLBACK (service_affect_close_clicked),
+                    NULL);
 
   /* Store pointers to all widgets, for use by lookup_widget(). */
   GLADE_HOOKUP_OBJECT_NO_REF (admin_service_display_dialog, admin_service_display_dialog, "admin_service_display_dialog");
@@ -4480,6 +4324,7 @@ create_admin_service_display_dialog (void)
   GLADE_HOOKUP_OBJECT (admin_service_display_dialog, Service_Display_Reservations_main, "Service_Display_Reservations_main");
   GLADE_HOOKUP_OBJECT (admin_service_display_dialog, entry18, "entry18");
   GLADE_HOOKUP_OBJECT (admin_service_display_dialog, label250, "label250");
+  GLADE_HOOKUP_OBJECT (admin_service_display_dialog, button34, "button34");
   GLADE_HOOKUP_OBJECT_NO_REF (admin_service_display_dialog, dialog_action_area3, "dialog_action_area3");
   GLADE_HOOKUP_OBJECT (admin_service_display_dialog, service_display_close_button, "service_display_close_button");
 
