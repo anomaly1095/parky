@@ -4,6 +4,7 @@
   #include <stdlib.h>
   #include <time.h>
   #include <string.h>
+  #include <gtk/gtk.h>
 
   #define PATH_DATA             "../data"
   #define PATH_ADMIN_DATA       PATH_DATA "/admin.bin"       // file containing the admin

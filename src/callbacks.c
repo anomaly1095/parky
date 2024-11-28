@@ -99,6 +99,14 @@ signin_clicked(GtkButton *button, gpointer user_data) {
 
     // Close the sign-in window
     gtk_widget_destroy(signin_window);
+    // display citizen window
+  } else if (admin_signin(email, password)){
+    // Successful sign-in
+    g_print("Welcome, %s %s!\n", connected_citizen.first_name, connected_citizen.last_name);
+
+    // Close the sign-in window
+    gtk_widget_destroy(signin_window);
+    // display admin window
   } else {
     // Failed sign-in
     GtkWidget *dialog = gtk_message_dialog_new(GTK_WINDOW(signin_window),
@@ -188,7 +196,7 @@ void
 citizen_modify_cancel_clicked          (GtkButton       *button,
                                         gpointer         user_data)
 {
-
+  
 }
 
 
@@ -196,7 +204,7 @@ void
 parking_create_confirm_clicked         (GtkButton       *button,
                                         gpointer         user_data)
 {
-
+  
 }
 
 
