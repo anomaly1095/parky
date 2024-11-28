@@ -9,6 +9,10 @@
 #include "support.h"
 #include "citizen.h"
 
+/*---------------------------------------*/
+/*----------------CITIZEN----------------*/
+/*---------------------------------------*/
+
 // Callback function for the signup button
 void signup_clicked(GtkButton *button, gpointer user_data) {
 	// Fetch widgets (entries and radio buttons) using lookup_widget or similar methods
@@ -71,7 +75,25 @@ void signup_clicked(GtkButton *button, gpointer user_data) {
 	GtkWidget *signup_window = lookup_widget(GTK_WIDGET(button), "signup_window");
 	gtk_widget_destroy(signup_window);
 
-	// You could also handle redirecting to the signin screen here, if needed
+	// Show the signin window
+  if (signin_window) {
+    gtk_widget_show(signin_window);
+  }
+}
+
+
+void
+signup_go_signin_clicked (GtkButton *button, gpointer user_data)
+{
+  // Hide the signup window
+  if (signup_window) {
+    gtk_widget_hide(signup_window);
+  }
+
+  // Show the signin window
+  if (signin_window) {
+    gtk_widget_show(signin_window);
+  }
 }
 
 
@@ -99,14 +121,19 @@ signin_clicked(GtkButton *button, gpointer user_data) {
 
     // Close the sign-in window
     gtk_widget_destroy(signin_window);
-    // display citizen window
+
+    citizen_details_populate_fields();
+    citizen_modify_populate_fields();
+    gtk_widget_show(citizen_window);
+    
   } else if (admin_signin(email, password)){
     // Successful sign-in
     g_print("Welcome, %s %s!\n", connected_citizen.first_name, connected_citizen.last_name);
 
     // Close the sign-in window
     gtk_widget_destroy(signin_window);
-    // display admin window
+    gtk_widget_show(admin_window);
+
   } else {
     // Failed sign-in
     GtkWidget *dialog = gtk_message_dialog_new(GTK_WINDOW(signin_window),
@@ -118,6 +145,22 @@ signin_clicked(GtkButton *button, gpointer user_data) {
     gtk_widget_destroy(dialog);
   }
 }
+
+
+void
+signin_go_signup_clicked (GtkButton *button, gpointer user_data)
+{
+  // Hide the signup window
+  if (signup_window) {
+    gtk_widget_hide(signin_window);
+  }
+
+  // Show the signin window
+  if (signin_window) {
+    gtk_widget_show(signup_window);
+  }
+}
+
 
 void
 citizen_delete_clicked(GtkButton *button, gpointer user_data) {
@@ -142,6 +185,7 @@ citizen_delete_clicked(GtkButton *button, gpointer user_data) {
 void
 citizen_modify_clicked(GtkButton *button, gpointer user_data)
 {
+  guint year, month, day;
   // Lookup the widgets
   GtkWidget *first_name_entry    = lookup_widget(GTK_WIDGET(button), "citizen_modify_firstname_entry");
   GtkWidget *last_name_entry    = lookup_widget(GTK_WIDGET(button), "citizen_modify_lastname_entry");
@@ -163,16 +207,10 @@ citizen_modify_clicked(GtkButton *button, gpointer user_data)
   const gchar *street    = gtk_entry_get_text(GTK_ENTRY(street_entry));
   const gchar *password  = gtk_entry_get_text(GTK_ENTRY(password_entry));
   const gchar *car_num   = gtk_entry_get_text(GTK_ENTRY(car_num_entry));
+  const gchar *address   = gtk_combo_box_get_active_text(GTK_COMBO_BOX(address_combobox));
+  gboolean is_male       = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(male_radio));
+  gboolean is_female     = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(female_radio));
 
-  // Retrieve text from GtkComboBoxEntry widget
-  const gchar *address = gtk_combo_box_get_active_text(GTK_COMBO_BOX(address_combobox));
-
-  // Retrieve active state of GtkRadioButtons
-  gboolean is_male = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(male_radio));
-  gboolean is_female = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(female_radio));
-
-  // Retrieve date from GtkCalendar widget
-  guint year, month, day;
   gtk_calendar_get_date(GTK_CALENDAR(datebirth_calendar), &year, &month, &day);
   month += 1; // GTK 2 calendar months are 0-based
 
@@ -181,9 +219,8 @@ citizen_modify_clicked(GtkButton *button, gpointer user_data)
   birth_time.tm_year = year - 1900; // tm_year is years since 1900
   birth_time.tm_mon = month - 1;    // tm_mon is 0-based
   birth_time.tm_mday = day;
-
-  // Convert struct tm to time_t
   time_t birth_timestamp = mktime(&birth_time);
+
   // update connected citizen with new values
   citizen_modify(first_name, last_name, phone, email, street, password, car_num, address, birth_time);
   // save the struct in the file
@@ -196,15 +233,19 @@ void
 citizen_modify_cancel_clicked          (GtkButton       *button,
                                         gpointer         user_data)
 {
-  
+  citizen_modify_populate_fields();
 }
 
+
+/*---------------------------------------*/
+/*----------------PARKING----------------*/
+/*---------------------------------------*/
 
 void
 parking_create_confirm_clicked         (GtkButton       *button,
                                         gpointer         user_data)
 {
-  
+
 }
 
 
@@ -255,6 +296,9 @@ parking_display_search_clicked         (GtkButton       *button,
 
 }
 
+/*---------------------------------------*/
+/*----------------SERVICE----------------*/
+/*---------------------------------------*/
 
 void
 service_display_search_clicked         (GtkButton       *button,
@@ -287,6 +331,34 @@ service_delete_clicked                 (GtkButton       *button,
 
 }
 
+
+void
+service_affect_clicked                 (GtkButton       *button,
+                                        gpointer         user_data)
+{
+
+}
+
+
+void
+service_affect_close_clicked           (GtkButton       *button,
+                                        gpointer         user_data)
+{
+
+}
+
+
+void
+service_display_reservation_clicked    (GtkButton       *button,
+                                        gpointer         user_data)
+{
+
+}
+
+
+/*---------------------------------------*/
+/*----------------AGENT----------------*/
+/*---------------------------------------*/
 
 void
 agent_post_update_clicked              (GtkButton       *button,
@@ -367,6 +439,9 @@ admin_reservation_search_clicked       (GtkButton       *button,
 
 }
 
+/*---------------------------------------*/
+/*---------------RESERVATION-------------*/
+/*---------------------------------------*/
 
 void
 reservation_refresh_clicked            (GtkButton       *button,
@@ -455,58 +530,4 @@ reservation_id_park_find_clicked       (GtkButton       *button,
 
 }
 
-
-void
-service_affect_clicked                 (GtkButton       *button,
-                                        gpointer         user_data)
-{
-
-}
-
-
-void
-service_affect_close_clicked           (GtkButton       *button,
-                                        gpointer         user_data)
-{
-
-}
-
-
-void
-service_display_reservation_clicked    (GtkButton       *button,
-                                        gpointer         user_data)
-{
-
-}
-
-
-void
-citizen_list_add_clicked               (GtkButton       *button,
-                                        gpointer         user_data)
-{
-
-}
-
-
-void
-citizen_list_delete_clicked            (GtkButton       *button,
-                                        gpointer         user_data)
-{
-
-}
-
-void
-signup_go_signin_button                (GtkButton       *button,
-                                        gpointer         user_data)
-{
-
-}
-
-
-void
-signin_go_signup_clicked               (GtkButton       *button,
-                                        gpointer         user_data)
-{
-
-}
 

@@ -36,6 +36,14 @@
   };
   
   struct Ids id_list;
+  // variable defined in interface.c
+  extern GtkWidget *signup_window;    // Youssef
+  extern GtkWidget *signin_window;    // Youssef
+  extern GtkWidget *citizen_window;   // Youssef + Salma
+  extern GtkWidget *admin_window;     // Amine + Iheb + Fedi
+  extern GtkWidget *admin_service_display_dialog; // Iheb
+  
+
   /// @brief fetch all id's from ids.bin
   void fetch_id_counts();
   /// @brief save updated id's to ids.bin

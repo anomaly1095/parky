@@ -233,22 +233,22 @@ void citizen_save() {
 
 /// @brief fills citizen modify fields with details from connected citizen
 /// @param window CITIZEN WINDOW WIDGET
-void citizen_modify_populate_fields(GtkWidget *window) {
+void citizen_modify_populate_fields() {
   // Lookup the notebook widget (assuming you have a GtkNotebook)
-  GtkWidget *notebook = lookup_widget(window, "citizen_modify_notebook");
+  GtkWidget *notebook = lookup_widget(citizen_window, "citizen_account_notebook");
 
   // Lookup the widgets inside the first page of the notebook (e.g., citizen modify tab)
-  GtkWidget *first_name_entry     = lookup_widget(window, "citizen_modify_firstname_entry");
-  GtkWidget *last_name_entry     = lookup_widget(window, "citizen_modify_lastname_entry");
-  GtkWidget *phone_entry         = lookup_widget(window, "citizen_modify_phone_entry");
-  GtkWidget *email_entry         = lookup_widget(window, "citizen_modify_email_entry");
-  GtkWidget *address_combobox    = lookup_widget(window, "citizen_modify_address_comboboxentry");
-  GtkWidget *street_entry        = lookup_widget(window, "citizen_modify_street_entry");
-  GtkWidget *password_entry      = lookup_widget(window, "citizen_modify_password_entry");
-  GtkWidget *car_num_entry       = lookup_widget(window, "citizen_modify_car_entry");
-  GtkWidget *male_radio          = lookup_widget(window, "citizen_modify_male_radio");
-  GtkWidget *female_radio        = lookup_widget(window, "citizen_modify_female_radio");
-  GtkWidget *datebirth_calendar  = lookup_widget(window, "citizen_modify_datebirth_calendar");
+  GtkWidget *first_name_entry     = lookup_widget(citizen_window, "citizen_modify_firstname_entry");
+  GtkWidget *last_name_entry     = lookup_widget(citizen_window, "citizen_modify_lastname_entry");
+  GtkWidget *phone_entry         = lookup_widget(citizen_window, "citizen_modify_phone_entry");
+  GtkWidget *email_entry         = lookup_widget(citizen_window, "citizen_modify_email_entry");
+  GtkWidget *address_combobox    = lookup_widget(citizen_window, "citizen_modify_address_comboboxentry");
+  GtkWidget *street_entry        = lookup_widget(citizen_window, "citizen_modify_street_entry");
+  GtkWidget *password_entry      = lookup_widget(citizen_window, "citizen_modify_password_entry");
+  GtkWidget *car_num_entry       = lookup_widget(citizen_window, "citizen_modify_car_entry");
+  GtkWidget *male_radio          = lookup_widget(citizen_window, "citizen_modify_male_radio");
+  GtkWidget *female_radio        = lookup_widget(citizen_window, "citizen_modify_female_radio");
+  GtkWidget *datebirth_calendar  = lookup_widget(citizen_window, "citizen_modify_datebirth_calendar");
 
   // Set the values of the widgets to match the connected_citizen data
 
@@ -279,21 +279,21 @@ void citizen_modify_populate_fields(GtkWidget *window) {
 
 /// @brief fills citizen details firlds from connected citizen
 /// @param window CITIZEN WINDOW WIDGET
-void citizen_details_populate_fields(GtkWidget *window) {
+void citizen_details_populate_fields() {
   // Lookup the widgets for the citizen details window
-  GtkWidget *first_name_entry       = lookup_widget(window, "citizen_details_firstname_entry");
-  GtkWidget *last_name_entry       = lookup_widget(window, "citizen_details_lastname_entry");
-  GtkWidget *address_entry         = lookup_widget(window, "citizen_details_address_entry");
-  GtkWidget *phone_entry           = lookup_widget(window, "citizen_details_phone_entry");
-  GtkWidget *id_entry              = lookup_widget(window, "citizen_details_id_entry");
-  GtkWidget *reservations_entry    = lookup_widget(window, "citizen_details_reservations_entry");
-  GtkWidget *monthlybill_entry     = lookup_widget(window, "citizen_details_monthlybill_entry");
-  GtkWidget *password_entry        = lookup_widget(window, "citizen_details_password_entry");  // Optional for display
-  GtkWidget *registration_entry    = lookup_widget(window, "citizen_details_registration_entry");
-  GtkWidget *email_entry           = lookup_widget(window, "citizen_details_email_entry");
-  GtkWidget *datebirth_entry       = lookup_widget(window, "citizen_details_datebirth_entry");
-  GtkWidget *male_radio            = lookup_widget(window, "citizen_details_male_radio");
-  GtkWidget *female_radio          = lookup_widget(window, "citizen_details_female_radio");
+  GtkWidget *first_name_entry       = lookup_widget(citizen_window, "citizen_details_firstname_entry");
+  GtkWidget *last_name_entry       = lookup_widget(citizen_window, "citizen_details_lastname_entry");
+  GtkWidget *address_entry         = lookup_widget(citizen_window, "citizen_details_address_entry");
+  GtkWidget *phone_entry           = lookup_widget(citizen_window, "citizen_details_phone_entry");
+  GtkWidget *id_entry              = lookup_widget(citizen_window, "citizen_details_id_entry");
+  GtkWidget *reservations_entry    = lookup_widget(citizen_window, "citizen_details_reservations_entry");
+  GtkWidget *monthlybill_entry     = lookup_widget(citizen_window, "citizen_details_monthlybill_entry");
+  GtkWidget *password_entry        = lookup_widget(citizen_window, "citizen_details_password_entry");  // Optional for display
+  GtkWidget *registration_entry    = lookup_widget(citizen_window, "citizen_details_registration_entry");
+  GtkWidget *email_entry           = lookup_widget(citizen_window, "citizen_details_email_entry");
+  GtkWidget *datebirth_entry       = lookup_widget(citizen_window, "citizen_details_datebirth_entry");
+  GtkWidget *male_radio            = lookup_widget(citizen_window, "citizen_details_male_radio");
+  GtkWidget *female_radio          = lookup_widget(citizen_window, "citizen_details_female_radio");
 
   // Set the values of the widgets to match the connected_citizen data
 

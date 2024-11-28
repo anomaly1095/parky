@@ -27,7 +27,8 @@
 
   // This session's connected citizen
   citizen_t connected_citizen;
-  
+
+
   bool_t citizen_pwd_is_same(__int8_t *password1, __int8_t *password2){
   citizen_t citizen_create(__uint64_t id, __int8_t *first_name, __int8_t *last_name, __int8_t *phone, 
                          __int8_t *email, __int8_t *address, gender_t gender, __uint8_t *password);

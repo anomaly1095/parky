@@ -475,7 +475,7 @@
 	  <property name="use_underline">True</property>
 	  <property name="relief">GTK_RELIEF_NORMAL</property>
 	  <property name="focus_on_click">True</property>
-	  <signal name="clicked" handler="signup_go_signin_button" last_modification_time="Thu, 28 Nov 2024 13:40:42 GMT"/>
+	  <signal name="clicked" handler="signup_go_signin_clicked" last_modification_time="Thu, 28 Nov 2024 13:40:42 GMT"/>
 	</widget>
 	<packing>
 	  <property name="x">360</property>

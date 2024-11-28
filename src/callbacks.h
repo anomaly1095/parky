@@ -6,7 +6,15 @@ signup_clicked                         (GtkButton       *button,
                                         gpointer         user_data);
 
 void
+signup_go_signin_clicked                (GtkButton       *button,
+                                        gpointer         user_data);
+
+void
 signin_clicked                         (GtkButton       *button,
+                                        gpointer         user_data);
+
+void
+signin_go_signup_clicked               (GtkButton       *button,
                                         gpointer         user_data);
 
 void
@@ -161,18 +169,3 @@ void
 service_display_reservation_clicked    (GtkButton       *button,
                                         gpointer         user_data);
 
-void
-citizen_list_add_clicked               (GtkButton       *button,
-                                        gpointer         user_data);
-
-void
-citizen_list_delete_clicked            (GtkButton       *button,
-                                        gpointer         user_data);
-
-void
-signup_go_signin_button                (GtkButton       *button,
-                                        gpointer         user_data);
-
-void
-signin_go_signup_clicked               (GtkButton       *button,
-                                        gpointer         user_data);
