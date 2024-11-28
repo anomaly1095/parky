@@ -494,3 +494,19 @@ citizen_list_delete_clicked            (GtkButton       *button,
 {
 
 }
+
+void
+signup_go_signin_button                (GtkButton       *button,
+                                        gpointer         user_data)
+{
+
+}
+
+
+void
+signin_go_signup_clicked               (GtkButton       *button,
+                                        gpointer         user_data)
+{
+
+}
+
