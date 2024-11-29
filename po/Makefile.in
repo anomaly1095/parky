@@ -16,7 +16,7 @@ GETTEXT_PACKAGE = parky
 PACKAGE = parky
 VERSION = 0.1
 
-SHELL = /bin/bash
+SHELL = /bin/sh
 
 
 srcdir = .
@@ -39,10 +39,10 @@ MKINSTALLDIRS = mkdir -p
 
 CC = gcc
 GENCAT = @GENCAT@
-GMSGFMT = /usr/bin/msgfmt
-MSGFMT = /usr/bin/msgfmt
+GMSGFMT = /usr/local/bin/msgfmt
+MSGFMT = /usr/local/bin/msgfmt
 MSGFMT_OPTS = -c
-XGETTEXT = /usr/bin/xgettext
+XGETTEXT = /usr/local/bin/xgettext
 MSGMERGE = msgmerge
 
 DEFS = -DHAVE_CONFIG_H

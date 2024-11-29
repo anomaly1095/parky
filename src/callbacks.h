@@ -1,4 +1,9 @@
 #include <gtk/gtk.h>
+#include "citizen.h"
+#include "agent.h"
+#include "admin.h"
+#include "reservation.h"
+#include "service.h"
 
 
 void

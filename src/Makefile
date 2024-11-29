@@ -161,17 +161,17 @@ am__define_uniq_tagged_files = \
   done | $(am__uniquify_input)`
 am__DIST_COMMON = $(srcdir)/Makefile.in $(top_srcdir)/depcomp
 DISTFILES = $(DIST_COMMON) $(DIST_SOURCES) $(TEXINFOS) $(EXTRA_DIST)
-ACLOCAL = ${SHELL} '/home/youssef/Documents/parky/missing' aclocal-1.16
+ACLOCAL = ${SHELL} '/Users/youssefazaiez/Documents/parky/missing' aclocal-1.17
 AMTAR = $${TAR-tar}
 AM_DEFAULT_VERBOSITY = 1
-AUTOCONF = ${SHELL} '/home/youssef/Documents/parky/missing' autoconf
-AUTOHEADER = ${SHELL} '/home/youssef/Documents/parky/missing' autoheader
-AUTOMAKE = ${SHELL} '/home/youssef/Documents/parky/missing' automake-1.16
-AWK = gawk
+AUTOCONF = ${SHELL} '/Users/youssefazaiez/Documents/parky/missing' autoconf
+AUTOHEADER = ${SHELL} '/Users/youssefazaiez/Documents/parky/missing' autoheader
+AUTOMAKE = ${SHELL} '/Users/youssefazaiez/Documents/parky/missing' automake-1.17
+AWK = awk
 CATALOGS = 
 CATOBJEXT = .gmo
 CC = gcc
-CCDEPMODE = depmode=gcc3
+CCDEPMODE = depmode=none
 CFLAGS = -g -O2
 CPPFLAGS = 
 CSCOPE = cscope
@@ -180,15 +180,15 @@ CYGPATH_W = echo
 DATADIRNAME = share
 DEFS = -DHAVE_CONFIG_H
 DEPDIR = .deps
-ECHO_C = 
-ECHO_N = -n
+ECHO_C = \c
+ECHO_N = 
 ECHO_T = 
 EGREP = /usr/bin/grep -E
 ETAGS = etags
 EXEEXT = 
 GETTEXT_PACKAGE = parky
 GMOFILES = 
-GMSGFMT = /usr/bin/msgfmt
+GMSGFMT = /usr/local/bin/msgfmt
 GREP = /usr/bin/grep
 INSTALL = /usr/bin/install -c
 INSTALL_DATA = ${INSTALL} -m 644
@@ -196,30 +196,30 @@ INSTALL_PROGRAM = ${INSTALL}
 INSTALL_SCRIPT = ${INSTALL}
 INSTALL_STRIP_PROGRAM = $(install_sh) -c -s
 INSTOBJEXT = .mo
-INTLLIBS = 
-INTL_MACOSX_LIBS = 
+INTLLIBS = -lintl  -Wl,-framework -Wl,CoreFoundation
+INTL_MACOSX_LIBS = -Wl,-framework -Wl,CoreFoundation
 LDFLAGS = 
 LIBOBJS = 
 LIBS = 
 LTLIBOBJS = 
 MAINT = 
-MAKEINFO = ${SHELL} '/home/youssef/Documents/parky/missing' makeinfo
-MKDIR_P = /usr/bin/mkdir -p
+MAKEINFO = ${SHELL} '/Users/youssefazaiez/Documents/parky/missing' makeinfo
+MKDIR_P = mkdir -p
 MKINSTALLDIRS = .//mkinstalldirs
-MSGFMT = /usr/bin/msgfmt
+MSGFMT = /usr/local/bin/msgfmt
 MSGFMT_OPTS = -c
 OBJEXT = o
 PACKAGE = parky
 PACKAGE_BUGREPORT = 
-PACKAGE_CFLAGS = -I/usr/include/gtk-2.0 -I/usr/lib/x86_64-linux-gnu/gtk-2.0/include -I/usr/include/pango-1.0 -I/usr/include/glib-2.0 -I/usr/lib/x86_64-linux-gnu/glib-2.0/include -I/usr/include/harfbuzz -I/usr/include/freetype2 -I/usr/include/libpng16 -I/usr/include/libmount -I/usr/include/blkid -I/usr/include/fribidi -I/usr/include/cairo -I/usr/include/pixman-1 -I/usr/include/gdk-pixbuf-2.0 -I/usr/include/x86_64-linux-gnu -I/usr/include/atk-1.0 -pthread 
-PACKAGE_LIBS = -lgtk-x11-2.0 -lgdk-x11-2.0 -lpangocairo-1.0 -latk-1.0 -lcairo -lgdk_pixbuf-2.0 -lgio-2.0 -lpangoft2-1.0 -lpango-1.0 -lgobject-2.0 -lglib-2.0 -lharfbuzz -lfontconfig -lfreetype 
+PACKAGE_CFLAGS = -I/usr/local/Cellar/gtk+/2.24.33_2/include/gtk-2.0 -I/usr/local/Cellar/gtk+/2.24.33_2/lib/gtk-2.0/include -I/usr/local/Cellar/pango/1.54.0/include/pango-1.0 -I/usr/local/Cellar/fribidi/1.0.16/include/fribidi -I/usr/local/Cellar/harfbuzz/10.1.0/include/harfbuzz -I/usr/local/Cellar/graphite2/1.3.14/include -I/usr/local/Cellar/cairo/1.18.2/include -I/usr/local/Cellar/at-spi2-core/2.54.0/include/atk-1.0 -I/usr/local/Cellar/cairo/1.18.2/include/cairo -I/usr/local/Cellar/fontconfig/2.15.0/include -I/usr/local/opt/freetype/include/freetype2 -I/usr/local/Cellar/libxext/1.3.6/include -I/usr/local/Cellar/xorgproto/2024.1/include -I/usr/local/Cellar/libxrender/0.9.11/include -I/usr/local/Cellar/libx11/1.8.10/include -I/usr/local/Cellar/libxcb/1.17.0/include -I/usr/local/Cellar/libxau/1.0.11/include -I/usr/local/Cellar/libxdmcp/1.1.5/include -I/usr/local/Cellar/pixman/0.44.0/include/pixman-1 -I/usr/local/Cellar/gdk-pixbuf/2.42.12/include/gdk-pixbuf-2.0 -I/usr/local/opt/libpng/include/libpng16 -I/usr/local/opt/libtiff/include -I/usr/local/opt/zstd/include -I/usr/local/Cellar/xz/5.6.3/include -I/usr/local/opt/jpeg-turbo/include -I/usr/local/Cellar/glib/2.82.2/include -I/Library/Developer/CommandLineTools/SDKs/MacOSX12.sdk/usr/include/ffi -I/usr/local/Cellar/glib/2.82.2/include/glib-2.0 -I/usr/local/Cellar/glib/2.82.2/lib/glib-2.0/include -I/usr/local/opt/gettext/include -I/usr/local/Cellar/pcre2/10.44/include
+PACKAGE_LIBS = -L/usr/local/Cellar/gtk+/2.24.33_2/lib -lgtk-quartz-2.0 -lgdk-quartz-2.0 -framework Cocoa -L/usr/local/Cellar/pango/1.54.0/lib -lpangocairo-1.0 -lpango-1.0 -L/usr/local/Cellar/harfbuzz/10.1.0/lib -lharfbuzz -framework CoreFoundation -framework ApplicationServices -L/usr/local/Cellar/at-spi2-core/2.54.0/lib -latk-1.0 -L/usr/local/Cellar/cairo/1.18.2/lib -lcairo -L/usr/local/Cellar/gdk-pixbuf/2.42.12/lib -lgdk_pixbuf-2.0 -L/usr/local/Cellar/glib/2.82.2/lib -lgio-2.0 -lgobject-2.0 -lglib-2.0 -L/usr/local/opt/gettext/lib -lintl
 PACKAGE_NAME = 
 PACKAGE_STRING = 
 PACKAGE_TARNAME = 
 PACKAGE_URL = 
 PACKAGE_VERSION = 
 PATH_SEPARATOR = :
-PKG_CONFIG = /usr/bin/pkg-config
+PKG_CONFIG = /usr/local/bin/pkg-config
 PKG_CONFIG_LIBDIR = 
 PKG_CONFIG_PATH = 
 POFILES = 
@@ -227,15 +227,15 @@ POSUB = po
 PO_IN_DATADIR_FALSE = 
 PO_IN_DATADIR_TRUE = 
 SET_MAKE = 
-SHELL = /bin/bash
+SHELL = /bin/sh
 STRIP = 
 USE_NLS = yes
 VERSION = 0.1
-XGETTEXT = /usr/bin/xgettext
-abs_builddir = /home/youssef/Documents/parky/src
-abs_srcdir = /home/youssef/Documents/parky/src
-abs_top_builddir = /home/youssef/Documents/parky
-abs_top_srcdir = /home/youssef/Documents/parky
+XGETTEXT = /usr/local/bin/xgettext
+abs_builddir = /Users/youssefazaiez/Documents/parky/src
+abs_srcdir = /Users/youssefazaiez/Documents/parky/src
+abs_top_builddir = /Users/youssefazaiez/Documents/parky
+abs_top_srcdir = /Users/youssefazaiez/Documents/parky
 ac_ct_CC = gcc
 am__include = include
 am__leading_dot = .
@@ -254,7 +254,7 @@ host_alias =
 htmldir = ${docdir}
 includedir = ${prefix}/include
 infodir = ${datarootdir}/info
-install_sh = ${SHELL} /home/youssef/Documents/parky/install-sh
+install_sh = ${SHELL} /Users/youssefazaiez/Documents/parky/install-sh
 libdir = ${exec_prefix}/lib
 libexecdir = ${exec_prefix}/libexec
 localedir = ${datarootdir}/locale
@@ -278,7 +278,7 @@ top_srcdir = ..
 INCLUDES = \
 	-DPACKAGE_DATA_DIR=\""$(datadir)"\" \
 	-DPACKAGE_LOCALE_DIR=\""$(prefix)/$(DATADIRNAME)/locale"\" \
-	-I/usr/include/gtk-2.0 -I/usr/lib/x86_64-linux-gnu/gtk-2.0/include -I/usr/include/pango-1.0 -I/usr/include/glib-2.0 -I/usr/lib/x86_64-linux-gnu/glib-2.0/include -I/usr/include/harfbuzz -I/usr/include/freetype2 -I/usr/include/libpng16 -I/usr/include/libmount -I/usr/include/blkid -I/usr/include/fribidi -I/usr/include/cairo -I/usr/include/pixman-1 -I/usr/include/gdk-pixbuf-2.0 -I/usr/include/x86_64-linux-gnu -I/usr/include/atk-1.0 -pthread 
+	-I/usr/local/Cellar/gtk+/2.24.33_2/include/gtk-2.0 -I/usr/local/Cellar/gtk+/2.24.33_2/lib/gtk-2.0/include -I/usr/local/Cellar/pango/1.54.0/include/pango-1.0 -I/usr/local/Cellar/fribidi/1.0.16/include/fribidi -I/usr/local/Cellar/harfbuzz/10.1.0/include/harfbuzz -I/usr/local/Cellar/graphite2/1.3.14/include -I/usr/local/Cellar/cairo/1.18.2/include -I/usr/local/Cellar/at-spi2-core/2.54.0/include/atk-1.0 -I/usr/local/Cellar/cairo/1.18.2/include/cairo -I/usr/local/Cellar/fontconfig/2.15.0/include -I/usr/local/opt/freetype/include/freetype2 -I/usr/local/Cellar/libxext/1.3.6/include -I/usr/local/Cellar/xorgproto/2024.1/include -I/usr/local/Cellar/libxrender/0.9.11/include -I/usr/local/Cellar/libx11/1.8.10/include -I/usr/local/Cellar/libxcb/1.17.0/include -I/usr/local/Cellar/libxau/1.0.11/include -I/usr/local/Cellar/libxdmcp/1.1.5/include -I/usr/local/Cellar/pixman/0.44.0/include/pixman-1 -I/usr/local/Cellar/gdk-pixbuf/2.42.12/include/gdk-pixbuf-2.0 -I/usr/local/opt/libpng/include/libpng16 -I/usr/local/opt/libtiff/include -I/usr/local/opt/zstd/include -I/usr/local/Cellar/xz/5.6.3/include -I/usr/local/opt/jpeg-turbo/include -I/usr/local/Cellar/glib/2.82.2/include -I/Library/Developer/CommandLineTools/SDKs/MacOSX12.sdk/usr/include/ffi -I/usr/local/Cellar/glib/2.82.2/include/glib-2.0 -I/usr/local/Cellar/glib/2.82.2/lib/glib-2.0/include -I/usr/local/opt/gettext/include -I/usr/local/Cellar/pcre2/10.44/include
 
 parky_SOURCES = \
 	main.c \
@@ -286,7 +286,7 @@ parky_SOURCES = \
 	interface.c interface.h \
 	callbacks.c callbacks.h
 
-parky_LDADD = -lgtk-x11-2.0 -lgdk-x11-2.0 -lpangocairo-1.0 -latk-1.0 -lcairo -lgdk_pixbuf-2.0 -lgio-2.0 -lpangoft2-1.0 -lpango-1.0 -lgobject-2.0 -lglib-2.0 -lharfbuzz -lfontconfig -lfreetype  $(INTLLIBS)
+parky_LDADD = -L/usr/local/Cellar/gtk+/2.24.33_2/lib -lgtk-quartz-2.0 -lgdk-quartz-2.0 -framework Cocoa -L/usr/local/Cellar/pango/1.54.0/lib -lpangocairo-1.0 -lpango-1.0 -L/usr/local/Cellar/harfbuzz/10.1.0/lib -lharfbuzz -framework CoreFoundation -framework ApplicationServices -L/usr/local/Cellar/at-spi2-core/2.54.0/lib -latk-1.0 -L/usr/local/Cellar/cairo/1.18.2/lib -lcairo -L/usr/local/Cellar/gdk-pixbuf/2.42.12/lib -lgdk_pixbuf-2.0 -L/usr/local/Cellar/glib/2.82.2/lib -lgio-2.0 -lgobject-2.0 -lglib-2.0 -L/usr/local/opt/gettext/lib -lintl $(INTLLIBS)
 all: all-am
 
 .SUFFIXES:
@@ -385,18 +385,18 @@ $(am__depfiles_remade):
 am--depfiles: $(am__depfiles_remade)
 
 .c.o:
-	$(AM_V_CC)$(COMPILE) -MT $@ -MD -MP -MF $(DEPDIR)/$*.Tpo -c -o $@ $<
-	$(AM_V_at)$(am__mv) $(DEPDIR)/$*.Tpo $(DEPDIR)/$*.Po
-#	$(AM_V_CC)source='$<' object='$@' libtool=no \
-#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(AM_V_CC_no)$(COMPILE) -c -o $@ $<
+#	$(AM_V_CC)$(COMPILE) -MT $@ -MD -MP -MF $(DEPDIR)/$*.Tpo -c -o $@ $<
+#	$(AM_V_at)$(am__mv) $(DEPDIR)/$*.Tpo $(DEPDIR)/$*.Po
+	$(AM_V_CC)source='$<' object='$@' libtool=no \
+	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
+	$(AM_V_CC_no)$(COMPILE) -c -o $@ $<
 
 .c.obj:
-	$(AM_V_CC)$(COMPILE) -MT $@ -MD -MP -MF $(DEPDIR)/$*.Tpo -c -o $@ `$(CYGPATH_W) '$<'`
-	$(AM_V_at)$(am__mv) $(DEPDIR)/$*.Tpo $(DEPDIR)/$*.Po
-#	$(AM_V_CC)source='$<' object='$@' libtool=no \
-#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(AM_V_CC_no)$(COMPILE) -c -o $@ `$(CYGPATH_W) '$<'`
+#	$(AM_V_CC)$(COMPILE) -MT $@ -MD -MP -MF $(DEPDIR)/$*.Tpo -c -o $@ `$(CYGPATH_W) '$<'`
+#	$(AM_V_at)$(am__mv) $(DEPDIR)/$*.Tpo $(DEPDIR)/$*.Po
+	$(AM_V_CC)source='$<' object='$@' libtool=no \
+	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
+	$(AM_V_CC_no)$(COMPILE) -c -o $@ `$(CYGPATH_W) '$<'`
 
 ID: $(am__tagged_files)
 	$(am__define_uniq_tagged_files); mkid -fID $$unique

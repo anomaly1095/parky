@@ -7,7 +7,6 @@
 #include "callbacks.h"
 #include "interface.h"
 #include "support.h"
-#include "citizen.h"
 
 /*---------------------------------------*/
 /*----------------CITIZEN----------------*/
@@ -16,15 +15,15 @@
 // Callback function for the signup button
 void signup_clicked(GtkButton *button, gpointer user_data) {
 	// Fetch widgets (entries and radio buttons) using lookup_widget or similar methods
-	GtkWidget *first_name_entry       = lookup_widget(GTK_WIDGET(button), "signup_firstname_entry");
-	GtkWidget *last_name_entry       = lookup_widget(GTK_WIDGET(button), "signup_lastname_entry");
-	GtkWidget *phone_entry           = lookup_widget(GTK_WIDGET(button), "signup_phone_entry");
-	GtkWidget *email_entry           = lookup_widget(GTK_WIDGET(button), "signup_email_entry");
-	GtkWidget *address_entry         = lookup_widget(GTK_WIDGET(button), "signup_address_entry");
-	GtkWidget *password_entry        = lookup_widget(GTK_WIDGET(button), "signup_password_entry");
-	GtkWidget *password_confirm_entry = lookup_widget(GTK_WIDGET(button), "signup_password_confirm_entry");
-	GtkWidget *male_radio            = lookup_widget(GTK_WIDGET(button), "signup_male_radio");
-	GtkWidget *female_radio          = lookup_widget(GTK_WIDGET(button), "signup_female_radio");
+	GtkWidget *first_name_entry       = lookup_widget(signup_window, "signup_firstname_entry");
+	GtkWidget *last_name_entry       = lookup_widget(signup_window, "signup_lastname_entry");
+	GtkWidget *phone_entry           = lookup_widget(signup_window, "signup_phone_entry");
+	GtkWidget *email_entry           = lookup_widget(signup_window, "signup_email_entry");
+	GtkWidget *address_entry         = lookup_widget(signup_window, "signup_address_entry");
+	GtkWidget *password_entry        = lookup_widget(signup_window, "signup_password_entry");
+	GtkWidget *password_confirm_entry = lookup_widget(signup_window, "signup_password_confirm_entry");
+	GtkWidget *male_radio            = lookup_widget(signup_window, "signup_male_radio");
+	GtkWidget *female_radio          = lookup_widget(signup_window, "signup_female_radio");
 
 	// Fetch text from entry fields
 	const gchar *first_name       = gtk_entry_get_text(GTK_ENTRY(first_name_entry));
@@ -75,10 +74,9 @@ void signup_clicked(GtkButton *button, gpointer user_data) {
 	GtkWidget *signup_window = lookup_widget(GTK_WIDGET(button), "signup_window");
 	gtk_widget_destroy(signup_window);
 
-	// Show the signin window
-  if (signin_window) {
+	// Show the signin window after successfu signup
+  if (signin_window) 
     gtk_widget_show(signin_window);
-  }
 }
 
 
@@ -100,10 +98,9 @@ signup_go_signin_clicked (GtkButton *button, gpointer user_data)
 void
 signin_clicked(GtkButton *button, gpointer user_data) {
   // Retrieve the widgets using lookup_widget
-  GtkWidget *signin_email_entry   = lookup_widget(GTK_WIDGET(button), "signin_email_entry");
-  GtkWidget *signin_password_entry= lookup_widget(GTK_WIDGET(button), "signin_password_entry");
-  GtkWidget *signin_window        = lookup_widget(GTK_WIDGET(button), "signin_window");
-
+  GtkWidget *signin_email_entry   = lookup_widget(signin_window, "signin_email_entry");
+  GtkWidget *signin_password_entry= lookup_widget(signin_window, "signin_password_entry");
+  
   // Ensure widgets were retrieved
   if (!signin_email_entry || !signin_password_entry || !signin_window) {
     g_print("Error: Failed to retrieve necessary widgets for sign-in.\n");
@@ -122,8 +119,9 @@ signin_clicked(GtkButton *button, gpointer user_data) {
     // Close the sign-in window
     gtk_widget_destroy(signin_window);
 
-    citizen_details_populate_fields();
-    citizen_modify_populate_fields();
+    // if signed in as citizen fill the fields and display the citizen window
+    citizen_account_populate(); // fills youssef fields 
+    
     gtk_widget_show(citizen_window);
     
   } else if (admin_signin(email, password)){
@@ -132,6 +130,9 @@ signin_clicked(GtkButton *button, gpointer user_data) {
 
     // Close the sign-in window
     gtk_widget_destroy(signin_window);
+
+    // if signed in as admin fill the fields and display the admin window
+    // fill citizen 
     gtk_widget_show(admin_window);
 
   } else {
@@ -187,17 +188,17 @@ citizen_modify_clicked(GtkButton *button, gpointer user_data)
 {
   guint year, month, day;
   // Lookup the widgets
-  GtkWidget *first_name_entry    = lookup_widget(GTK_WIDGET(button), "citizen_modify_firstname_entry");
-  GtkWidget *last_name_entry    = lookup_widget(GTK_WIDGET(button), "citizen_modify_lastname_entry");
-  GtkWidget *phone_entry        = lookup_widget(GTK_WIDGET(button), "citizen_modify_phone_entry");
-  GtkWidget *email_entry        = lookup_widget(GTK_WIDGET(button), "citizen_modify_email_entry");
-  GtkWidget *address_combobox   = lookup_widget(GTK_WIDGET(button), "citizen_modify_address_comboboxentry");
-  GtkWidget *street_entry       = lookup_widget(GTK_WIDGET(button), "citizen_modify_street_entry");
-  GtkWidget *password_entry     = lookup_widget(GTK_WIDGET(button), "citizen_modify_password_entry");
-  GtkWidget *car_num_entry      = lookup_widget(GTK_WIDGET(button), "citizen_modify_car_entry");
-  GtkWidget *male_radio         = lookup_widget(GTK_WIDGET(button), "citizen_modify_male_radio");
-  GtkWidget *female_radio       = lookup_widget(GTK_WIDGET(button), "citizen_modify_female_radio");
-  GtkWidget *datebirth_calendar = lookup_widget(GTK_WIDGET(button), "citizen_modify_datebirth_calendar");
+  GtkWidget *first_name_entry    = lookup_widget(citizen_window, "citizen_modify_firstname_entry");
+  GtkWidget *last_name_entry    = lookup_widget(citizen_window, "citizen_modify_lastname_entry");
+  GtkWidget *phone_entry        = lookup_widget(citizen_window, "citizen_modify_phone_entry");
+  GtkWidget *email_entry        = lookup_widget(citizen_window, "citizen_modify_email_entry");
+  GtkWidget *address_combobox   = lookup_widget(citizen_window, "citizen_modify_address_comboboxentry");
+  GtkWidget *street_entry       = lookup_widget(citizen_window, "citizen_modify_street_entry");
+  GtkWidget *password_entry     = lookup_widget(citizen_window, "citizen_modify_password_entry");
+  GtkWidget *car_num_entry      = lookup_widget(citizen_window, "citizen_modify_car_entry");
+  GtkWidget *male_radio         = lookup_widget(citizen_window, "citizen_modify_male_radio");
+  GtkWidget *female_radio       = lookup_widget(citizen_window, "citizen_modify_female_radio");
+  GtkWidget *datebirth_calendar = lookup_widget(citizen_window, "citizen_modify_datebirth_calendar");
 
   // Retrieve text from GtkEntry widgets
   const gchar *first_name = gtk_entry_get_text(GTK_ENTRY(first_name_entry));
@@ -208,8 +209,8 @@ citizen_modify_clicked(GtkButton *button, gpointer user_data)
   const gchar *password  = gtk_entry_get_text(GTK_ENTRY(password_entry));
   const gchar *car_num   = gtk_entry_get_text(GTK_ENTRY(car_num_entry));
   const gchar *address   = gtk_combo_box_get_active_text(GTK_COMBO_BOX(address_combobox));
-  gboolean is_male       = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(male_radio));
-  gboolean is_female     = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(female_radio));
+  gboolean is_male       = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON(male_radio));
+  gboolean is_female     = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON(female_radio));
 
   gtk_calendar_get_date(GTK_CALENDAR(datebirth_calendar), &year, &month, &day);
   month += 1; // GTK 2 calendar months are 0-based

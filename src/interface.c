@@ -3947,9 +3947,9 @@ create_citizen_window (void)
 }
 
 GtkWidget*
-create_admin_service_display_dialog (void)
+create_service_display_dialog (void)
 {
-  GtkWidget *admin_service_display_dialog;
+  GtkWidget *service_display_dialog;
   GtkWidget *dialog_vbox3;
   GtkWidget *fixed22;
   GtkWidget *clist1;
@@ -3962,14 +3962,14 @@ create_admin_service_display_dialog (void)
   GtkWidget *dialog_action_area3;
   GtkWidget *service_display_close_button;
 
-  admin_service_display_dialog = gtk_dialog_new ();
-  gtk_widget_set_size_request (admin_service_display_dialog, 500, 300);
-  gtk_window_set_title (GTK_WINDOW (admin_service_display_dialog), _("services info"));
-  gtk_window_set_resizable (GTK_WINDOW (admin_service_display_dialog), FALSE);
-  gtk_window_set_type_hint (GTK_WINDOW (admin_service_display_dialog), GDK_WINDOW_TYPE_HINT_DIALOG);
-  gtk_dialog_set_has_separator (GTK_DIALOG (admin_service_display_dialog), FALSE);
+  service_display_dialog = gtk_dialog_new ();
+  gtk_widget_set_size_request (service_display_dialog, 500, 300);
+  gtk_window_set_title (GTK_WINDOW (service_display_dialog), _("services info"));
+  gtk_window_set_resizable (GTK_WINDOW (service_display_dialog), FALSE);
+  gtk_window_set_type_hint (GTK_WINDOW (service_display_dialog), GDK_WINDOW_TYPE_HINT_DIALOG);
+  gtk_dialog_set_has_separator (GTK_DIALOG (service_display_dialog), FALSE);
 
-  dialog_vbox3 = GTK_DIALOG (admin_service_display_dialog)->vbox;
+  dialog_vbox3 = GTK_DIALOG (service_display_dialog)->vbox;
   gtk_widget_show (dialog_vbox3);
 
   fixed22 = gtk_fixed_new ();
@@ -4013,13 +4013,13 @@ create_admin_service_display_dialog (void)
   gtk_fixed_put (GTK_FIXED (fixed22), button34, 408, 224);
   gtk_widget_set_size_request (button34, 74, 29);
 
-  dialog_action_area3 = GTK_DIALOG (admin_service_display_dialog)->action_area;
+  dialog_action_area3 = GTK_DIALOG (service_display_dialog)->action_area;
   gtk_widget_show (dialog_action_area3);
   gtk_button_box_set_layout (GTK_BUTTON_BOX (dialog_action_area3), GTK_BUTTONBOX_END);
 
   service_display_close_button = gtk_button_new_from_stock ("gtk-close");
   gtk_widget_show (service_display_close_button);
-  gtk_dialog_add_action_widget (GTK_DIALOG (admin_service_display_dialog), service_display_close_button, GTK_RESPONSE_CLOSE);
+  gtk_dialog_add_action_widget (GTK_DIALOG (service_display_dialog), service_display_close_button, GTK_RESPONSE_CLOSE);
   GTK_WIDGET_SET_FLAGS (service_display_close_button, GTK_CAN_DEFAULT);
 
   g_signal_connect ((gpointer) button34, "clicked",
@@ -4030,19 +4030,19 @@ create_admin_service_display_dialog (void)
                     NULL);
 
   /* Store pointers to all widgets, for use by lookup_widget(). */
-  GLADE_HOOKUP_OBJECT_NO_REF (admin_service_display_dialog, admin_service_display_dialog, "admin_service_display_dialog");
-  GLADE_HOOKUP_OBJECT_NO_REF (admin_service_display_dialog, dialog_vbox3, "dialog_vbox3");
-  GLADE_HOOKUP_OBJECT (admin_service_display_dialog, fixed22, "fixed22");
-  GLADE_HOOKUP_OBJECT (admin_service_display_dialog, clist1, "clist1");
-  GLADE_HOOKUP_OBJECT (admin_service_display_dialog, service_display_id_service, "service_display_id_service");
-  GLADE_HOOKUP_OBJECT (admin_service_display_dialog, service_display_service, "service_display_service");
-  GLADE_HOOKUP_OBJECT (admin_service_display_dialog, Service_Display_Reservations_main, "Service_Display_Reservations_main");
-  GLADE_HOOKUP_OBJECT (admin_service_display_dialog, entry18, "entry18");
-  GLADE_HOOKUP_OBJECT (admin_service_display_dialog, label250, "label250");
-  GLADE_HOOKUP_OBJECT (admin_service_display_dialog, button34, "button34");
-  GLADE_HOOKUP_OBJECT_NO_REF (admin_service_display_dialog, dialog_action_area3, "dialog_action_area3");
-  GLADE_HOOKUP_OBJECT (admin_service_display_dialog, service_display_close_button, "service_display_close_button");
+  GLADE_HOOKUP_OBJECT_NO_REF (service_display_dialog, service_display_dialog, "service_display_dialog");
+  GLADE_HOOKUP_OBJECT_NO_REF (service_display_dialog, dialog_vbox3, "dialog_vbox3");
+  GLADE_HOOKUP_OBJECT (service_display_dialog, fixed22, "fixed22");
+  GLADE_HOOKUP_OBJECT (service_display_dialog, clist1, "clist1");
+  GLADE_HOOKUP_OBJECT (service_display_dialog, service_display_id_service, "service_display_id_service");
+  GLADE_HOOKUP_OBJECT (service_display_dialog, service_display_service, "service_display_service");
+  GLADE_HOOKUP_OBJECT (service_display_dialog, Service_Display_Reservations_main, "Service_Display_Reservations_main");
+  GLADE_HOOKUP_OBJECT (service_display_dialog, entry18, "entry18");
+  GLADE_HOOKUP_OBJECT (service_display_dialog, label250, "label250");
+  GLADE_HOOKUP_OBJECT (service_display_dialog, button34, "button34");
+  GLADE_HOOKUP_OBJECT_NO_REF (service_display_dialog, dialog_action_area3, "dialog_action_area3");
+  GLADE_HOOKUP_OBJECT (service_display_dialog, service_display_close_button, "service_display_close_button");
 
-  return admin_service_display_dialog;
+  return service_display_dialog;
 }
 
