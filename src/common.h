@@ -28,10 +28,8 @@
   struct Ids{
     __uint64_t id_agent;
     __uint64_t id_citizen;
-    __uint64_t id_complaint;
     __uint64_t id_parking;
     __uint64_t id_reservation;
-    __uint64_t id_review;
     __uint64_t id_service;
   };
   

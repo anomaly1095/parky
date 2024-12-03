@@ -90,8 +90,7 @@ bool citizen_signin(const char *email, const char *password) {
   // Iterate through the file, reading one citizen at a time
   while (fread(&current_citizen, citizen_size, 1, file) == 1) {
     // Compare email and password
-    if (strcmp((char *)current_citizen.email, (char *)email) == 0 &&
-      strcmp((char *)current_citizen.password, (char *)password) == 0) {
+    if ((strcmp((char *)current_citizen.email, (char *)email) == 0) && (strcmp((char *)current_citizen.password, (char *)password) == 0)) {
       fclose(file);
       // Citizen account found, assign to the global variable
       connected_citizen = current_citizen;
@@ -263,9 +262,8 @@ void citizen_save() {
         fseek(file, -citizen_size, SEEK_CUR);
 
         // Write the updated citizen record in place of the old one
-        if (fwrite(&connected_citizen, citizen_size, 1, file) != 1) {
+        if (fwrite(&connected_citizen, citizen_size, 1, file) != 1)
           perror("Error writing to file");
-        }
 
         // Close the file after updating
         fclose(file);
