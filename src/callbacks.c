@@ -43,12 +43,6 @@ void signup_clicked(GtkButton *button, gpointer user_data) {
 	const gchar *password         = gtk_entry_get_text(GTK_ENTRY(password_entry));
 	const gchar *password_confirm = gtk_entry_get_text(GTK_ENTRY(password_confirm_entry));
 
-	// fetch the id list from the file
-	fetch_id_counts();
-	// increment number of citizens
-	citizen_connected_id = id_list.id_citizen; 
-	id_list.id_citizen++;
-
 	// Fetch gender selection
 	gender_t gender;
 	if (gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(male_radio)))
@@ -67,25 +61,30 @@ void signup_clicked(GtkButton *button, gpointer user_data) {
 		gtk_widget_destroy(dialog);
 		return;
 	}
-
+  
+  // fetch the id list from the file
+	fetch_id_counts();
+  
 	// Create a new citizen struct
-	citizen_t new_citizen = citizen_create(citizen_connected_id, first_name, last_name, phone, email, address, gender, password);
+	citizen_create(id_list.id_citizen, first_name, last_name, phone, email, address, gender, password);
+  
+  // increment number of citizens
+	id_list.id_citizen++;
 
 	// Save the citizen data
-	citizen_save(new_citizen);
-
+	citizen_save();
+  update_id_counts();
 	// Show success message
 	GtkWidget *success_dialog = gtk_message_dialog_new(NULL, GTK_DIALOG_MODAL, GTK_MESSAGE_INFO, GTK_BUTTONS_OK, "Signup successful!");
 	gtk_dialog_run(GTK_DIALOG(success_dialog));
 	gtk_widget_destroy(success_dialog);
 
 	// Close signup window (assuming you have a reference to the window)
-	GtkWidget *signup_window = lookup_widget(GTK_WIDGET(button), "signup_window");
 	gtk_widget_destroy(signup_window);
 
-	// Show the signin window after successfu signup
-  if (signin_window) 
-    gtk_widget_show(signin_window);
+  signin_window = create_signin_window ();
+  gtk_widget_show(signin_window);
+
 }
 
 
@@ -93,11 +92,10 @@ void
 signup_go_signin_clicked (GtkButton *button, gpointer user_data)
 {
   // Hide the signup window
-  if (signup_window)
-    gtk_widget_hide(signup_window);
+	gtk_widget_destroy(signup_window);
   // Show the signin window
-  if (signin_window)
-    gtk_widget_show(signin_window);
+  signin_window = create_signin_window ();
+  gtk_widget_show(signin_window);
 }
 
 
@@ -119,12 +117,12 @@ signin_clicked(GtkButton *button, gpointer user_data) {
 
   // Attempt to sign in and immediately check the result
   if (citizen_signin(email, password)) {
-    // Successful sign-in
-    g_print("Welcome, %s %s!\n", connected_citizen.first_name, connected_citizen.last_name);
 
     // Close the sign-in window
     gtk_widget_destroy(signin_window);
 
+    citizen_window = create_citizen_window();
+    
     // if signed in as citizen fill the fields and display the citizen window
     citizen_account_populate(); // fills youssef's fields 
     
@@ -139,6 +137,7 @@ signin_clicked(GtkButton *button, gpointer user_data) {
 
     // if signed in as admin fill the fields and display the admin window
     // fill citizen 
+    admin_window = create_admin_window();
     gtk_widget_show(admin_window);
   } else {
     // Failed sign-in
@@ -155,13 +154,11 @@ signin_clicked(GtkButton *button, gpointer user_data) {
 
 void
 signin_go_signup_clicked (GtkButton *button, gpointer user_data) {
-  // Hide the signup window
-  if (signup_window)
-    gtk_widget_hide(signin_window);
-
-  // Show the signin window
-  if (signin_window)
-    gtk_widget_show(signup_window);
+  // destroy the signin window
+	gtk_widget_destroy(signin_window);
+  // Create and Show the signup window
+  signup_window = create_signup_window ();
+  gtk_widget_show(signup_window);
 }
 
 
@@ -179,9 +176,9 @@ citizen_delete_clicked(GtkButton *button, gpointer user_data) {
   gtk_dialog_run(GTK_DIALOG(dialog));
   gtk_widget_destroy(dialog);
 
-  // You may also want to log out the user or perform additional actions after deletion
-  // e.g., clear the connected_citizen data
-  memset(&connected_citizen, 0, sizeof(citizen_t));
+	gtk_widget_destroy(citizen_window);
+  signin_window = create_signin_window();
+  gtk_widget_show(signin_window);
 }
 
 

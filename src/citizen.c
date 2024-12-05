@@ -3,7 +3,6 @@
 
 // This session's connected citizen
 citizen_t connected_citizen;
-__uint64_t citizen_connected_id;
 
 
 bool citizen_pwd_is_same(const char *password1, const char *password2) {
@@ -14,36 +13,38 @@ bool citizen_pwd_is_same(const char *password1, const char *password2) {
       return false;  // Passwords are different
 }
 
-citizen_t citizen_create(__uint64_t id, const char *first_name, const char *last_name, const char *phone, const char *email, const char *address, gender_t gender, const char *password) {
-
-  citizen_t new_citizen = {
-    .id = id,
-    .gender = gender,
-    .monthly_bill = 0.0f,
-    .birth_date = time(NULL),
-    .registration_datetime = time(NULL),
-    .vehicle_num = "None",
-    .last_login_datetime = time(NULL)  // Set to current time
-  };
+void citizen_create(__uint64_t id, const char *first_name, const char *last_name, const char *phone, const char *email, const char *address, gender_t gender, const char *password) {
+  connected_citizen.id = id;
+  connected_citizen.gender = gender;
+  connected_citizen.monthly_bill = 0.0f;
+  connected_citizen.birth_date = time(NULL);
+  connected_citizen.registration_datetime = time(NULL);
+  connected_citizen.last_login_datetime = time(NULL); // Set to current time
 
   // Copy the strings to the respective arrays in the new_citizen struct
-  strncpy((char *)new_citizen.first_name, (char *)first_name, MAX_NAME_LENGTH - 1);
-  strncpy((char *)new_citizen.last_name, (char *)last_name, MAX_NAME_LENGTH - 1);
-  strncpy((char *)new_citizen.phone, (char *)phone, MAX_PHONE_LENGTH - 1);
-  strncpy((char *)new_citizen.email, (char *)email, MAX_EMAIL_LENGTH - 1);
-  strncpy((char *)new_citizen.address, (char *)address, MAX_ADDRESS_LENGTH - 1);
-  strncpy((char *)new_citizen.password, (char *)password, MAX_PASSWORD_LENGTH - 1);
-
-  return new_citizen;
+  strncpy((char *)connected_citizen.first_name, (const char *)first_name, MAX_NAME_LENGTH - 1);
+  strncpy((char *)connected_citizen.last_name, (const char *)last_name, MAX_NAME_LENGTH - 1);
+  strncpy((char *)connected_citizen.phone, (const char *)phone, MAX_PHONE_LENGTH - 1);
+  strncpy((char *)connected_citizen.email, (const char *)email, MAX_EMAIL_LENGTH - 1);
+  strncpy((char *)connected_citizen.address, (const char *)address, MAX_ADDRESS_LENGTH - 1);
+  strncpy((char *)connected_citizen.password, (const char *)password, MAX_PASSWORD_LENGTH - 1);
+  strncpy((char *)connected_citizen.vehicle_num, (const char *)"None", MAX_VEHICLE_NUM_LENGTH - 1);
 }
 
 
 
 
 void citizen_delete() {
-  FILE *file = fopen(PATH_CITIZEN_DATA, "ab+");  // Open file for reading and writing in binary mode
+  FILE *file = fopen(PATH_CITIZEN_DATA, "rb");  // Open file for reading in binary mode
   if (file == NULL) {
     perror("Error opening file");
+    return;
+  }
+
+  FILE *temp_file = fopen(PATH_CITIZEN_TEMP_DATA, "wb");  // Temporary file for writing
+  if (temp_file == NULL) {
+    perror("Error opening temporary file");
+    fclose(file);
     return;
   }
 
@@ -54,28 +55,26 @@ void citizen_delete() {
   // Iterate through the file, reading one citizen at a time
   while (fread(&current_citizen, citizen_size, 1, file) == 1) {
     if (current_citizen.id == connected_citizen.id) {
-      found = 1;
-      break;  // We found the citizen, so we stop reading further
+      found = 1;  // Mark the citizen as found, but don't write this record to temp_file
+      printf("Citizen with ID %llu deleted.\n", connected_citizen.id);
+    } else {
+      // Copy this citizen record to the temp file
+      fwrite(&current_citizen, citizen_size, 1, temp_file);
     }
   }
 
-  // If the citizen was found, overwrite the record with empty data
-  if (found) {
-    // Move the file pointer back to the start of the deleted record
-    fseek(file, -citizen_size, SEEK_CUR);
-
-    // Write an empty or "deleted" citizen record to overwrite the existing one
-    citizen_t empty_citizen = {0};  // Initialize an empty citizen record (all fields to 0)
-    fwrite(&empty_citizen, citizen_size, 1, file);
-
-    // Close the file after writing
-    fclose(file);
-    printf("Citizen with ID %llu deleted.\n", connected_citizen.id);
-  } else {
+  if (!found)
     printf("Citizen with ID %llu not found.\n", connected_citizen.id);
-    fclose(file);
-  }
+
+  // Close both files
+  fclose(file);
+  fclose(temp_file);
+
+  // Replace the original file with the temporary file
+  remove(PATH_CITIZEN_DATA);  // Remove the original file
+  rename(PATH_CITIZEN_TEMP_DATA, PATH_CITIZEN_DATA);  // Rename the temp file to the original file name
 }
+
 
 bool citizen_signin(const char *email, const char *password) {
   FILE *file = fopen(PATH_CITIZEN_DATA, "rb");  // Open file for reading in binary mode
@@ -104,6 +103,59 @@ bool citizen_signin(const char *email, const char *password) {
   return false;
 }
 
+
+void citizen_save() {
+  FILE *file = fopen(PATH_CITIZEN_DATA, "ab+");  // Open file for reading and writing in binary mode
+  if (file == NULL) {
+    perror("Error opening file");
+    return;
+  }
+
+  citizen_t current_citizen;
+  size_t citizen_size = sizeof(citizen_t);
+
+  // Try to read the first citizen
+  if (fread(&current_citizen, citizen_size, 1, file))
+    // Iterate through the file, reading one citizen at a time
+    while (fread(&current_citizen, citizen_size, 1, file)) {
+      // Check if the current citizen has the same ID as the one we want to update
+      if (current_citizen.id == connected_citizen.id) {
+        // Move the file pointer back to the start of this citizen's record
+        fseek(file, -citizen_size, SEEK_CUR);
+
+        // Write the updated citizen record in place of the old one
+        if (fwrite(&connected_citizen, citizen_size, 1, file) != 1)
+          perror("Error writing to file");
+
+        // Close the file after updating
+        fclose(file);
+        return;
+      }
+    }
+  else {
+    // If file is empty or no citizen was read, append the new citizen
+    if (fwrite(&connected_citizen, citizen_size, 1, file) != 1)
+      perror("Error writing to file");
+  }
+  printf("ID: %llu\nFirst Name: %s\nLast Name: %s\nEmail: %s\nPassword: %s\nAddress: %s\nGender: %d\nPhone: %s\nMonthly Bill: %.2f\nTotal Reservations: %d\nVehicle Number: %s\nBirth Date: %ld\nRegistration Date: %ld\nLast Login Date: %ld\n",
+       connected_citizen.id,
+       connected_citizen.first_name,
+       connected_citizen.last_name,
+       connected_citizen.email,
+       connected_citizen.password,
+       connected_citizen.address,
+       connected_citizen.gender, // Assuming gender_t is an integer or enum, use %d
+       connected_citizen.phone,
+       connected_citizen.monthly_bill,
+       connected_citizen.total_reservations,
+       connected_citizen.vehicle_num,
+       connected_citizen.birth_date,
+       connected_citizen.registration_datetime,
+       connected_citizen.last_login_datetime);
+
+  // Close the file
+  fclose(file);
+}
 
 
 void citizen_fetch(__uint64_t id) {
@@ -237,47 +289,6 @@ void citizen_get_bills(double bills[31]) {
         bills[reservation_day - 1] += reservation.cost;
     }
   }
-
-  // Close the file
-  fclose(file);
-}
-
-void citizen_save() {
-  FILE *file = fopen(PATH_CITIZEN_DATA, "ab+");  // Open file for reading and writing in binary mode
-  if (file == NULL) {
-    perror("Error opening file");
-    return;
-  }
-
-  citizen_t current_citizen;
-  size_t citizen_size = sizeof(citizen_t);
-
-  // Try to read the first citizen
-  if (fread(&current_citizen, citizen_size, 1, file))
-    // Iterate through the file, reading one citizen at a time
-    while (fread(&current_citizen, citizen_size, 1, file)) {
-      // Check if the current citizen has the same ID as the one we want to update
-      if (current_citizen.id == connected_citizen.id) {
-        // Move the file pointer back to the start of this citizen's record
-        fseek(file, -citizen_size, SEEK_CUR);
-
-        // Write the updated citizen record in place of the old one
-        if (fwrite(&connected_citizen, citizen_size, 1, file) != 1)
-          perror("Error writing to file");
-
-        // Close the file after updating
-        fclose(file);
-        return;
-      }
-    }
-  else {
-    // If file is empty or no citizen was read, append the new citizen
-    if (fwrite(&connected_citizen, citizen_size, 1, file) != 1)
-      perror("Error writing to file");
-  }
-
-  // If no match is found, you might want to handle that case (e.g., log an error)
-  printf("Citizen with ID %d not found. Adding new citizen.\n", connected_citizen.id);
 
   // Close the file
   fclose(file);

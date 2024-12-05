@@ -25,7 +25,7 @@ void fetch_id_counts() {
   }
 }
 
-void save_id_counts() {
+void update_id_counts() {
   FILE* ids_file = fopen(PATH_ID_DATA, "wb");
   
   // Check if the file opened successfully

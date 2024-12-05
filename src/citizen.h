@@ -22,7 +22,7 @@
     char        phone[MAX_PHONE_LENGTH];
     float       monthly_bill;
     __int16_t   total_reservations;
-    char        vehicle_num[16];
+    char        vehicle_num[MAX_VEHICLE_NUM_LENGTH];
     time_t      birth_date;
     time_t      registration_datetime;
     time_t      last_login_datetime;
@@ -33,7 +33,7 @@
   extern __uint64_t citizen_connected_id;
   
   bool    citizen_pwd_is_same               (const char *password1, const char *password2);
-citizen_t citizen_create                    (const __uint64_t id, const char *first_name, const char *last_name, const char *phone, const char *email, const char *address, const gender_t gender, const char *password);
+  void    citizen_create                    (const __uint64_t id, const char *first_name, const char *last_name, const char *phone, const char *email, const char *address, const gender_t gender, const char *password);
   bool    citizen_signin                    (const char *email, const char *password);
   void    citizen_delete                    ();
   void    citizen_fetch                     (__uint64_t id);
