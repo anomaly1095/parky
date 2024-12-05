@@ -120,11 +120,11 @@ signin_clicked(GtkButton *button, gpointer user_data) {
 
     // Close the sign-in window
     gtk_widget_destroy(signin_window);
-
+    
     citizen_window = create_citizen_window();
     
     // if signed in as citizen fill the fields and display the citizen window
-    citizen_account_populate(); // fills youssef's fields 
+    citizen_account_populate();
     
     gtk_widget_show(citizen_window);
     
@@ -162,24 +162,40 @@ signin_go_signup_clicked (GtkButton *button, gpointer user_data) {
 }
 
 
-void
-citizen_delete_clicked(GtkButton *button, gpointer user_data) {
-  // Call the citizen_delete function to perform the deletion
-  citizen_delete();
+void citizen_delete_clicked(GtkButton *button, gpointer user_data) {
+  // Create the confirmation dialog
+  GtkWidget *dialog = gtk_message_dialog_new(GTK_WINDOW(gtk_widget_get_toplevel(GTK_WIDGET(citizen_window))),
+                                             GTK_DIALOG_MODAL,
+                                             GTK_MESSAGE_QUESTION,
+                                             GTK_BUTTONS_YES_NO,
+                                             "Are you sure you want to delete your account?");
 
-  // Optionally, you can display a confirmation message or close the window after deletion
-  GtkWidget *dialog = gtk_message_dialog_new(GTK_WINDOW(button),
-                                             GTK_DIALOG_DESTROY_WITH_PARENT,
-                                             GTK_MESSAGE_INFO,
-                                             GTK_BUTTONS_CLOSE,
-                                             "Citizen account deleted successfully.");
-  gtk_dialog_run(GTK_DIALOG(dialog));
+  gint response = gtk_dialog_run(GTK_DIALOG(dialog));
+
+  // Handle the user's response
+  if (response == GTK_RESPONSE_YES) {
+    // Proceed with the deletion
+    citizen_delete();
+
+    // Show a success message dialog after deletion
+    GtkWidget *success_dialog = gtk_message_dialog_new(GTK_WINDOW(gtk_widget_get_toplevel(GTK_WIDGET(citizen_window))),
+                                                       GTK_DIALOG_DESTROY_WITH_PARENT,
+                                                       GTK_MESSAGE_INFO,
+                                                       GTK_BUTTONS_CLOSE,
+                                                       "Citizen account deleted successfully.");
+    gtk_dialog_run(GTK_DIALOG(success_dialog));
+    gtk_widget_destroy(success_dialog);
+
+    // Optionally, destroy the citizen window and show the signin window
+    gtk_widget_destroy(citizen_window);
+    signin_window = create_signin_window();
+    gtk_widget_show(signin_window);
+  }
+
+  // Destroy the confirmation dialog
   gtk_widget_destroy(dialog);
-
-	gtk_widget_destroy(citizen_window);
-  signin_window = create_signin_window();
-  gtk_widget_show(signin_window);
 }
+
 
 
 void

@@ -76,6 +76,7 @@ void citizen_delete() {
 }
 
 
+
 bool citizen_signin(const char *email, const char *password) {
   FILE *file = fopen(PATH_CITIZEN_DATA, "rb");  // Open file for reading in binary mode
   if (file == NULL) {
@@ -93,6 +94,7 @@ bool citizen_signin(const char *email, const char *password) {
       fclose(file);
       // Citizen account found, assign to the global variable
       connected_citizen = current_citizen;
+      citizen_calc_monthlybill(); // calculate monthly bill for connected citizen
       return true;
     }
   }
@@ -224,41 +226,15 @@ void citizen_calc_monthlybill() {
     return;
   }
 
-  // Reset the monthly bill for the connected citizen
-  connected_citizen.monthly_bill = 0.0f;
-
-  // Temporary variable to hold each reservation
-  reservation_t reservation;
-
-  // Iterate through the binary file
-  while (fread(&reservation, sizeof(reservation_t), 1, file) == 1) {
-    // Check if the reservation belongs to the connected citizen
-    if (reservation.id_citizen == connected_citizen.id)
-      // Increment the monthly bill with the cost of the reservation
-      connected_citizen.monthly_bill += reservation.cost;
-  }
-
-  // Close the file
-  fclose(file);
-}
-
-void citizen_get_bills(double bills[31]) {
-  // Open the binary file for reading
-  FILE *file = fopen(PATH_RESERVATION_DATA, "rb");
-  if (file == NULL) {
-    perror("Error opening file");
-    return;
-  }
-
-  // Clear the bills array
-  for (int i = 0; i < 31; i++)
-    bills[i] = 0.0;
-
-  // Get the current month and year
+  // Get the current date and time
   time_t now = time(NULL);
   struct tm *current_time = localtime(&now);
   int current_year = current_time->tm_year + 1900; // tm_year is years since 1900
   int current_month = current_time->tm_mon;       // tm_mon is 0-based (0 = January)
+
+  // Reset the monthly bill and total reservations for the connected citizen
+  connected_citizen.monthly_bill = 0.0f;
+  connected_citizen.total_reservations = 0;  // Reset total reservations
 
   // Temporary variable to hold each reservation
   reservation_t reservation;
@@ -267,22 +243,26 @@ void citizen_get_bills(double bills[31]) {
   while (fread(&reservation, sizeof(reservation_t), 1, file) == 1) {
     // Check if the reservation belongs to the connected citizen
     if (reservation.id_citizen == connected_citizen.id) {
-      // Convert reservation datetime to a struct tm
+      // Convert reservation datetime to struct tm to extract year and month
       struct tm *reservation_time = localtime(&reservation.reservation_datetime);
-      int reservation_year = reservation_time->tm_year + 1900;
-      int reservation_month = reservation_time->tm_mon;
-      int reservation_day = reservation_time->tm_mday;
+      int reservation_year = reservation_time->tm_year + 1900; // tm_year is years since 1900
+      int reservation_month = reservation_time->tm_mon;       // tm_mon is 0-based
 
       // Check if the reservation is in the current month and year
-      if (reservation_year == current_year && reservation_month == current_month)
-        // Add the reservation cost to the appropriate day
-        bills[reservation_day - 1] += reservation.cost;
+      if (reservation_year == current_year && reservation_month == current_month) {
+        // Increment the monthly bill with the cost of the reservation
+        connected_citizen.monthly_bill += reservation.cost;
+
+        // Increment the total reservations for the current month
+        connected_citizen.total_reservations++;
+      }
     }
   }
 
   // Close the file
   fclose(file);
 }
+
 
 
 /// @brief fills citizen details firlds from connected citizen
@@ -372,10 +352,53 @@ void citizen_modify_populate() {
 
   // Set the calendar widget's date
   struct tm *birth_tm = localtime(&connected_citizen.birth_date);
-  gtk_calendar_select_month(GTK_CALENDAR(datebirth_calendar), birth_tm->tm_mon, birth_tm->tm_year);
+  gtk_calendar_select_month(GTK_CALENDAR(datebirth_calendar), birth_tm->tm_mon, birth_tm->tm_year + 1900); // tm_year is years since 1900
   gtk_calendar_select_day(GTK_CALENDAR(datebirth_calendar), birth_tm->tm_mday);
+
 }
 
+
+void citizen_get_bills(double bills[31]) {
+  // Open the binary file for reading
+  FILE *file = fopen(PATH_RESERVATION_DATA, "rb");
+  if (file == NULL) {
+    perror("Error opening file");
+    return;
+  }
+
+  // Clear the bills array
+  for (int i = 0; i < 31; i++)
+    bills[i] = 0.0;
+
+  // Get the current month and year
+  time_t now = time(NULL);
+  struct tm *current_time = localtime(&now);
+  int current_year = current_time->tm_year + 1900; // tm_year is years since 1900
+  int current_month = current_time->tm_mon;       // tm_mon is 0-based (0 = January)
+
+  // Temporary variable to hold each reservation
+  reservation_t reservation;
+
+  // Iterate through the binary file
+  while (fread(&reservation, sizeof(reservation_t), 1, file) == 1) {
+    // Check if the reservation belongs to the connected citizen
+    if (reservation.id_citizen == connected_citizen.id) {
+      // Convert reservation datetime to a struct tm
+      struct tm *reservation_time = localtime(&reservation.reservation_datetime);
+      int reservation_year = reservation_time->tm_year + 1900;
+      int reservation_month = reservation_time->tm_mon;
+      int reservation_day = reservation_time->tm_mday;
+
+      // Check if the reservation is in the current month and year
+      if (reservation_year == current_year && reservation_month == current_month)
+        // Add the reservation cost to the appropriate day
+        bills[reservation_day - 1] += reservation.cost;
+    }
+  }
+
+  // Close the file
+  fclose(file);
+}
 
 /**
  * Populate the citizen_monthlybill_curve widget with reservation data.
@@ -384,48 +407,52 @@ void citizen_modify_populate() {
  * @param reservations An array of reservation values, where each index
  *                     corresponds to a day of the month (1-based index).
  * @param num_days The number of days in the month (e.g., 28, 30, or 31).
- */
-void citizen_monthlybill_curve_populate(GtkCurve *curve, const double *reservations, int num_days) {
+ * */
+void citizen_monthlybill_curve_populate(GtkCurve *curve, const double *bills, int num_days) {
   // Ensure the input data is valid
-  if (!curve || !reservations || num_days <= 0) {
-    g_warning("Invalid parameters passed to populate_monthlybill_curve.");
-    return;
-  }
+  if (!curve || !bills || num_days <= 0)
+      return;
 
-  // Normalize the X-axis (days) and Y-axis (reservation values in dinars)
-  // X-axis values range from 0.0 to 1.0 for days of the month
-  // Y-axis values range from 0.0 to 1.0 for the reservation values
   gfloat curve_points[num_days * 2]; // Use gfloat instead of gdouble for compatibility
 
+  // Find the maximum value in the bills array for scaling
   double max_value = 0.0;
+  for (int i = 0; i < num_days; i++)
+      if (bills[i] > max_value)
+          max_value = bills[i];
 
-  // Find the maximum value in the reservations array for normalization
-  for (int i = 0; i < num_days; i++) {
-    if (reservations[i] > max_value)
-      max_value = reservations[i];
-  }
-
-  // Avoid division by zero if all values are zero
+  // If all values are zero, set a small default max_value to make the curve visible
   if (max_value == 0.0)
-    max_value = 1.0;
+      max_value = 1.0;
 
-  // Populate the points for the curve
+
+  // Normalize and populate the points for the curve
   for (int i = 0; i < num_days; i++) {
-    float day_normalized = (float)i / (num_days - 1); // Normalize X (0.0 to 1.0)
-    float value_normalized = (float)(reservations[i] / max_value); // Normalize Y (0.0 to 1.0)
-    curve_points[i * 2] = day_normalized;         // X-coordinate
-    curve_points[i * 2 + 1] = value_normalized;   // Y-coordinate
+      // Normalize X (0.0 to 1.0)
+      float day_normalized = (float)i / (num_days - 1); 
+      // Normalize Y (0.0 to max_value)
+      float value_normalized = (float)(bills[i] / max_value); 
+
+      curve_points[i * 2] = day_normalized;         // X-coordinate
+      curve_points[i * 2 + 1] = value_normalized;   // Y-coordinate
   }
 
-  // Set the range of the curve
-  gtk_curve_set_range(curve, 0.0, 1.0, 0.0, 1.0);
+  // Set the Y-axis range dynamically with some padding (e.g., 10% extra)
+  float padding = max_value * 0.1; // 10% extra padding
+  gtk_curve_set_range(curve, 0.0, 1.0, 0.0, max_value + padding); 
 
   // Apply the points to the curve
   gtk_curve_set_vector(curve, num_days, curve_points);
 
   // Force the widget to redraw
   gtk_widget_queue_draw(GTK_WIDGET(curve));
+
+  g_print("citizen_monthlybill_curve_populate finished.\n");
 }
+
+
+
+
 
 void citizen_account_populate(){
   double bills[31];
