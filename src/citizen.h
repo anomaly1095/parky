@@ -37,7 +37,7 @@
   bool    citizen_signin                    (const char *email, const char *password);
   void    citizen_delete                    ();
   void    citizen_fetch                     (__uint64_t id);
-  void    citizen_modify                    (const char *first_name, const char *last_name, const char *phone, const char *email, const char *street, const char *password, const char *car_num, const char *address, struct tm birth_time, gboolean is_male, gboolean is_female);
+  void    citizen_modify                    (const char *first_name, const char *last_name, const char *phone, const char *email, const char *password, const char *car_num, const char *address, struct tm birth_time, gboolean is_male, gboolean is_female);
   void    citizen_calc_monthlybill          ();
   void    citizen_get_bills                 (double bills[31]);
   void    citizen_save                      ();

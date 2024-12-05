@@ -6582,8 +6582,8 @@
 		  <property name="activates_default">False</property>
 		</widget>
 		<packing>
-		  <property name="x">144</property>
-		  <property name="y">240</property>
+		  <property name="x">120</property>
+		  <property name="y">224</property>
 		</packing>
 	      </child>
 
@@ -6962,33 +6962,7 @@
 	      </child>
 
 	      <child>
-		<widget class="GtkLabel" id="citizen_modify_city_label">
-		  <property name="width_request">116</property>
-		  <property name="height_request">25</property>
-		  <property name="visible">True</property>
-		  <property name="label" translatable="yes">City: </property>
-		  <property name="use_underline">False</property>
-		  <property name="use_markup">False</property>
-		  <property name="justify">GTK_JUSTIFY_LEFT</property>
-		  <property name="wrap">False</property>
-		  <property name="selectable">False</property>
-		  <property name="xalign">0.5</property>
-		  <property name="yalign">0.5</property>
-		  <property name="xpad">0</property>
-		  <property name="ypad">0</property>
-		  <property name="ellipsize">PANGO_ELLIPSIZE_NONE</property>
-		  <property name="width_chars">-1</property>
-		  <property name="single_line_mode">False</property>
-		  <property name="angle">0</property>
-		</widget>
-		<packing>
-		  <property name="x">16</property>
-		  <property name="y">136</property>
-		</packing>
-	      </child>
-
-	      <child>
-		<widget class="GtkEntry" id="citizen_modify_street_entry">
+		<widget class="GtkEntry" id="citizen_modify_address_entry">
 		  <property name="width_request">176</property>
 		  <property name="height_request">24</property>
 		  <property name="visible">True</property>
@@ -7003,33 +6977,7 @@
 		</widget>
 		<packing>
 		  <property name="x">144</property>
-		  <property name="y">192</property>
-		</packing>
-	      </child>
-
-	      <child>
-		<widget class="GtkLabel" id="citizen_modify_street_label">
-		  <property name="width_request">97</property>
-		  <property name="height_request">25</property>
-		  <property name="visible">True</property>
-		  <property name="label" translatable="yes">Street :</property>
-		  <property name="use_underline">False</property>
-		  <property name="use_markup">False</property>
-		  <property name="justify">GTK_JUSTIFY_LEFT</property>
-		  <property name="wrap">False</property>
-		  <property name="selectable">False</property>
-		  <property name="xalign">0.5</property>
-		  <property name="yalign">0.5</property>
-		  <property name="xpad">0</property>
-		  <property name="ypad">0</property>
-		  <property name="ellipsize">PANGO_ELLIPSIZE_NONE</property>
-		  <property name="width_chars">-1</property>
-		  <property name="single_line_mode">False</property>
-		  <property name="angle">0</property>
-		</widget>
-		<packing>
-		  <property name="x">32</property>
-		  <property name="y">192</property>
+		  <property name="y">152</property>
 		</packing>
 	      </child>
 
@@ -7076,45 +7024,6 @@
 	      </child>
 
 	      <child>
-		<widget class="GtkComboBoxEntry" id="citizen_modify_address_comboboxentry">
-		  <property name="width_request">199</property>
-		  <property name="height_request">27</property>
-		  <property name="visible">True</property>
-		  <property name="items" translatable="yes">Ariana  
-			Beja  
-			Ben Arous  
-			Bizerte  
-			Gabès  
-			Gafsa  
-			Jendouba  
-			Kairouan  
-			Kasserine  
-			Kebili  
-			Kef  
-			Mahdia  
-			Manouba  
-			Medenine  
-			Monastir  
-			Nabeul  
-			Sfax  
-			Sidi Bouzid  
-			Siliana  
-			Sousse  
-			Tataouine  
-			Tozeur  
-			Tunis  
-			Zaghouan  </property>
-		  <property name="add_tearoffs">False</property>
-		  <property name="has_frame">True</property>
-		  <property name="focus_on_click">True</property>
-		</widget>
-		<packing>
-		  <property name="x">144</property>
-		  <property name="y">136</property>
-		</packing>
-	      </child>
-
-	      <child>
 		<widget class="GtkLabel" id="citizen_modify_car_label">
 		  <property name="width_request">116</property>
 		  <property name="height_request">25</property>
@@ -7141,6 +7050,23 @@
 	      </child>
 
 	      <child>
+		<widget class="GtkImage" id="citizen_modify_logo">
+		  <property name="width_request">104</property>
+		  <property name="height_request">64</property>
+		  <property name="visible">True</property>
+		  <property name="pixbuf">logo.png</property>
+		  <property name="xalign">0.5</property>
+		  <property name="yalign">0.5</property>
+		  <property name="xpad">0</property>
+		  <property name="ypad">0</property>
+		</widget>
+		<packing>
+		  <property name="x">0</property>
+		  <property name="y">0</property>
+		</packing>
+	      </child>
+
+	      <child>
 		<widget class="GtkLabel" id="citzen_modify_email_label">
 		  <property name="width_request">81</property>
 		  <property name="height_request">25</property>
@@ -7161,25 +7087,34 @@
 		  <property name="angle">0</property>
 		</widget>
 		<packing>
-		  <property name="x">48</property>
-		  <property name="y">240</property>
+		  <property name="x">40</property>
+		  <property name="y">224</property>
 		</packing>
 	      </child>
 
 	      <child>
-		<widget class="GtkImage" id="citizen_modify_logo">
-		  <property name="width_request">104</property>
-		  <property name="height_request">64</property>
+		<widget class="GtkLabel" id="citizen_modify_address_label">
+		  <property name="width_request">97</property>
+		  <property name="height_request">25</property>
 		  <property name="visible">True</property>
-		  <property name="pixbuf">logo.png</property>
+		  <property name="label" translatable="yes">Address:</property>
+		  <property name="use_underline">False</property>
+		  <property name="use_markup">False</property>
+		  <property name="justify">GTK_JUSTIFY_LEFT</property>
+		  <property name="wrap">False</property>
+		  <property name="selectable">False</property>
 		  <property name="xalign">0.5</property>
 		  <property name="yalign">0.5</property>
 		  <property name="xpad">0</property>
 		  <property name="ypad">0</property>
+		  <property name="ellipsize">PANGO_ELLIPSIZE_NONE</property>
+		  <property name="width_chars">-1</property>
+		  <property name="single_line_mode">False</property>
+		  <property name="angle">0</property>
 		</widget>
 		<packing>
-		  <property name="x">0</property>
-		  <property name="y">0</property>
+		  <property name="x">32</property>
+		  <property name="y">152</property>
 		</packing>
 	      </child>
 	    </widget>

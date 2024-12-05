@@ -191,8 +191,7 @@ citizen_modify_clicked(GtkButton *button, gpointer user_data)
   GtkWidget *last_name_entry    = lookup_widget(citizen_window, "citizen_modify_lastname_entry");
   GtkWidget *phone_entry        = lookup_widget(citizen_window, "citizen_modify_phone_entry");
   GtkWidget *email_entry        = lookup_widget(citizen_window, "citizen_modify_email_entry");
-  GtkWidget *address_combobox   = lookup_widget(citizen_window, "citizen_modify_address_comboboxentry");
-  GtkWidget *street_entry       = lookup_widget(citizen_window, "citizen_modify_street_entry");
+  GtkWidget *address_entry       = lookup_widget(citizen_window, "citizen_modify_address_entry");
   GtkWidget *password_entry     = lookup_widget(citizen_window, "citizen_modify_password_entry");
   GtkWidget *car_num_entry      = lookup_widget(citizen_window, "citizen_modify_car_entry");
   GtkWidget *male_radio         = lookup_widget(citizen_window, "citizen_modify_male_radio");
@@ -204,10 +203,9 @@ citizen_modify_clicked(GtkButton *button, gpointer user_data)
   const gchar *last_name  = gtk_entry_get_text(GTK_ENTRY(last_name_entry));
   const gchar *phone      = gtk_entry_get_text(GTK_ENTRY(phone_entry));
   const gchar *email      = gtk_entry_get_text(GTK_ENTRY(email_entry));
-  const gchar *street     = gtk_entry_get_text(GTK_ENTRY(street_entry));
+  const gchar *address     = gtk_entry_get_text(GTK_ENTRY(address_entry));
   const gchar *password   = gtk_entry_get_text(GTK_ENTRY(password_entry));
   const gchar *car_num    = gtk_entry_get_text(GTK_ENTRY(car_num_entry));
-  const gchar *address    = gtk_combo_box_get_active_text(GTK_COMBO_BOX(address_combobox));
   gboolean is_male        = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON(male_radio));
   gboolean is_female      = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON(female_radio));
 
@@ -222,7 +220,7 @@ citizen_modify_clicked(GtkButton *button, gpointer user_data)
   time_t birth_timestamp = mktime(&birth_time);
 
   // update connected citizen with new values
-  citizen_modify(first_name, last_name, phone, email, street, password, car_num, address, birth_time, is_male, is_female);
+  citizen_modify(first_name, last_name, phone, email, password, car_num, address, birth_time, is_male, is_female);
   // save the struct in the file
   citizen_save();
 }

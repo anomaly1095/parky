@@ -174,8 +174,8 @@ void citizen_fetch(__uint64_t id) {
 
 // Modify function that fills the connected_citizen struct
 void citizen_modify(const char *first_name, const char *last_name, const char *phone,
-                    const char *email, const char *street, const char *password,
-                    const char *car_num, const char *address, struct tm birth_time, gboolean is_male, gboolean is_female) {
+                    const char *email, const char *password, const char *car_num, 
+                    const char *address, struct tm birth_time, gboolean is_male, gboolean is_female) {
 
   // Fill in the connected_citizen struct with the passed values
 
@@ -195,8 +195,8 @@ void citizen_modify(const char *first_name, const char *last_name, const char *p
   strncpy((char *)connected_citizen.password, password, sizeof(connected_citizen.password) - 1);
   connected_citizen.password[sizeof(connected_citizen.password) - 1] = '\0'; // Null-terminate
 
-  // Use snprintf to combine street and address into the address field
-  snprintf((char *)connected_citizen.address, sizeof(connected_citizen.address), "%s, %s", street, address);
+  strncpy((char *)connected_citizen.address, address, sizeof(connected_citizen.address) - 1);
+  connected_citizen.address[sizeof(connected_citizen.address) - 1] = '\0'; // Null-terminate
 
   // Set gender based on radio button values
   if (is_male)
@@ -345,8 +345,7 @@ void citizen_modify_populate() {
   GtkWidget *last_name_entry      = lookup_widget(citizen_window, "citizen_modify_lastname_entry");
   GtkWidget *phone_entry          = lookup_widget(citizen_window, "citizen_modify_phone_entry");
   GtkWidget *email_entry          = lookup_widget(citizen_window, "citizen_modify_email_entry");
-  GtkWidget *address_combobox     = lookup_widget(citizen_window, "citizen_modify_address_comboboxentry");
-  GtkWidget *street_entry         = lookup_widget(citizen_window, "citizen_modify_street_entry");
+  GtkWidget *address_entry        = lookup_widget(citizen_window, "citizen_modify_address_entry");
   GtkWidget *password_entry       = lookup_widget(citizen_window, "citizen_modify_password_entry");
   GtkWidget *car_num_entry        = lookup_widget(citizen_window, "citizen_modify_car_entry");
   GtkWidget *male_radio           = lookup_widget(citizen_window, "citizen_modify_male_radio");
@@ -360,33 +359,10 @@ void citizen_modify_populate() {
   gtk_entry_set_text(GTK_ENTRY(last_name_entry), (char *)connected_citizen.last_name);
   gtk_entry_set_text(GTK_ENTRY(phone_entry), (char *)connected_citizen.phone);
   gtk_entry_set_text(GTK_ENTRY(email_entry), (char *)connected_citizen.email);
-  gtk_entry_set_text(GTK_ENTRY(street_entry), (char *)connected_citizen.address); // Assuming street is part of the address field
+  gtk_entry_set_text(GTK_ENTRY(address_entry), (char *)connected_citizen.address);
   gtk_entry_set_text(GTK_ENTRY(password_entry), (char *)connected_citizen.password);
   gtk_entry_set_text(GTK_ENTRY(car_num_entry), (char *)connected_citizen.vehicle_num);
 
-  // Set the active item in the ComboBox for address (manual method)
-  GtkTreeModel *model = gtk_combo_box_get_model(GTK_COMBO_BOX(address_combobox));
-  GtkTreeIter iter;
-  gboolean valid = gtk_tree_model_get_iter_first(model, &iter);
-
-  while (valid) {
-    gchar *item_text;
-    gtk_tree_model_get(model, &iter, 0, &item_text, -1);  // Get the text in the first column
-
-    // Compare the item with the connected_citizen.address
-    if (g_strcmp0(item_text, connected_citizen.address) == 0) {
-      // Set the active index when a match is found
-      gtk_combo_box_set_active(GTK_COMBO_BOX(address_combobox), gtk_tree_model_iter_n_children(model, NULL));
-      g_free(item_text);
-      return;
-    }
-
-      g_free(item_text);
-      valid = gtk_tree_model_iter_next(model, &iter);  // Go to the next item
-  }
-
-  // If the item wasn't found, you might want to handle this case (optional)
-  g_warning("Address '%s' not found in the combo box model.", connected_citizen.address);
 
   // Set the gender radio buttons based on connected_citizen.gender
   if (connected_citizen.gender == male)
