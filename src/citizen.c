@@ -105,7 +105,7 @@ bool citizen_signin(const char *email, const char *password) {
 
 
 void citizen_save() {
-  FILE *file = fopen(PATH_CITIZEN_DATA, "ab+");  // Open file for reading and writing in binary mode
+  FILE *file = fopen(PATH_CITIZEN_DATA, "rb+");  // Open file for reading and writing in binary mode
   if (file == NULL) {
     perror("Error opening file");
     return;
@@ -113,49 +113,39 @@ void citizen_save() {
 
   citizen_t current_citizen;
   size_t citizen_size = sizeof(citizen_t);
+  int found = 0;
 
-  // Try to read the first citizen
-  if (fread(&current_citizen, citizen_size, 1, file))
-    // Iterate through the file, reading one citizen at a time
-    while (fread(&current_citizen, citizen_size, 1, file)) {
-      // Check if the current citizen has the same ID as the one we want to update
-      if (current_citizen.id == connected_citizen.id) {
-        // Move the file pointer back to the start of this citizen's record
-        fseek(file, -citizen_size, SEEK_CUR);
+  // Iterate through the file, reading one citizen at a time
+  while (fread(&current_citizen, citizen_size, 1, file) == 1) {
+    // Check if the current citizen has the same ID as the one we want to update
+    if (current_citizen.id == connected_citizen.id) {
+      // Move the file pointer back to the start of this citizen's record
+      fseek(file, -citizen_size, SEEK_CUR);
 
-        // Write the updated citizen record in place of the old one
-        if (fwrite(&connected_citizen, citizen_size, 1, file) != 1)
+      // Write the updated citizen record in place of the old one
+      if (fwrite(&connected_citizen, citizen_size, 1, file) != 1)
           perror("Error writing to file");
 
-        // Close the file after updating
-        fclose(file);
-        return;
-      }
+      // Mark as found and updated
+      found = 1;
+      break;
     }
-  else {
-    // If file is empty or no citizen was read, append the new citizen
-    if (fwrite(&connected_citizen, citizen_size, 1, file) != 1)
-      perror("Error writing to file");
   }
-  printf("ID: %llu\nFirst Name: %s\nLast Name: %s\nEmail: %s\nPassword: %s\nAddress: %s\nGender: %d\nPhone: %s\nMonthly Bill: %.2f\nTotal Reservations: %d\nVehicle Number: %s\nBirth Date: %ld\nRegistration Date: %ld\nLast Login Date: %ld\n",
-       connected_citizen.id,
-       connected_citizen.first_name,
-       connected_citizen.last_name,
-       connected_citizen.email,
-       connected_citizen.password,
-       connected_citizen.address,
-       connected_citizen.gender, // Assuming gender_t is an integer or enum, use %d
-       connected_citizen.phone,
-       connected_citizen.monthly_bill,
-       connected_citizen.total_reservations,
-       connected_citizen.vehicle_num,
-       connected_citizen.birth_date,
-       connected_citizen.registration_datetime,
-       connected_citizen.last_login_datetime);
+
+  // If the citizen was not found, append the new citizen to the end of the file
+  if (!found) {
+    // Move to the end of the file to append
+    fseek(file, 0, SEEK_END);
+
+    // Write the new citizen
+    if (fwrite(&connected_citizen, citizen_size, 1, file) != 1)
+      perror("Error writing new citizen to file");
+  }
 
   // Close the file
   fclose(file);
 }
+
 
 
 void citizen_fetch(__uint64_t id) {
@@ -307,6 +297,7 @@ void citizen_details_populate() {
   GtkWidget *reservations_entry    = lookup_widget(citizen_window, "citizen_details_reservations_entry");
   GtkWidget *monthlybill_entry     = lookup_widget(citizen_window, "citizen_details_monthlybill_entry");
   GtkWidget *registration_entry    = lookup_widget(citizen_window, "citizen_details_registration_entry");
+  GtkWidget *car_num_entry         = lookup_widget(citizen_window, "citizen_details_car_number_entry");
   GtkWidget *email_entry           = lookup_widget(citizen_window, "citizen_details_email_entry");
   GtkWidget *datebirth_entry       = lookup_widget(citizen_window, "citizen_details_datebirth_entry");
   GtkWidget *male_radio            = lookup_widget(citizen_window, "citizen_details_male_radio");
@@ -323,6 +314,8 @@ void citizen_details_populate() {
   gtk_entry_set_text(GTK_ENTRY(reservations_entry), g_strdup_printf("%d", connected_citizen.total_reservations));
   gtk_entry_set_text(GTK_ENTRY(monthlybill_entry), g_strdup_printf("%.2f", connected_citizen.monthly_bill));
   gtk_entry_set_text(GTK_ENTRY(email_entry), (char *)connected_citizen.email);
+  gtk_entry_set_text(GTK_ENTRY(car_num_entry), (char *)connected_citizen.vehicle_num);
+
 
   // Display registration datetime (optional; format as desired)
   char reg_datetime_str[64];
