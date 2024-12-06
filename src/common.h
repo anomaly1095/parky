@@ -25,6 +25,7 @@
   #define MAX_ADDRESS_LENGTH      200U
   #define MAX_PASSWORD_LENGTH     64U
   #define MAX_VEHICLE_NUM_LENGTH  16U
+  #define MAX_DESCRIPTION_LENGTH  255U
 
   // struct containing all id's
   struct Ids{

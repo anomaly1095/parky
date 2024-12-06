@@ -1,7 +1,8 @@
 #pragma once
 #ifndef RESERVATION_H
   #define RESERVATION_H 1
-  #include "common.h"
+  #include <stdio.h>
+  #include <stdlib.h>
   typedef struct Reservation{
     __uint64_t id;
     time_t reservation_datetime;
@@ -11,7 +12,7 @@
     __uint64_t id_service;
     __uint64_t id_citizen;
     float cost;
-    char description[MAX_DESCRIPTION_LENGTH];
+    char description[256];
   }reservation_t;
   
 #endif // !RESERVATION_H
