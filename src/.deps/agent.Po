@@ -1,2 +1,1 @@
-agent.o: agent.c /usr/include/stdc-predef.h
-/usr/include/stdc-predef.h:
+# dummy
